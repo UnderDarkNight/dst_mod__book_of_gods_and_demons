@@ -20,7 +20,7 @@ local strings = {
             ["inspect_str"] = "inspect单纯的测试皮肤",
             ["recipe_desc"] = "测试描述666",
         },
-        ["bogd_other_start_level"] = {
+        ["bogd_other_test_item_start_level"] = {
             ["name"] = "开始修仙",
             ["inspect_str"] = "开始修仙",
             ["recipe_desc"] = "开始修仙",

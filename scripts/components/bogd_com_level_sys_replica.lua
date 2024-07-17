@@ -11,12 +11,15 @@
 ----------------------------------------------------------------------------------------------------------------------------------
 local bogd_com_level_sys = Class(function(self, inst)
     self.inst = inst
+    self.classified = nil
 
     if TheWorld.ismastersim then
         self.classified = inst.player_classified
-    elseif self.classified == nil and inst.player_classified ~= nil then
-        self:AttachClassified(inst.player_classified)
-    end
+    elseif self.classified == nil then
+        if inst.player_classified ~= nil then
+            self:AttachClassified(inst.player_classified)
+        end
+    end    
 
 end)
 ---------------------------------------------------------------------------------------------------
@@ -25,6 +28,13 @@ end)
         self.classified = classified
         self.ondetachclassified = function() self:DetachClassified() end
         self.inst:ListenForEvent("onremove", self.ondetachclassified, classified)
+
+        self.inst:PushEvent("bogd_com_level_sys_client_side_inited")
+        self:EnableBroadcast()
+
+        -- classified:ListenForEvent("bogd_enable",function()
+        --     self.inst:PushEvent("bogd_com_level_sys_enable")
+        -- end)
     end
 
     function bogd_com_level_sys:DetachClassified()
@@ -33,15 +43,18 @@ end)
     end
 ---------------------------------------------------------------------------------------------------
 --- 开启修仙后 触发界面
+    function bogd_com_level_sys:EnableBroadcast()
+        self.inst:DoTaskInTime(0.5,function()
+            if self.classified and self.classified.bogd_enable:value() then
+                self.inst:PushEvent("bogd_com_level_sys_enable")
+            end
+        end)
+    end
     function bogd_com_level_sys:Enable(flag)
         if self.classified then
             self.classified.bogd_enable:set(flag)
         end
-        if flag then
-            self.inst:DoTaskInTime(0.5,function()
-                self.inst:PushEvent("bogd_com_level_sys_enable")
-            end)
-        end
+        self:EnableBroadcast()
     end
 ---------------------------------------------------------------------------------------------------
 --- 等级锁激活

@@ -37,7 +37,7 @@ GLOBAL.setmetatable(env,{__index=function(t,k) return GLOBAL.rawget(GLOBAL,k) en
 				return
 			end
 			player_inst:DoTaskInTime(2,function()
-				TheNet:SystemMessage("神魔修仙录 测试模式 已开启")				
+				TheNet:SystemMessage("神魔修仙录 测试模式 已开启")
 			end)
 		end)
 	end

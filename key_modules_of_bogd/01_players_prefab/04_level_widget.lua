@@ -101,15 +101,21 @@
 ---
     local function badge_setup(inst)
         local front_root = inst.HUD.controls.status
+        ----------------------------------------------------------------------------------------------------------------
+        --- 
+            if front_root.bogd_exp_bar then
+                return
+            end
+        ----------------------------------------------------------------------------------------------------------------
+        --- 创建 root
+            local root = front_root:AddChild(Widget())
+            root:SetHAnchor(1) -- 设置原点x坐标位置，0、1、2分别对应屏幕中、左、右
+            root:SetVAnchor(2) -- 设置原点y坐标位置，0、1、2分别对应屏幕中、上、下
+            root:SetPosition(1000,500)
+            root:MoveToBack()
+            root:SetScaleMode(SCALEMODE_FIXEDSCREEN_NONDYNAMIC) --- 缩放模式
 
-        local root = front_root:AddChild(Widget())
-        root:SetHAnchor(1) -- 设置原点x坐标位置，0、1、2分别对应屏幕中、左、右
-        root:SetVAnchor(2) -- 设置原点y坐标位置，0、1、2分别对应屏幕中、上、下
-        root:SetPosition(1000,500)
-        root:MoveToBack()
-        root:SetScaleMode(SCALEMODE_FIXEDSCREEN_NONDYNAMIC) --- 缩放模式
-
-        local main_scale = 0.7
+            local main_scale = 0.7
         ----------------------------------------------------------------------------------------------------------------
         --- 创建经验条
             local exp_bar = root:AddChild(UIAnim())
@@ -229,10 +235,11 @@
 
             end
             value_refresh()
-            -- inst:ListenForEvent("bogd_shield_dirty",value_refresh)
             if inst.replica.bogd_com_level_sys.classified then
                 inst.replica.bogd_com_level_sys.classified:ListenForEvent("bogd_exp_dirty",value_refresh)
             end
+        ----------------------------------------------------------------------------------------------------------------
+            front_root.bogd_exp_bar = root
         ----------------------------------------------------------------------------------------------------------------
 
     end

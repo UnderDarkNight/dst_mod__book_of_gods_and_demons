@@ -79,66 +79,70 @@ local flg,error_code = pcall(function()
         -- print(ThePlayer.replica.bogd_com_level_sys.classified)
     ----------------------------------------------------------------------------------------------------------------
     --- 经验条
-        local front_root = ThePlayer.HUD.controls.status
+        -- local front_root = ThePlayer.HUD.controls.status
 
 
-        if front_root.__exp_bar then
-            front_root.__exp_bar:Kill()
-            front_root.__exp_bar = nil
-        end
+        -- if front_root.__exp_bar then
+        --     front_root.__exp_bar:Kill()
+        --     front_root.__exp_bar = nil
+        -- end
 
-        ----------------------------------------------------------------------------------
-        --- 
-            local main_scale = 0.7
-        ----------------------------------------------------------------------------------
-        --- 
-            local root = front_root:AddChild(Widget())
-            root:SetHAnchor(1) -- 设置原点x坐标位置，0、1、2分别对应屏幕中、左、右
-            root:SetVAnchor(2) -- 设置原点y坐标位置，0、1、2分别对应屏幕中、上、下
-            root:SetPosition(1000,500)
-            root:MoveToBack()
-            root:SetScaleMode(SCALEMODE_FIXEDSCREEN_NONDYNAMIC) --- 缩放模式
-        ----------------------------------------------------------------------------------
-        ---
-            local exp_bar = root:AddChild(UIAnim())
-            exp_bar:SetScale(main_scale,main_scale,main_scale)
-            local exp_bar_anim = exp_bar:GetAnimState()
-            exp_bar_anim:SetBank("bogd_hud_exp_bar")
-            exp_bar_anim:SetBuild("bogd_hud_exp_bar")
-            exp_bar_anim:PlayAnimation("idle",true)
-        ----------------------------------------------------------------------------------
-        --- 
-            local text = root:AddChild(Text(TITLEFONT,30,"3000/3000",{ 255/255 , 255/255 ,255/255 , 1}))
-            text:SetPosition(25,30)
-            text:SetString("筑基中期")
-        ----------------------------------------------------------------------------------
-        --- 
-            local level_text = root:AddChild(Text(TITLEFONT,20,"3000/3000",{ 255/255 , 255/255 ,255/255 , 1}))
-            level_text:SetPosition(-40,28)
-            level_text:SetString("Lv.01")
-        ----------------------------------------------------------------------------------
-        --- 
-            local exp_text = root:AddChild(Text(CODEFONT,25,"3000/3000",{ 0/255 , 0/255 ,0/255 , 0.5}))
-            exp_text:SetPosition(0,0)
-            exp_text:SetString("1500/3000")
-        ----------------------------------------------------------------------------------
-        --- warning flag
-            local warning = root:AddChild(UIAnim())
-            local warning_anim = warning:GetAnimState()
-            warning_anim:SetBank("bogd_hud_exp_bar")
-            warning_anim:SetBuild("bogd_hud_exp_bar")
-            warning_anim:PlayAnimation("warning",true)
-            warning:SetScale(main_scale,main_scale,main_scale)
-            warning:SetPosition(0,-50)
-            warning:Hide()
-        ----------------------------------------------------------------------------------
-
-
-
+        -- ----------------------------------------------------------------------------------
+        -- --- 
+        --     local main_scale = 0.7
+        -- ----------------------------------------------------------------------------------
+        -- --- 
+        --     local root = front_root:AddChild(Widget())
+        --     root:SetHAnchor(1) -- 设置原点x坐标位置，0、1、2分别对应屏幕中、左、右
+        --     root:SetVAnchor(2) -- 设置原点y坐标位置，0、1、2分别对应屏幕中、上、下
+        --     root:SetPosition(1000,500)
+        --     root:MoveToBack()
+        --     root:SetScaleMode(SCALEMODE_FIXEDSCREEN_NONDYNAMIC) --- 缩放模式
+        -- ----------------------------------------------------------------------------------
+        -- ---
+        --     local exp_bar = root:AddChild(UIAnim())
+        --     exp_bar:SetScale(main_scale,main_scale,main_scale)
+        --     local exp_bar_anim = exp_bar:GetAnimState()
+        --     exp_bar_anim:SetBank("bogd_hud_exp_bar")
+        --     exp_bar_anim:SetBuild("bogd_hud_exp_bar")
+        --     exp_bar_anim:PlayAnimation("idle",true)
+        -- ----------------------------------------------------------------------------------
+        -- --- 
+        --     local text = root:AddChild(Text(TITLEFONT,30,"3000/3000",{ 255/255 , 255/255 ,255/255 , 1}))
+        --     text:SetPosition(25,30)
+        --     text:SetString("筑基中期")
+        -- ----------------------------------------------------------------------------------
+        -- --- 
+        --     local level_text = root:AddChild(Text(TITLEFONT,20,"3000/3000",{ 255/255 , 255/255 ,255/255 , 1}))
+        --     level_text:SetPosition(-40,28)
+        --     level_text:SetString("Lv.01")
+        -- ----------------------------------------------------------------------------------
+        -- --- 
+        --     local exp_text = root:AddChild(Text(CODEFONT,25,"3000/3000",{ 0/255 , 0/255 ,0/255 , 0.5}))
+        --     exp_text:SetPosition(0,0)
+        --     exp_text:SetString("1500/3000")
+        -- ----------------------------------------------------------------------------------
+        -- --- warning flag
+        --     local warning = root:AddChild(UIAnim())
+        --     local warning_anim = warning:GetAnimState()
+        --     warning_anim:SetBank("bogd_hud_exp_bar")
+        --     warning_anim:SetBuild("bogd_hud_exp_bar")
+        --     warning_anim:PlayAnimation("warning",true)
+        --     warning:SetScale(main_scale,main_scale,main_scale)
+        --     warning:SetPosition(0,-50)
+        --     warning:Hide()
+        -- ----------------------------------------------------------------------------------
 
 
 
-        front_root.__exp_bar = root
+
+
+
+        -- front_root.__exp_bar = root
+    ----------------------------------------------------------------------------------------------------------------
+    ---
+        print(ThePlayer.replica.bogd_com_level_sys.classified)
+        print(ThePlayer.player_classified)
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

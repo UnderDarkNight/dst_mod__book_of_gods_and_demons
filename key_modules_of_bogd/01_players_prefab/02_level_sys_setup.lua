@@ -60,10 +60,6 @@
             return
         end
 
-        if inst.components.bogd_data == nil then
-            inst:AddComponent("bogd_data")
-        end
-
         if inst.components.bogd_com_level_sys == nil then
             inst:AddComponent("bogd_com_level_sys")
         end
@@ -81,6 +77,9 @@
 
         end)
 
-        inst.components.inventory:GiveItem(SpawnPrefab("bogd_other_start_level"))
+        inst:DoTaskInTime(1,function()        
+            inst.components.inventory:GiveItem(SpawnPrefab("bogd_other_test_item_start_level"))
+        end)
+
 
     end)

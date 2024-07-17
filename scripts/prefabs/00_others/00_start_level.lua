@@ -1,7 +1,7 @@
 local assets =
 {
-    Asset("ANIM", "anim/cane.zip"),
-    Asset("ANIM", "anim/swap_cane.zip"),
+    -- Asset("ANIM", "anim/cane.zip"),
+    -- Asset("ANIM", "anim/swap_cane.zip"),
 }
 ------------------------------------------------------------------------------------------------------
 --- workable setup
@@ -11,7 +11,7 @@ local assets =
                 return inst.replica.inventoryitem:IsGrandOwner(doer) or false                
             end)
             replica_com:SetSGAction("give")
-            replica_com:SetText("exp_test","吸收经验")
+            replica_com:SetText("exp_test66","开始修仙")
         end)
         if TheWorld.ismastersim then
             inst:AddComponent("bogd_com_workable")
@@ -20,7 +20,11 @@ local assets =
                     return false
                 end
                 inst.components.stackable:Get():Remove()
+                TheNet:SystemMessage("玩家手动开启修仙")
                 doer.components.bogd_com_level_sys:SetEnable(true)
+                
+                doer.components.bogd_com_rpc_event:PushEvent("bogd_com_level_sys_enable")
+
                 return true
             end)
         end
@@ -68,5 +72,5 @@ end
 
 
 
-return Prefab("bogd_other_start_level", fn)
+return Prefab("bogd_other_test_item_start_level", fn)
 

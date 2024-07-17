@@ -50,7 +50,10 @@
         end
     end
     local function level_up_lock_flag(self,value)
-        
+        local replica_com = GetReplicaCom(self)
+        if replica_com then
+            replica_com:SetLevelUpLock(value)
+        end
     end
 ----------------------------------------------------------------------------------------------------------------------------------
 ---- 根据等级，生成下一级需要的经验
@@ -59,7 +62,7 @@
     ]]--
     local function level_up_exp_init(self)
         -- self.exp_max = math.pow(2, self.level) * 100
-        self.exp_max = (self.level+1) * 100
+        self.exp_max = (self.level+1) * 100/2
     end
 ----------------------------------------------------------------------------------------------------------------------------------
 ---- 根据等级，初始化护盾值
@@ -200,6 +203,10 @@ nil,
 ---------------------------------------------------------------------------------------------------
 ---- 经验值
     function bogd_com_level_sys:Exp_DoDelta(value)
+        if not self.enable then
+            return
+        end
+
         local current_exp = self.exp_current
         local max_exp = self.exp_max
 
@@ -315,6 +322,8 @@ nil,
             exp_current = self.exp_current,            
             level = self.level,
             enable = self.enable,
+
+            level_up_lock_flag = self.level_up_lock_flag,
             
         }
         return next(data) ~= nil and data or nil
@@ -338,6 +347,9 @@ nil,
         end
         if data.enable then
             self.enable = data.enable
+        end
+        if data.level_up_lock_flag then
+            self.level_up_lock_flag = data.level_up_lock_flag
         end
         level_up_exp_init(self)
         self:ActiveOnLoadFns()

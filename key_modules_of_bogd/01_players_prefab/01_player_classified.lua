@@ -31,6 +31,19 @@ AddPrefabPostInit(
 
 
         if not TheWorld.ismastersim then
+
+            local old_OnEntityReplicated = inst.OnEntityReplicated            
+            inst.OnEntityReplicated = function(inst,...)
+                old_OnEntityReplicated(inst,...)
+                -- inst._parent:AttachClassified(inst)
+                if inst._parent ~= nil then
+                    for i, v in ipairs({"bogd_com_level_sys"}) do
+                        inst._parent:TryAttachClassifiedToReplicaComponent(inst, v)
+                    end
+                else
+                    print("Unable to initialize classified data for player")
+                end
+            end
             return
         end
 

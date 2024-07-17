@@ -1,5 +1,8 @@
 
 
+modimport("key_modules_of_bogd/01_players_prefab/00_player_common.lua")
+--- 玩家通用组件安装
+
 modimport("key_modules_of_bogd/01_players_prefab/01_player_classified.lua")
 --- 玩家数据私域
 
