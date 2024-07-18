@@ -177,7 +177,7 @@ nil,
     -------------------------------------------------------------------------------------------
     -- ---- health value count by shield . 计算扣血量并且屏蔽
         function bogd_com_level_sys:Shield_Cost_By_Health_Down(delta_health,cause)
-            if delta_health >= 0 or not self.enable then
+            if self.shield_current == 0 or delta_health >= 0 or not self.enable then
                 return delta_health
             end
             --------------------------------------------------
@@ -195,34 +195,38 @@ nil,
 
             ---- 如果护盾值大于等于扣血量，则扣血量全部由护盾值承担
             if self.shield_current >= delta_health then
-                self.shield_current = self.shield_current - delta_health
+                -- self.shield_current = self.shield_current - delta_health
+                self:Shield_Set(self.shield_current - delta_health)
                 self.inst:PushEvent("bogd_shield_active")
                 return 0
             end
 
             ---- 如果护盾值小于扣血量，则扣血量由护盾值和血量共同承担
             delta_health = delta_health - self.shield_current        
-            self.shield_current = 0
+            -- self.shield_current = 0
+            self:Shield_Set(0)
             self.inst:PushEvent("bogd_shield_active")            
             return delta_health
         end
     -------------------------------------------------------------------------------------------
     ---- combat damage block by shield 被伤害的时候进行屏蔽
         function bogd_com_level_sys:Shield_Cost_In_Combat_GetAttacked(attacker, damage, weapon, stimuli, spdamage)
-            if damage <= 0 or not self.enable then
+            if self.shield_current == 0 or damage <= 0 or not self.enable then
                 return damage,spdamage
             end
             --- 
                 -- print("+++ Shield_Cost_In_Combat_GetAttacked",attacker)
             --- 如果护盾值大于等于伤害值，则伤害值全部由护盾值承担
             if self.shield_current >= damage then
-                self.shield_current = self.shield_current - damage
+                -- self.shield_current = self.shield_current - damage
+                self:Shield_Set(self.shield_current - damage)
                 self.inst:PushEvent("bogd_shield_active")
                 return 0,spdamage
             end
             --- 如果护盾值小于伤害值，则伤害值由护盾值和血量共同承担            
             damage = damage - self.shield_current
-            self.shield_current = 0
+            -- self.shield_current = 0
+            self:Shield_Set(0)
             self.inst:PushEvent("bogd_shield_active")
             return damage,spdamage
         end
@@ -276,12 +280,7 @@ nil,
                 new  = self.level,
             })
             if value > 0 then
-                local with_lock = false -- 是否跨过锁
-                for i = current_level, self.level, 1 do
-                    if self.level_up_locks[i] then
-                        with_lock = true
-                    end
-                end
+                local with_lock = self.level_up_locks[current_level] or false -- 是否跨过锁
                 self.inst:PushEvent("bogd_level_up",{
                     level = self.level,
                     last_level = current_level,
@@ -297,6 +296,7 @@ nil,
         if self.level_up_locks[self.level] then
             self.exp_current = 0
             self:Level_DoDelta(1)
+            self.inst:PushEvent("bogd_level_up_with_lock_break")
         end
     end
     function bogd_com_level_sys:Level_Locking_Warning() -- 等级锁警告

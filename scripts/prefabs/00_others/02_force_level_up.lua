@@ -20,7 +20,7 @@ local assets =
                     return false
                 end
                 inst.components.stackable:Get():Remove()
-                doer.components.bogd_com_level_sys:Level_Up_With_Lock_Break(true)
+                doer.components.bogd_com_level_sys:Level_Up_With_Lock_Break()
                 TheNet:SystemMessage("强制突破")
                 return true
             end)

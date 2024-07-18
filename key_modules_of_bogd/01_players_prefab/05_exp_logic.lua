@@ -55,41 +55,48 @@
             return
         end
 
-        local lock_task = nil
+        local lock_task = nil -- 为了避免连续升级造成多次特效播放
         inst:ListenForEvent("bogd_level_up",function(inst,_table)
-            if not _table.with_lock then
-                        if lock_task == nil then
-                            lock_task = inst:DoTaskInTime(1,function()
-                                lock_task = nil
-                            end)
-                            inst:SpawnChild("halloween_moonpuff")            
-                        end
-                        inst.components.bogd_com_rpc_event:PushEvent("bogd_event.whisper",{
-                            m_colour = {200/255,255/255,200/255},
-                            message = "玩家境界提升",
-                            sender_name = "󰀏󰀏󰀏",
-                            -- icondata = "emoji_abigail",
-                        })
-
+            local level_up_with_lock_break = _table and _table.with_lock
+            if not level_up_with_lock_break then
+                ------------------------------------------------------------------------------
+                    if lock_task == nil then
+                        lock_task = inst:DoTaskInTime(1,function()
+                            lock_task = nil
+                        end)
+                        inst:SpawnChild("halloween_moonpuff")            
+                    end
+                    inst.components.bogd_com_rpc_event:PushEvent("bogd_event.whisper",{
+                        m_colour = {200/255,255/255,200/255},
+                        message = "玩家境界提升",
+                        sender_name = "󰀏󰀏󰀏",
+                        -- icondata = "emoji_abigail",
+                    })
+                ------------------------------------------------------------------------------
             else
-                        if lock_task == nil then
-                            lock_task = inst:DoTaskInTime(1,function()
-                                lock_task = nil
-                            end)
-                            inst:SpawnChild("wathgrithr_spirit")
-                            inst:SpawnChild("halloween_firepuff_cold_1")
-
-                        end
-                        inst.components.bogd_com_rpc_event:PushEvent("bogd_event.whisper",{
-                            m_colour = {255/255,100/255,100/255},
-                            message = "玩家突破",
-                            sender_name = "󰀒󰀒󰀒",
-                            -- icondata = "emoji_abigail",
-                        })
-
+                ------------------------------------------------------------------------------
+                    if lock_task == nil then
+                        lock_task = inst:DoTaskInTime(1,function()
+                            lock_task = nil
+                        end)
+                        inst:SpawnChild("wathgrithr_spirit")
+                        inst:SpawnChild("halloween_firepuff_cold_1")              
+                    end
+                    inst.components.bogd_com_rpc_event:PushEvent("bogd_event.whisper",{
+                        m_colour = {255/255,100/255,100/255},
+                        message = "玩家突破",
+                        sender_name = "󰀒󰀒󰀒",
+                        -- icondata = "emoji_abigail",
+                    })
+                ------------------------------------------------------------------------------
             end
-
         end)
+
+        -- inst:ListenForEvent("bogd_level_up_with_lock_break",function()
+
+
+        -- end)
+
 
 
     end)
