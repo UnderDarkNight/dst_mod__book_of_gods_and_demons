@@ -243,6 +243,14 @@
         ----------------------------------------------------------------------------------------------------------------
 
     end
+    local function uninstall(inst)
+        local front_root = inst.HUD.controls.status         
+        if front_root.bogd_exp_bar then
+            front_root.bogd_exp_bar:Kill()
+            front_root.bogd_exp_bar = nil
+            return
+        end
+    end
     AddPlayerPostInit(function(inst)
         -- inst:DoTaskInTime(0,function()
         --     if inst == ThePlayer and ThePlayer.HUD then
@@ -253,6 +261,11 @@
             inst:ListenForEvent("bogd_com_level_sys_enable",function()
                 if ThePlayer and ThePlayer.HUD and ThePlayer == inst then
                     badge_setup(inst)
+                end
+            end)
+            inst:ListenForEvent("bogd_com_level_sys_disable",function()
+                if ThePlayer and ThePlayer.HUD and ThePlayer == inst then
+                    uninstall(inst)
                 end
             end)
         end

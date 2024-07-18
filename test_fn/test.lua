@@ -141,8 +141,29 @@ local flg,error_code = pcall(function()
         -- front_root.__exp_bar = root
     ----------------------------------------------------------------------------------------------------------------
     ---
-        print(ThePlayer.replica.bogd_com_level_sys.classified)
-        print(ThePlayer.player_classified)
+        -- print(ThePlayer.replica.bogd_com_level_sys.classified)
+        -- print(ThePlayer.player_classified)
+
+        -- inst.components.lootdropper.GetFullRecipeLoot = function(...)
+        --     return {}
+        -- end
+    ----------------------------------------------------------------------------------------------------------------
+    ---
+        -- print(TheFrontEnd:GetHUDScale())
+        -- print(TheFrontEnd:GetProportionalHUDScale())
+        local front_root =  ThePlayer.HUD.controls.status
+        -- print(front_root:GetScale())
+        local reference_badge = front_root.brain or front_root.stomach or front_root.heart
+        print(reference_badge:GetScale())
+        -- print(reference_badge.inst.UITransform:GetScale())
+        -- print(reference_badge.UITransform,type(reference_badge.UITransform))
+
+        local temp_UITransform = getmetatable(reference_badge.inst.UITransform).__index
+        print(temp_UITransform)
+        for k, v in pairs(temp_UITransform) do
+            print(k,v)
+        end
+
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

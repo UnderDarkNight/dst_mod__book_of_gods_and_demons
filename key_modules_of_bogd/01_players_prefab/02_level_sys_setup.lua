@@ -64,7 +64,7 @@
             inst:AddComponent("bogd_com_level_sys")
         end
 
-        local locked_level = {19,29,39,49}
+        local locked_level = {19,29,39,49}  -- 需要进行突破的等级
 
         for k, level in pairs(locked_level) do
             inst.components.bogd_com_level_sys:Set_Level_Lock(level)
@@ -77,9 +77,9 @@
 
         end)
 
-        inst:DoTaskInTime(1,function()        
-            inst.components.inventory:GiveItem(SpawnPrefab("bogd_other_test_item_start_level"))
-        end)
+        -- inst:DoTaskInTime(1,function()
+        --     inst.components.inventory:GiveItem(SpawnPrefab("bogd_other_test_item_start_level"))
+        -- end)
 
 
     end)

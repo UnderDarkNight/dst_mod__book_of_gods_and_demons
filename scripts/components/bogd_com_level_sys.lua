@@ -58,11 +58,20 @@
 ----------------------------------------------------------------------------------------------------------------------------------
 ---- 根据等级，生成下一级需要的经验
     --[[
-        
+        初始等级1，初始最大经验200，每升一级按照倍率1.12倍提高最大经验
     ]]--
     local function level_up_exp_init(self)
-        -- self.exp_max = math.pow(2, self.level) * 100
-        self.exp_max = (self.level+1) * 100/2
+        local current_level = self.level
+        local base_exp = 200
+        local ret_max_exp = 0
+        for i = 1, current_level, 1 do
+            if i == 1 then
+                ret_max_exp = base_exp
+            else
+                ret_max_exp = ret_max_exp * 1.12
+            end
+        end
+        self.exp_max = math.ceil(ret_max_exp)
     end
 ----------------------------------------------------------------------------------------------------------------------------------
 ---- 根据等级，初始化护盾值
@@ -126,7 +135,16 @@ nil,
 ---------------------------------------------------------------------------------------------------
 ---- 总体启动
     function bogd_com_level_sys:SetEnable(flag)
-        self.enable = true
+        self.enable = flag
+    end
+    function bogd_com_level_sys:Reset() -- 重置
+        self.enable = false
+        self.shield_current = self.shield_base
+        self.shield_max = self.shield_base
+        self.exp_current = 0
+        self.exp_max = 100
+        self.level = 1
+        self.level_up_lock_flag = false
     end
 ---------------------------------------------------------------------------------------------------
 ---- 护盾值
@@ -206,7 +224,7 @@ nil,
         if not self.enable then
             return
         end
-
+        value = math.ceil(value) -- 向上取整
         local current_exp = self.exp_current
         local max_exp = self.exp_max
 

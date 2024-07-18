@@ -25,6 +25,11 @@ local strings = {
             ["inspect_str"] = "开始修仙",
             ["recipe_desc"] = "开始修仙",
         },
+        ["bogd_other_test_item_stop_level"] = {
+            ["name"] = "废除修为",
+            ["inspect_str"] = "废除修为",
+            ["recipe_desc"] = "废除修为",
+        },
         ["bogd_other_force_level_up"] = {
             ["name"] = "突破丹",
             ["inspect_str"] = "突破丹",

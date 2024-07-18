@@ -32,9 +32,6 @@ end)
         self.inst:PushEvent("bogd_com_level_sys_client_side_inited")
         self:EnableBroadcast()
 
-        -- classified:ListenForEvent("bogd_enable",function()
-        --     self.inst:PushEvent("bogd_com_level_sys_enable")
-        -- end)
     end
 
     function bogd_com_level_sys:DetachClassified()
@@ -45,8 +42,12 @@ end)
 --- 开启修仙后 触发界面
     function bogd_com_level_sys:EnableBroadcast()
         self.inst:DoTaskInTime(0.5,function()
-            if self.classified and self.classified.bogd_enable:value() then
-                self.inst:PushEvent("bogd_com_level_sys_enable")
+            if self.classified then                
+                if self.classified.bogd_enable:value() then
+                    self.inst:PushEvent("bogd_com_level_sys_enable")
+                else
+                    self.inst:PushEvent("bogd_com_level_sys_disable")
+                end
             end
         end)
     end
