@@ -36,6 +36,7 @@ local strings = {
             ["level_up_succeed"] = "玩家境界提升",
             ["breakthrough_succeed"] = "突破成功",
             ["breakthrough_faild"] = "突破失败",
+            ["ms_playerreroll"] = "角色更换、境界跌落",
         },
     --------------------------------------------------------------------
     --- 01_items

@@ -48,6 +48,8 @@ local strings = {
             ["level_up_succeed"] = "Player's cultivation realm advancement",
             ["breakthrough_succeed"] = "Breakthrough Succeed",
             ["breakthrough_faild"] = "Breakthrough Failed",
+            ["ms_playerreroll"] = "Character change, resulting in a drop in cultivation realm.",
+
         },
     --------------------------------------------------------------------
     --- 01_items

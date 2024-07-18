@@ -23,3 +23,6 @@ modimport("key_modules_of_bogd/01_players_prefab/11_level_and_damage.lua")
 
 modimport("key_modules_of_bogd/01_players_prefab/12_level_and_light.lua")
 --- 等级和灯光
+
+modimport("key_modules_of_bogd/01_players_prefab/13_player_reroll_and_level.lua")
+--- 玩家重选角色

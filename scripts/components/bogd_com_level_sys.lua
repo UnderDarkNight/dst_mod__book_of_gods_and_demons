@@ -271,7 +271,7 @@ nil,
     end
 ---------------------------------------------------------------------------------------------------
 ---- 等级系统、升级、降级、重置经验、
-    function bogd_com_level_sys:Level_DoDelta(value)
+    function bogd_com_level_sys:Level_DoDelta(value,skip_event)
         local current_level = self.level
         self.level = math.clamp(current_level + value, 1, self.level_max)
         if value <= 0 then
@@ -282,17 +282,19 @@ nil,
         self.level_up_lock_flag = false --- 提示标记位
         ---------------------------------------------------------
         --- 发送升级事件
-            self.inst:PushEvent("bogd_level_delta",{
-                old = current_level,
-                new  = self.level,
-            })
-            if value > 0 then
-                local with_lock = self.level_up_locks[current_level] or false -- 是否跨过锁
-                self.inst:PushEvent("bogd_level_up",{
-                    level = self.level,
-                    last_level = current_level,
-                    with_lock = with_lock,
+            if not skip_event then
+                self.inst:PushEvent("bogd_level_delta",{
+                    old = current_level,
+                    new  = self.level,
                 })
+                if value > 0 then
+                    local with_lock = self.level_up_locks[current_level] or false -- 是否跨过锁
+                    self.inst:PushEvent("bogd_level_up",{
+                        level = self.level,
+                        last_level = current_level,
+                        with_lock = with_lock,
+                    })
+                end
             end
         ---------------------------------------------------------
     end
