@@ -310,6 +310,14 @@ nil,
         return self.level_up_lock_flag[self.level] or false
     end
 ---------------------------------------------------------------------------------------------------
+---- 正在渡劫标记位
+    function bogd_com_level_sys:SetLevelUpBreaking(flag) -- 设置正在渡劫
+        self.level_up_breaking = flag
+    end
+    function bogd_com_level_sys:GetLevelUpBreaking() -- 获取正在渡劫
+        return self.level_up_breaking or false
+    end
+---------------------------------------------------------------------------------------------------
 ----- onload/onsave 函数
     function bogd_com_level_sys:AddOnLoadFn(fn)
         if type(fn) == "function" then

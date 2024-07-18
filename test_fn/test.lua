@@ -151,7 +151,7 @@ local flg,error_code = pcall(function()
     ---
         -- print(TheFrontEnd:GetHUDScale())
         -- print(TheFrontEnd:GetProportionalHUDScale())
-        local front_root =  ThePlayer.HUD.controls.status
+        -- local front_root =  ThePlayer.HUD.controls.status
         -- print(front_root:GetScale())
         -- local reference_badge = front_root.brain or front_root.stomach or front_root.heart
         -- print(reference_badge:GetScale())
@@ -173,7 +173,27 @@ local flg,error_code = pcall(function()
     --     })
     ----------------------------------------------------------------------------------------------------------------
     ---
-            ThePlayer.components.bogd_com_level_sys:Level_DoDelta(41)
+            -- ThePlayer.components.bogd_com_level_sys:Level_DoDelta(41)
+    ----------------------------------------------------------------------------------------------------------------
+    --- 月亮风暴测试
+            local MoonstormDustOver = require("widgets/moonstormdustover")
+
+            if ThePlayer.test_hud then
+                ThePlayer.test_hud:Kill()
+            end
+            local inst = ThePlayer
+
+
+            local storm = inst.HUD:AddChild(MoonstormDustOver(inst))
+            storm:MoveToBack()
+            local fx = storm:AddChild(UIAnim())
+            fx:GetAnimState():SetBank("moonstorm_over_static")
+            fx:GetAnimState():SetBuild("moonstorm_over_static")
+            fx:GetAnimState():PlayAnimation("static_loop",true)
+
+            storm:GetAnimState():SetMultColour(255,0,0,1)
+
+            ThePlayer.test_hud = storm
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

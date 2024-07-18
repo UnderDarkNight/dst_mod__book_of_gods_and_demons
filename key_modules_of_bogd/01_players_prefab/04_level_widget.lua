@@ -63,6 +63,12 @@
         end            
         return "未知"
     end
+    local function GetTranslatedStr(index)
+        if TUNING.BOGD_GET_LANGUAGE() == "ch" then
+            return index
+        end
+        return TUNING.BOGD_FN:GetStrings("level_name",index) or "NIL"
+    end
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ----
     local Widget = require "widgets/widget"
@@ -98,7 +104,7 @@
         TUNING.BOGD_FN:Set_ThePlayer_Cross_Archived_Data("exp_bar_location",{x = x,y = y})
     end
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
----
+--- 经验条
     local function badge_setup(inst)
         local front_root = inst.HUD.controls.status
         ----------------------------------------------------------------------------------------------------------------
@@ -192,16 +198,19 @@
             local level_text = root:AddChild(Text(TITLEFONT,20,"3000/3000",{ 255/255 , 255/255 ,255/255 , 1}))
             level_text:SetPosition(-40,28)
             level_text:SetString("Lv.01")
+            root.level_text = level_text
         ----------------------------------------------------------------------------------------------------------------
         --- 境界文本
             local text = root:AddChild(Text(TITLEFONT,30,"3000/3000",{ 255/255 , 255/255 ,255/255 , 1}))
             text:SetPosition(25,30)
             text:SetString("筑基中期")
+            root.text = text
         ----------------------------------------------------------------------------------------------------------------
         ---  经验值
             local exp_text = root:AddChild(Text(CODEFONT,25,"3000/3000",{ 0/255 , 0/255 ,0/255 , 0.5}))
             exp_text:SetPosition(0,0)
-            exp_text:SetString("1500/3000")
+            exp_text:SetString("1500/3000")            
+            root.exp_text = exp_text
         ----------------------------------------------------------------------------------------------------------------
         --- warning
             -- local warning = root:AddChild(UIAnim())
@@ -215,10 +224,10 @@
 
             local warning = root:AddChild(Text(TITLEFONT,30,"3000/3000",{ 255/255 , 255/255 ,255/255 , 1}))
             warning:SetPosition(25,-30)
-            warning:SetString("需要突破")
+            warning:SetString(GetTranslatedStr("需要突破") or "需要突破")
             warning:Hide()
             warning.text_front_size = 30
-
+            root.warning = warning
             function warning:Show2()
                 self:Show()
                 if self.task == nil then
@@ -262,7 +271,7 @@
                     warning:Hide2()
                 end
 
-                text:SetString(GetNameByLevel(level))
+                text:SetString(GetTranslatedStr(GetNameByLevel(level)))
 
             end
             value_refresh()
@@ -301,4 +310,56 @@
             end)
         end
     end)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--- 渡劫风暴
+    local function moon_storm_setup(inst)
 
+        local root = inst.HUD
+
+        local function create_strom(color)
+            local MoonstormDustOver = require("widgets/moonstormdustover")
+            local storm = root:AddChild(MoonstormDustOver(inst))
+            storm:MoveToBack()
+            local fx = storm:AddChild(UIAnim())
+            fx:GetAnimState():SetBank("moonstorm_over_static")
+            fx:GetAnimState():SetBuild("moonstorm_over_static")
+            fx:GetAnimState():PlayAnimation("static_loop",true)
+            if color then
+                storm:GetAnimState():SetMultColour(255,0,0,1)
+            else
+                storm:GetAnimState():SetMultColour(unpack(color))
+            end
+            return storm
+        end
+
+        local storm = nil
+        inst:ListenForEvent("bogd_event.level_strom",function(inst,_table)
+            -- _table = _table or {
+
+            -- }
+            local trun_on = _table.trun_on or false
+            local color = _table.color or {1,1,1,1}
+
+            if trun_on then
+                if storm then
+                    storm:Kill()
+                end
+                storm = create_strom(color)
+            else
+                if storm then
+                    storm:Kill()
+                    storm = nil
+                end
+            end
+        end)
+
+
+    end
+    AddPlayerPostInit(function(inst)
+        inst:DoTaskInTime(1,function()
+            if ThePlayer and ThePlayer == inst and inst.HUD then
+                moon_storm_setup(inst)
+            end
+        end)
+    end)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

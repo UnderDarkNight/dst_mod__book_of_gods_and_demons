@@ -37,6 +37,10 @@
                     if amount < 0 then
                         -- print("++++++",cause)
                         amount = self.inst.components.bogd_com_level_sys:Shield_Cost_By_Health_Down(amount, cause)
+                    else
+                        if self.inst.components.bogd_com_level_sys:GetLevelUpBreaking() then --- 突破期间不允许恢复任何血量
+                            amount = 0
+                        end
                     end
                     return old_DoDelta(self, amount, overtime, cause, ...)
                 end
