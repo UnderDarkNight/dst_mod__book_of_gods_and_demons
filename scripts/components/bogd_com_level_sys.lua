@@ -138,6 +138,8 @@ nil,
         self.enable = flag
     end
     function bogd_com_level_sys:Reset() -- 重置
+        local current_level = self.level
+
         self.enable = false
         self.shield_current = self.shield_base
         self.shield_max = self.shield_base
@@ -145,6 +147,11 @@ nil,
         self.exp_max = 100
         self.level = 1
         self.level_up_lock_flag = false
+
+        self.inst:PushEvent("bogd_level_delta",{
+            old = current_level,
+            new  = 1,
+        })
     end
 ---------------------------------------------------------------------------------------------------
 ---- 护盾值

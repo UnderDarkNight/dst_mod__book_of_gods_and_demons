@@ -17,8 +17,10 @@
 
         local function computational_experience(max_health)
             if inst.components.bogd_com_level_sys.enable then
-                local exp = math.floor(max_health/3)
-                inst.components.bogd_com_level_sys:Exp_DoDelta(exp)
+                local exp = math.floor(max_health/3) * TUNING.BOGD_CONFIG.EXP_MULT
+                if exp >= 1 then
+                    inst.components.bogd_com_level_sys:Exp_DoDelta(exp)
+                end
             end
         end
 

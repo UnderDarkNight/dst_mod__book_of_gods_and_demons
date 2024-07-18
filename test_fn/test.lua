@@ -164,13 +164,16 @@ local flg,error_code = pcall(function()
         --     print(k,v)
         -- end
     ----------------------------------------------------------------------------------------------------------------
+    -- ---
+    --     ThePlayer.components.bogd_com_rpc_event:PushEvent("bogd_event.whisper",{
+    --         m_colour = {255/255,100/255,100/255},
+    --         message = "玩家境界提升",
+    --         sender_name = "󰀏󰀏󰀏",
+    --         -- icondata = "emoji_abigail",
+    --     })
+    ----------------------------------------------------------------------------------------------------------------
     ---
-        ThePlayer.components.bogd_com_rpc_event:PushEvent("bogd_event.whisper",{
-            m_colour = {255/255,100/255,100/255},
-            message = "玩家境界提升",
-            sender_name = "󰀏󰀏󰀏",
-            -- icondata = "emoji_abigail",
-        })
+            ThePlayer.components.bogd_com_level_sys:Level_DoDelta(41)
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

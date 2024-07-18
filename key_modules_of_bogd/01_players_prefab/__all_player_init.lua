@@ -17,3 +17,9 @@ modimport("key_modules_of_bogd/01_players_prefab/04_level_widget.lua")
 
 modimport("key_modules_of_bogd/01_players_prefab/05_exp_logic.lua")
 --- 经验值获取逻辑
+
+modimport("key_modules_of_bogd/01_players_prefab/11_level_and_damage.lua")
+--- 等级和伤害
+
+modimport("key_modules_of_bogd/01_players_prefab/12_level_and_light.lua")
+--- 等级和灯光

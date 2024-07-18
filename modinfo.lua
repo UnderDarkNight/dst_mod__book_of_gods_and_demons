@@ -170,6 +170,13 @@ priority = 100000000000000  -- MOD加载优先级 影响某些功能的兼容性
   ----------------------------------------------------------------------------------------------------------
   ---
       {name = "AAAB",label = "",hover = "",options ={{description = "", data = true}},default = true,}, 
+      {
+        name = "EXP_MULT",
+        label = IsChinese() and "经验倍率" or "Experience Multiplier",
+        hover = IsChinese() and "经验倍率" or "Experience Multiplier",
+        options = Create_Number_Setting(0.5,20,0.5),
+        default = 1,
+      }, 
   ----------------------------------------------------------------------------------------------------------
   ---
       {name = "AAAB",label = "",hover = "",options ={{description = "", data = true}},default = true,}, 
