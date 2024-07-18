@@ -311,11 +311,17 @@ nil,
     end
 ---------------------------------------------------------------------------------------------------
 ---- 正在渡劫标记位
-    function bogd_com_level_sys:SetLevelUpBreaking(flag) -- 设置正在渡劫
-        self.level_up_breaking = flag
+    function bogd_com_level_sys:SetHealthUpBlocking(flag) -- 屏蔽回血
+        self.health_up_blocking = flag
     end
-    function bogd_com_level_sys:GetLevelUpBreaking() -- 获取正在渡劫
-        return self.level_up_breaking or false
+    function bogd_com_level_sys:GetHealthUpBlocking() -- 是否屏蔽回血
+        return self.health_up_blocking or false
+    end
+    function bogd_com_level_sys:SetInDanger(flag)
+        self.is_in_danger = flag
+    end
+    function bogd_com_level_sys:IsInDanger() -- 获取是否处于危险状态
+        return self.is_in_danger or false
     end
 ---------------------------------------------------------------------------------------------------
 ----- onload/onsave 函数

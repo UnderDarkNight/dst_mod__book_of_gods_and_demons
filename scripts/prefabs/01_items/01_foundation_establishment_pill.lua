@@ -1,6 +1,8 @@
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 --[[
 
+    筑基丹
+
 ]]--
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 ---
@@ -65,7 +67,9 @@
                             temp_task:Cancel()                        
                         end
                         doer[inst.prefab] = nil
-                        doer.components.bogd_com_level_sys:SetLevelUpBreaking(false) -- 恢复回血
+                        doer.components.bogd_com_level_sys:SetHealthUpBlocking(false) -- 恢复回血
+                        doer.components.bogd_com_level_sys:SetInDanger(false) -- 解除危险状态
+
                         doer.components.bogd_com_rpc_event:PushEvent("bogd_event.level_strom",{trun_on = false}) -- 关闭特效
                     end
                 ----------------------------------------------------------
@@ -80,7 +84,8 @@
                     end
                 ----------------------------------------------------------
                 --- 开始执行渡劫 对玩家进行16次闪电攻击，一道闪电攻击20点真伤，间隔2秒
-                    doer.components.bogd_com_level_sys:SetLevelUpBreaking(true) -- 期间不允许回血
+                    doer.components.bogd_com_level_sys:SetHealthUpBlocking(true) -- 期间不允许回血
+                    doer.components.bogd_com_level_sys:SetInDanger(true) -- 期间处于危险状态
                     doer:DoTaskInTime(1,function()
                         doer.components.bogd_com_rpc_event:PushEvent("bogd_event.level_strom",{trun_on = true,color = {1,0,0,1},}) --- 风暴特效                        
                     end)
@@ -153,6 +158,10 @@ local function fn()
     inst.components.inventoryitem.imagename = prefab_name
     inst.components.inventoryitem.atlasname = "images/inventoryimages/"..prefab_name..".xml"
 
+    --------------------------------------------------------------------------
+    -- 可烧毁
+        inst:AddComponent("fuel")
+        inst.components.fuel.fuelvalue = TUNING.MED_FUEL
     --------------------------------------------------------------------------
 
     MakeHauntableLaunch(inst)

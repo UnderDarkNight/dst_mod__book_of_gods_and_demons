@@ -38,12 +38,21 @@
                         -- print("++++++",cause)
                         amount = self.inst.components.bogd_com_level_sys:Shield_Cost_By_Health_Down(amount, cause)
                     else
-                        if self.inst.components.bogd_com_level_sys:GetLevelUpBreaking() then --- 突破期间不允许恢复任何血量
+                        if self.inst.components.bogd_com_level_sys:GetHealthUpBlocking() then --- 突破期间不允许恢复任何血量
                             amount = 0
                         end
                     end
                     return old_DoDelta(self, amount, overtime, cause, ...)
                 end
+            end
+        ----------------------------------------------------------------------------------------------------
+        --- IsNearDanger
+            local old_IsNearDanger = inst.IsNearDanger
+            inst.IsNearDanger = function(self, ...)
+                if self.components.bogd_com_level_sys:IsInDanger() then
+                    return true
+                end                
+                return old_IsNearDanger(self, ...)
             end
         ----------------------------------------------------------------------------------------------------
         --- 护盾生效触发特效
