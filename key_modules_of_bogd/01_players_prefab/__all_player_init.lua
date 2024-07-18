@@ -14,3 +14,6 @@ modimport("key_modules_of_bogd/01_players_prefab/03_sheild_badge_setup.lua")
 
 modimport("key_modules_of_bogd/01_players_prefab/04_level_widget.lua")
 --- 经验值界面
+
+modimport("key_modules_of_bogd/01_players_prefab/05_exp_logic.lua")
+--- 经验值获取逻辑

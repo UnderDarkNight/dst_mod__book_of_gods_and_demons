@@ -204,14 +204,45 @@
             exp_text:SetString("1500/3000")
         ----------------------------------------------------------------------------------------------------------------
         --- warning
-            local warning = root:AddChild(UIAnim())
-            local warning_anim = warning:GetAnimState()
-            warning_anim:SetBank("bogd_hud_exp_bar")
-            warning_anim:SetBuild("bogd_hud_exp_bar")
-            warning_anim:PlayAnimation("warning",true)
-            warning:SetScale(main_scale,main_scale,main_scale)
-            warning:SetPosition(0,-50)
+            -- local warning = root:AddChild(UIAnim())
+            -- local warning_anim = warning:GetAnimState()
+            -- warning_anim:SetBank("bogd_hud_exp_bar")
+            -- warning_anim:SetBuild("bogd_hud_exp_bar")
+            -- warning_anim:PlayAnimation("warning",true)
+            -- warning:SetScale(main_scale,main_scale,main_scale)
+            -- warning:SetPosition(0,-50)
+            -- warning:Hide()
+
+            local warning = root:AddChild(Text(TITLEFONT,30,"3000/3000",{ 255/255 , 255/255 ,255/255 , 1}))
+            warning:SetPosition(25,-30)
+            warning:SetString("需要突破")
             warning:Hide()
+            warning.text_front_size = 30
+
+            function warning:Show2()
+                self:Show()
+                if self.task == nil then
+                    self.task = inst:DoPeriodicTask(0.7,function()
+                        if warning.text_front_size == 30 then
+                            warning.text_front_size = 35
+                            warning:SetSize(warning.text_front_size)
+                            warning:SetColour({1,0,0,1})
+                        else
+                            warning.text_front_size = 30
+                            warning:SetSize(warning.text_front_size)
+                            warning:SetColour({1,1,1,1})
+                        end
+                    end)
+                end
+            end
+            function warning:Hide2()
+                if self.task then
+                    self.task:Cancel()
+                    self.task = nil
+                end
+                self:Hide()
+            end
+
         ----------------------------------------------------------------------------------------------------------------
         ---- 设置数值
             local function value_refresh()
@@ -226,9 +257,9 @@
                 exp_bar_anim:SetPercent("idle",percent)
 
                 if inst.replica.bogd_com_level_sys:GetLevelUpLock() then
-                    warning:Show()
+                    warning:Show2()
                 else
-                    warning:Hide()
+                    warning:Hide2()
                 end
 
                 text:SetString(GetNameByLevel(level))

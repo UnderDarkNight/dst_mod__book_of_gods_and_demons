@@ -149,11 +149,17 @@ nil,
 ---------------------------------------------------------------------------------------------------
 ---- 护盾值
     function bogd_com_level_sys:Shield_DoDelta(value)
+        if not self.enable then
+            return
+        end
         if type(value) == "number" then
             self.shield_current = math.clamp(self.shield_current + value, 0, self.shield_max)
         end
     end
     function bogd_com_level_sys:Shield_Set(value)
+        if not self.enable then
+            return
+        end
        self.shield_current = math.clamp(value, 0, self.shield_max)
     end
     function bogd_com_level_sys:Shield_Get()
@@ -163,6 +169,9 @@ nil,
         return self.shield_max
     end
     function bogd_com_level_sys:Shield_Max_Set(value)
+        if not self.enable then
+            return
+        end
         self.shield_max = value
     end
     -------------------------------------------------------------------------------------------
@@ -252,8 +261,8 @@ nil,
 ---------------------------------------------------------------------------------------------------
 ---- 等级系统、升级、降级、重置经验、
     function bogd_com_level_sys:Level_DoDelta(value)
-        local crrent_level = self.level
-        self.level = math.clamp(crrent_level + value, 1, self.level_max)
+        local current_level = self.level
+        self.level = math.clamp(current_level + value, 1, self.level_max)
         if value <= 0 then
             self.exp_current = 0
         end
@@ -263,11 +272,21 @@ nil,
         ---------------------------------------------------------
         --- 发送升级事件
             self.inst:PushEvent("bogd_level_delta",{
-                old = crrent_level,
+                old = current_level,
                 new  = self.level,
             })
             if value > 0 then
-                self.inst:PushEvent("bogd_level_up")
+                local with_lock = false -- 是否跨过锁
+                for i = current_level, self.level, 1 do
+                    if self.level_up_locks[i] then
+                        with_lock = true
+                    end
+                end
+                self.inst:PushEvent("bogd_level_up",{
+                    level = self.level,
+                    last_level = current_level,
+                    with_lock = with_lock,
+                })
             end
         ---------------------------------------------------------
     end

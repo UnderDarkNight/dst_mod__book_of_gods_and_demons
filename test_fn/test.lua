@@ -153,17 +153,24 @@ local flg,error_code = pcall(function()
         -- print(TheFrontEnd:GetProportionalHUDScale())
         local front_root =  ThePlayer.HUD.controls.status
         -- print(front_root:GetScale())
-        local reference_badge = front_root.brain or front_root.stomach or front_root.heart
-        print(reference_badge:GetScale())
-        -- print(reference_badge.inst.UITransform:GetScale())
-        -- print(reference_badge.UITransform,type(reference_badge.UITransform))
+        -- local reference_badge = front_root.brain or front_root.stomach or front_root.heart
+        -- print(reference_badge:GetScale())
+        -- -- print(reference_badge.inst.UITransform:GetScale())
+        -- -- print(reference_badge.UITransform,type(reference_badge.UITransform))
 
-        local temp_UITransform = getmetatable(reference_badge.inst.UITransform).__index
-        print(temp_UITransform)
-        for k, v in pairs(temp_UITransform) do
-            print(k,v)
-        end
-
+        -- local temp_UITransform = getmetatable(reference_badge.inst.UITransform).__index
+        -- print(temp_UITransform)
+        -- for k, v in pairs(temp_UITransform) do
+        --     print(k,v)
+        -- end
+    ----------------------------------------------------------------------------------------------------------------
+    ---
+        ThePlayer.components.bogd_com_rpc_event:PushEvent("bogd_event.whisper",{
+            m_colour = {255/255,100/255,100/255},
+            message = "玩家境界提升",
+            sender_name = "󰀏󰀏󰀏",
+            -- icondata = "emoji_abigail",
+        })
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

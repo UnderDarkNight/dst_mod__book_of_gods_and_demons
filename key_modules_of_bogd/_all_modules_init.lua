@@ -18,3 +18,9 @@ modimport("key_modules_of_bogd/04_components/__all_com_init.lua")
 
 modimport("key_modules_of_bogd/05_actions/___all_actions_init.lua")
 --- 动作和交互注册
+
+
+
+
+modimport("key_modules_of_bogd/07_widget/__all_widget_init.lua")
+--- 界面相关模块

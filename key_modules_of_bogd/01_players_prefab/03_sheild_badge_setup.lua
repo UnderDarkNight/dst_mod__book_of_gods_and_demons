@@ -56,7 +56,7 @@
             -- root:SetScaleMode(SCALEMODE_FIXEDSCREEN_NONDYNAMIC) --- 缩放模式
             -- root:SetScaleMode(SCALEMODE_FILLSCREEN) --- 缩放模式
         ----------------------------------------------------------------------------------------------------------------
-        --- 创建盾牌图标
+        --- 创建盾牌框框
             local anim = nil
             local owner = ThePlayer
             local tint = { 255 / 255, 255 / 255, 255 / 255, 1 }
@@ -66,9 +66,24 @@
             local dont_update_while_paused = true
             local sheild_badge = root:AddChild(Badge(anim, owner, tint, iconbuild, circular_meter, use_clear_bg, dont_update_while_paused))
             sheild_badge.circular_meter:GetAnimState():Pause() -- 暂停动画
-
+            root.sheild_badge = sheild_badge
         ----------------------------------------------------------------------------------------------------------------
-        --- 图标缩放（未完成）
+        --- 图标
+            sheild_badge.anim:GetAnimState():SetBuild("bogd_hud_exp_bar")
+            sheild_badge.anim:GetAnimState():SetBank("bogd_hud_exp_bar")
+            sheild_badge.anim:GetAnimState():PlayAnimation("shield")
+            local icon_scale = 0.15
+            sheild_badge.anim:SetScale(icon_scale,icon_scale,icon_scale)
+            sheild_badge.anim:Show()
+            sheild_badge.anim:MoveToFront()
+            if sheild_badge.num then
+                sheild_badge.num:MoveToFront()
+            end
+            if sheild_badge.maxnum then
+                sheild_badge.maxnum:MoveToFront()
+            end
+        ----------------------------------------------------------------------------------------------------------------
+        --- 框框缩放（未完成）
             function sheild_badge:RefreshScale()
                 -- if TheFrontEnd then
                 --     local scale = TheFrontEnd:GetHUDScale()
@@ -95,7 +110,7 @@
                     local scale = reference_badge.inst.UITransform:GetScale()
 
                     local temp_scale = TheFrontEnd and TheFrontEnd:GetHUDScale() or 1
-                    scale = scale*temp_scale
+                    scale = scale*temp_scale * 1.2
 
                     sheild_badge:SetScale(scale,scale,scale)
                 end
