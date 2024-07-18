@@ -81,7 +81,7 @@
             inst:AddComponent("bogd_com_level_sys")
         end
 
-        local locked_level = {19,29,39,49}  -- 需要进行突破的等级
+        local locked_level = {19,29,39,49,59,69,79}  -- 需要进行突破的等级
 
         for k, level in pairs(locked_level) do
             inst.components.bogd_com_level_sys:Set_Level_Lock(level)

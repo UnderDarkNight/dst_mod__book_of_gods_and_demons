@@ -70,7 +70,7 @@
                     end
                     inst.components.bogd_com_rpc_event:PushEvent("bogd_event.whisper",{
                         m_colour = {200/255,255/255,200/255},
-                        message = "玩家境界提升",
+                        message = TUNING.BOGD_FN:GetStrings("level","level_up_succeed") or "玩家境界提升",
                         sender_name = "󰀏󰀏󰀏",
                         -- icondata = "emoji_abigail",
                     })
@@ -86,7 +86,7 @@
                     end
                     inst.components.bogd_com_rpc_event:PushEvent("bogd_event.whisper",{
                         m_colour = {255/255,100/255,100/255},
-                        message = "玩家突破",
+                        message = TUNING.BOGD_FN:GetStrings("level","breakthrough_succeed") or "玩家突破",
                         sender_name = "󰀒󰀒󰀒",
                         -- icondata = "emoji_abigail",
                     })

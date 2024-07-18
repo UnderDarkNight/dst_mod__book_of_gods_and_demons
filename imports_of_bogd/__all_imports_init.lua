@@ -14,3 +14,6 @@ modimport("imports_of_bogd/03_strings_init.lua")
 modimport("imports_of_bogd/04_common_fns.lua")  -- 通用函数
 
 modimport("imports_of_bogd/05_cross_archive_data_api.lua")  -- 跨存档数据读写
+
+modimport("imports_of_bogd/06_inventoryimages_icon_register.lua")  -- 物品图标
+modimport("imports_of_bogd/07_minimap_icon_register.lua")  -- 小地图图标

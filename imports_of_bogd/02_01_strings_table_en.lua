@@ -43,8 +43,49 @@ local strings = {
             ["大乘期"] = "Great Vehicle",
 
             ["需要突破"] = "Require A Breakthrough",
-        }
+        },
+        ["level"] = {
+            ["level_up_succeed"] = "Player's cultivation realm advancement",
+            ["breakthrough_succeed"] = "Breakthrough Succeed",
+            ["breakthrough_faild"] = "Breakthrough Failed",
+        },
     --------------------------------------------------------------------
+    --- 01_items
+        ["bogd_item_foundation_establishment_pill"] = {
+            ["name"] = "Foundation Establishment Pill",
+            ["inspect_str"] = "Used for breaking through from the Prenatal Stage to the Foundation Establishment Stage.",
+            ["recipe_desc"] = "Used for breaking through from the Prenatal Stage to the Foundation Establishment Stage.",
+        },
+        ["bogd_item_golden_core_pill"] = {
+            ["name"] = "Golden Core Pill",
+            ["inspect_str"] = "Used for breaking through from the Foundation Establishment Stage to the Golden Core Stage.",
+            ["recipe_desc"] = "Used for breaking through from the Foundation Establishment Stage to the Golden Core Stage.",
+        },
+        ["bogd_item_spirit_infant_pill"] = {
+            ["name"] = "Spirit Infant Pill",
+            ["inspect_str"] = "Used for breaking through from the Golden Core Stage to the Spirit Infant Stage.",
+            ["recipe_desc"] = "Used for breaking through from the Golden Core Stage to the Spirit Infant Stage.",
+        },
+        ["bogd_item_soul_formation_pill"] = {
+            ["name"] = "Soul Formation Pill",
+            ["inspect_str"] = "Used for breaking through from the Spirit Infant Stage to the Soul Formation Stage.",
+            ["recipe_desc"] = "Used for breaking through from the Spirit Infant Stage to the Soul Formation Stage.",
+        },
+        ["bogd_item_body_integration_pill"] = {
+            ["name"] = "Body Integration Pill",
+            ["inspect_str"] = "Used for breaking through from the Soul Formation Stage to the Body Integration Stage.",
+            ["recipe_desc"] = "Used for breaking through from the Soul Formation Stage to the Body Integration Stage.",
+        },
+        ["bogd_item_great_vehicle_pill"] = {
+            ["name"] = "Great Vehicle Pill",
+            ["inspect_str"] = "Used for breaking through from the Body Integration Stage to the Great Vehicle Stage.",
+            ["recipe_desc"] = "Used for breaking through from the Body Integration Stage to the Great Vehicle Stage.",
+        },
+        ["bogd_item_ascension_pill"] = {
+            ["name"] = "Ascension Pill",
+            ["inspect_str"] = "Used upon the completion of the Great Vehicle Stage for Ascension.",
+            ["recipe_desc"] = "Used upon the completion of the Great Vehicle Stage for Ascension.",
+        },
     --------------------------------------------------------------------
 }
 

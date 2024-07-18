@@ -140,6 +140,10 @@ end)
             return 100
         end
     end
+
+    function bogd_com_level_sys:Exp_Get_Percent()
+        return self:Exp_Get() / self:Exp_Max_Get()
+    end
 ---------------------------------------------------------------------------------------------------
 --- 等级系统
     function bogd_com_level_sys:Level_Set(value)
