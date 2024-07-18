@@ -326,6 +326,26 @@ nil,
         return self.is_in_danger or false
     end
 ---------------------------------------------------------------------------------------------------
+---- 各种参数的Get
+    function bogd_com_level_sys:Shield_Get()
+        return self.shield_current
+    end
+    function bogd_com_level_sys:Shield_Max_Get()
+        return self.shield_max
+    end
+    function bogd_com_level_sys:Exp_Get()
+        return self.exp_current
+    end
+    function bogd_com_level_sys:Exp_Max_Get()
+        return self.exp_max
+    end
+    function bogd_com_level_sys:Exp_Get_Percent()
+        return self.exp_current / self.exp_max
+    end
+    function bogd_com_level_sys:Level_Get()
+        return self.level
+    end
+---------------------------------------------------------------------------------------------------
 ----- onload/onsave 函数
     function bogd_com_level_sys:AddOnLoadFn(fn)
         if type(fn) == "function" then

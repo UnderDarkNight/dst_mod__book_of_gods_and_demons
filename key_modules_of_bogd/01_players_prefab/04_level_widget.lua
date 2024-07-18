@@ -133,6 +133,22 @@
             exp_bar_anim:Pause() -- 暂停动画
 
         ----------------------------------------------------------------------------------------------------------------
+        --- 经验条掉落动画
+            local exp_bar2 = root:AddChild(UIAnim())
+            exp_bar2:SetScale(main_scale,main_scale,main_scale)
+            local exp_bar2_anim = exp_bar2:GetAnimState()
+            exp_bar2_anim:SetBank("bogd_hud_exp_bar")
+            exp_bar2_anim:SetBuild("bogd_hud_exp_bar")
+            -- exp_bar2_anim:PlayAnimation("idle",true)
+            exp_bar2:Hide()
+            inst:ListenForEvent("bogd_exp_bar_drop",function()
+                exp_bar2:Show()
+                exp_bar2_anim:SetDeltaTimeMultiplier(0.25)
+                exp_bar2_anim:PlayAnimation("idle2",false)
+                inst:DoTaskInTime(4,function()
+                    exp_bar2:Hide()
+                end)
+            end)
         ----------------------------------------------------------------------------------------------------------------
         -------- 启动坐标跟随缩放循环任务，缩放的时候去到指定位置。官方好像没预留这类API，或者暂时找不到方法
             function root:LocationScaleFix()

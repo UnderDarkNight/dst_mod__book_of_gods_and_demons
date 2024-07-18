@@ -90,6 +90,8 @@
                         sender_name = "󰀒󰀒󰀒",
                         -- icondata = "emoji_abigail",
                     })
+                    inst.SoundEmitter:PlaySound("dontstarve/common/together/celestial_orb/active") -- 音效
+                    inst.components.bogd_com_rpc_event:PushEvent("bogd_exp_bar_drop") -- 下发掉落动画
                 ------------------------------------------------------------------------------
             end
         end)

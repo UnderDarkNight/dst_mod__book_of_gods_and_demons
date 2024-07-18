@@ -30,6 +30,11 @@ local strings = {
             ["inspect_str"] = "废除修为",
             ["recipe_desc"] = "废除修为",
         },
+        ["bogd_other_force_level_up"] = {
+            ["name"] = "突破丹",
+            ["inspect_str"] = "突破丹",
+            ["recipe_desc"] = "突破丹",
+        },
     --------------------------------------------------------------------
     --- 00_others
         ["level"] = {
