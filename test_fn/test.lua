@@ -165,35 +165,38 @@ local flg,error_code = pcall(function()
         -- end
     ----------------------------------------------------------------------------------------------------------------
     -- ---
-    --     ThePlayer.components.bogd_com_rpc_event:PushEvent("bogd_event.whisper",{
-    --         m_colour = {255/255,100/255,100/255},
-    --         message = "玩家境界提升",
-    --         sender_name = "󰀏󰀏󰀏",
-    --         -- icondata = "emoji_abigail",
-    --     })
+        -- ThePlayer.components.bogd_com_rpc_event:PushEvent("bogd_event.whisper",{
+        --     m_colour = {255/255,100/255,100/255},
+        --     message = "玩家境界提升",
+        --     sender_name = "󰀏󰀏󰀏",
+        --     -- icondata = "emoji_abigail",
+        -- })
     ----------------------------------------------------------------------------------------------------------------
     ---
             -- ThePlayer.components.bogd_com_level_sys:Level_DoDelta(41)
     ----------------------------------------------------------------------------------------------------------------
     --- 月亮风暴测试
-            local MoonstormDustOver = require("widgets/moonstormdustover")
+            -- local MoonstormDustOver = require("widgets/moonstormdustover")
 
-            if ThePlayer.test_hud then
-                ThePlayer.test_hud:Kill()
-            end
-            local inst = ThePlayer
+            -- if ThePlayer.test_hud then
+            --     ThePlayer.test_hud:Kill()
+            -- end
+            -- local inst = ThePlayer
 
 
-            local storm = inst.HUD:AddChild(MoonstormDustOver(inst))
-            storm:MoveToBack()
-            local fx = storm:AddChild(UIAnim())
-            fx:GetAnimState():SetBank("moonstorm_over_static")
-            fx:GetAnimState():SetBuild("moonstorm_over_static")
-            fx:GetAnimState():PlayAnimation("static_loop",true)
+            -- local storm = inst.HUD:AddChild(MoonstormDustOver(inst))
+            -- storm:MoveToBack()
+            -- local fx = storm:AddChild(UIAnim())
+            -- fx:GetAnimState():SetBank("moonstorm_over_static")
+            -- fx:GetAnimState():SetBuild("moonstorm_over_static")
+            -- fx:GetAnimState():PlayAnimation("static_loop",true)
 
-            storm:GetAnimState():SetMultColour(255,0,0,1)
+            -- storm:GetAnimState():SetMultColour(255,0,0,1)
 
-            ThePlayer.test_hud = storm
+            -- ThePlayer.test_hud = storm
+    ----------------------------------------------------------------------------------------------------------------
+    --- 
+        TheWorld:PushEvent("ms_sendlightningstrike",Vector3(x,y,z))
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

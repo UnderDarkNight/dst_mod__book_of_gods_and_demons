@@ -1,17 +1,19 @@
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 --[[
 
-    筑基丹
+    金丹
+
+    【服用后，设定玩家体温为90摄氏度，持续3分钟（180s），过程闪电攻击49次（3s一次），可以用避雷针躲过】
 
 ]]--
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 ---
-    local prefab_name = "bogd_item_foundation_establishment_pill"
+    local prefab_name = "bogd_item_golden_core_pill"
 
     local assets = {
-        Asset("ANIM", "anim/bogd_item_foundation_establishment_pill.zip"), 
-        Asset( "IMAGE", "images/inventoryimages/bogd_item_foundation_establishment_pill.tex" ),  -- 背包贴图
-        Asset( "ATLAS", "images/inventoryimages/bogd_item_foundation_establishment_pill.xml" ),
+        Asset("ANIM", "anim/bogd_item_golden_core_pill.zip"), 
+        Asset( "IMAGE", "images/inventoryimages/bogd_item_golden_core_pill.tex" ),  -- 背包贴图
+        Asset( "ATLAS", "images/inventoryimages/bogd_item_golden_core_pill.xml" ),
     }
 ------------------------------------------------------------------------------------------------------
 --- 闪电击中
@@ -27,6 +29,10 @@
             end
         end)
     end
+    local function thunder_with_lightning_rod(doer)
+        local pt = Vector3(doer.Transform:GetWorldPosition())
+        TheWorld:PushEvent("ms_sendlightningstrike",pt)
+    end
 ------------------------------------------------------------------------------------------------------
 --- workable setup
     local function workable_setup(inst)
@@ -35,7 +41,7 @@
                 if inst.replica.inventoryitem:IsGrandOwner(doer) then
                     local level = doer.replica.bogd_com_level_sys:Level_Get()
                     local exp_percent = doer.replica.bogd_com_level_sys:Exp_Get_Percent()
-                    if level == 19 and exp_percent == 1 then
+                    if level == 29 and exp_percent == 1 then
                         return true
                     end
                 end
@@ -49,7 +55,7 @@
             inst.components.bogd_com_workable:SetOnWorkFn(function(inst,doer)
                 local level = doer.replica.bogd_com_level_sys:Level_Get()
                 local exp_percent = doer.replica.bogd_com_level_sys:Exp_Get_Percent()
-                if not (level == 19 and exp_percent == 1 )then
+                if not (level == 29 and exp_percent == 1 )then
                     return false
                 end
 
@@ -61,16 +67,20 @@
 
                 doer[inst.prefab] = {}
                 ----------------------------------------------------------
+                --- 闪电击中概率
+                    local PlayerLightningTarget_Hit_Chance = nil
+                ----------------------------------------------------------
                 --- -- 取消所有任务
                     local function Cancel_All_Tasks(doer) 
                         for i, temp_task in ipairs(doer[inst.prefab]) do
                             temp_task:Cancel()                        
                         end
                         doer[inst.prefab] = nil
-                        doer.components.bogd_com_level_sys:SetHealthUpBlocking(false) -- 恢复回血
                         doer.components.bogd_com_level_sys:SetInDanger(false) -- 解除危险状态
 
-                        doer.components.bogd_com_rpc_event:PushEvent("bogd_event.level_strom",{trun_on = false}) -- 关闭特效
+                        if PlayerLightningTarget_Hit_Chance ~= nil then
+                            doer.components.playerlightningtarget:SetHitChance(PlayerLightningTarget_Hit_Chance)                            
+                        end
                     end
                 ----------------------------------------------------------
                 --- 
@@ -92,25 +102,37 @@
                     end
                 ----------------------------------------------------------
                 --- 开始执行渡劫 对玩家进行16次闪电攻击，一道闪电攻击20点真伤，间隔2秒
-                    doer.components.bogd_com_level_sys:SetHealthUpBlocking(true) -- 期间不允许回血
                     doer.components.bogd_com_level_sys:SetInDanger(true) -- 期间处于危险状态
-                    doer:DoTaskInTime(1,function()
-                        doer.components.bogd_com_rpc_event:PushEvent("bogd_event.level_strom",{trun_on = true,color = {1,0,0,1},}) --- 风暴特效                        
-                    end)
+                    local lightning_num = 49
 
-                    for i = 1, 17, 1 do -- 创建系列任务
-                        local task = doer:DoTaskInTime(i*2, function(doer)
-                            if i <= 16 then -- 前面16次造成伤害
+                    local time = 180
+                    if TUNING.BOGD_DEBUGGING_MODE then
+                        time = 60
+                    end
+
+                    for i = 1, time + 1, 1 do -- 创建系列任务
+                        local task = doer:DoTaskInTime(i, function(doer)
+                            if i <= time then -- 前面N次参数调整
                                 if PlayerIsDead(doer) then                            
                                     Cancel_All_Tasks(doer)                                    
                                     fail_whisper(doer)
                                     return
                                 end      
-                                thunder_with_dmg(doer,20)
-                                if i == 16 then
-                                    doer:DoTaskInTime(0.5,function()
-                                        doer.components.bogd_com_rpc_event:PushEvent("bogd_event.level_strom",{trun_on = false}) -- 关闭特效
-                                    end)
+                                --- 设置体温长期90度
+                                if doer.components.temperature then
+                                    doer.components.temperature:SetTemperature(90)
+                                end
+                                --- 记录闪电概率
+                                if doer.components.playerlightningtarget then
+                                    if PlayerLightningTarget_Hit_Chance == nil then
+                                        PlayerLightningTarget_Hit_Chance = doer.components.playerlightningtarget:GetHitChance()
+                                    end
+                                    doer.components.playerlightningtarget:SetHitChance(2)
+                                end
+
+                                if i%3 == 0 and lightning_num > 0 then
+                                    lightning_num = lightning_num - 1
+                                    thunder_with_lightning_rod(doer)
                                 end
                             else
                                 Cancel_All_Tasks(doer)
@@ -124,10 +146,6 @@
                         table.insert(doer[inst.prefab],task)
                     end
                 ----------------------------------------------------------
-                -- thunder_with_dmg(doer,20)
-
-
-
                 return true
             end)
         end
@@ -142,8 +160,8 @@ local function fn()
 
     MakeInventoryPhysics(inst)
 
-    -- inst.AnimState:SetBank("bogd_item_foundation_establishment_pill") -- 地上动画
-    -- inst.AnimState:SetBuild("bogd_item_foundation_establishment_pill") -- 材质包，就是anim里的zip包
+    -- inst.AnimState:SetBank("bogd_item_golden_core_pill") -- 地上动画
+    -- inst.AnimState:SetBuild("bogd_item_golden_core_pill") -- 材质包，就是anim里的zip包
     -- inst.AnimState:PlayAnimation("idle") -- 默认播放哪个动画
     inst.AnimState:SetBank(prefab_name) -- 地上动画
     inst.AnimState:SetBuild(prefab_name) -- 材质包，就是anim里的zip包
