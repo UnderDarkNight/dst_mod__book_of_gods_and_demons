@@ -18,6 +18,8 @@ local files_name = {
 		"bogd_item_foundation_establishment_pill", 							--- 筑基丹
 		"bogd_item_golden_core_pill", 										--- 金丹
 		"bogd_item_spirit_infant_pill", 									--- 元婴丹
+		"bogd_item_soul_formation_pill", 									--- 化神丹
+		"bogd_item_soul_formation_pill_not_charged", 						--- 未充能的化神丹
 	---------------------------------------------------------------------------------------
 
 }

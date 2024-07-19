@@ -31,9 +31,9 @@ local strings = {
             ["recipe_desc"] = "废除修为",
         },
         ["bogd_other_force_level_up"] = {
-            ["name"] = "突破丹",
-            ["inspect_str"] = "突破丹",
-            ["recipe_desc"] = "突破丹",
+            ["name"] = "强制突破丹",
+            ["inspect_str"] = "强制突破丹",
+            ["recipe_desc"] = "强制突破丹",
         },
     --------------------------------------------------------------------
     --- 00_others
@@ -68,6 +68,11 @@ local strings = {
             ["name"] = "化神丹",
             ["inspect_str"] = "元婴期突破到化神期使用",
             ["recipe_desc"] = "元婴期突破到化神期使用",
+        },
+        ["bogd_item_soul_formation_pill_not_charged"] = {
+            ["name"] = "未充能的化神丹",
+            ["inspect_str"] = "需要使用"..STRINGS.NAMES.MOONGLASS_CHARGED,
+            ["recipe_desc"] = "需要使用"..STRINGS.NAMES.MOONGLASS_CHARGED,
         },
         ["bogd_item_body_integration_pill"] = {
             ["name"] = "合体丹",

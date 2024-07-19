@@ -30,6 +30,8 @@ local prefabs_name_list = {
     "01_foundation_establishment_pill",             -- 筑基丹
     "02_golden_core_pill",                          -- 金丹
     "03_spirit_infant_pill",                        -- 元婴丹
+    "04_soul_formation_pill",                       -- 化神丹
+    "05_soul_formation_pill_not_charged",           -- 未充能的化神丹
 
     
 }

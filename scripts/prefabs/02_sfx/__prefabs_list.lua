@@ -28,6 +28,7 @@ local Prefabs_addr_base = string.sub(temp_addr,1,temp_str_index2) .. "/"    --- 
 local prefabs_name_list = {
     
     "01_shadow_sheild", --- 护盾特效
+    "02_beam", --- 光柱
 }
 
 

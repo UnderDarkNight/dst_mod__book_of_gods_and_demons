@@ -77,6 +77,11 @@ local strings = {
             ["inspect_str"] = "Used for breaking through from the Spirit Infant Stage to the Soul Formation Stage.",
             ["recipe_desc"] = "Used for breaking through from the Spirit Infant Stage to the Soul Formation Stage.",
         },
+        ["bogd_item_soul_formation_pill_not_charged"] = {
+            ["name"] = "Uncharged Soul Formation Pill",
+            ["inspect_str"] = "Requires using "..STRINGS.NAMES.MOONGLASS_CHARGED,
+            ["recipe_desc"] = "Requires using "..STRINGS.NAMES.MOONGLASS_CHARGED,
+        },
         ["bogd_item_body_integration_pill"] = {
             ["name"] = "Body Integration Pill",
             ["inspect_str"] = "Used for breaking through from the Soul Formation Stage to the Body Integration Stage.",

@@ -196,7 +196,14 @@ local flg,error_code = pcall(function()
             -- ThePlayer.test_hud = storm
     ----------------------------------------------------------------------------------------------------------------
     --- 
-        TheWorld:PushEvent("ms_sendlightningstrike",Vector3(x,y,z))
+        -- TheWorld:PushEvent("ms_sendlightningstrike",Vector3(x,y,z))
+        ThePlayer:SpawnChild("bogd_sfx_terra_beam"):PushEvent("Set",{
+            pt = Vector3(0,-1,0),
+            end_time = 5,
+            end_fn = function()
+                print("info  beam fx end")
+            end,
+        })
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

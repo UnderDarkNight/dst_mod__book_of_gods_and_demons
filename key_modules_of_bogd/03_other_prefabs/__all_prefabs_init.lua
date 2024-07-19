@@ -5,3 +5,6 @@ modimport("key_modules_of_bogd/03_other_prefabs/01_spiderqueen.lua")
 
 modimport("key_modules_of_bogd/03_other_prefabs/02_beequeen.lua")
 -- 蜂后
+
+modimport("key_modules_of_bogd/03_other_prefabs/04_toadstool.lua")
+-- 蟾蜍BOSS
