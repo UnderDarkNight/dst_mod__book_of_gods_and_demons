@@ -26,12 +26,8 @@ local Prefabs_addr_base = string.sub(temp_addr,1,temp_str_index2) .. "/"    --- 
 ---------------------------------------------------------------------------
 -- local Prefabs_addr_base = "scripts/prefabs/01_bogd_items/"               --- 文件夹路径
 local prefabs_name_list = {
-
-    "01_foundation_establishment_pill",             -- 筑基丹
-    "02_golden_core_pill",                          -- 金丹
-    "03_spirit_infant_pill",                        -- 元婴丹
-
     
+    "01_spirit_infant_pill_debuff", --- 元婴丹的debuff。给影怪的。
 }
 
 

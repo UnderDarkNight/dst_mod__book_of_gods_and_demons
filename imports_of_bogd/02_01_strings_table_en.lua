@@ -67,6 +67,10 @@ local strings = {
             ["name"] = "Spirit Infant Pill",
             ["inspect_str"] = "Used for breaking through from the Golden Core Stage to the Spirit Infant Stage.",
             ["recipe_desc"] = "Used for breaking through from the Golden Core Stage to the Spirit Infant Stage.",
+            ["shadow_fail_by_other_hit"] = "The inner demon can only be overcome by oneself; help from others leads to instant failure.",
+            ["shadow_task_timeout"] = "The inner demon dissipates after lingering for too long.",
+            ["shadow_task_faild"] = "You failed to conquer the inner demon.",
+            ["shadow_task_succeed"] = "You successfully overcame the inner demon.",
         },
         ["bogd_item_soul_formation_pill"] = {
             ["name"] = "Soul Formation Pill",

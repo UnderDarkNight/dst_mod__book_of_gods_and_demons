@@ -59,6 +59,10 @@ local strings = {
             ["name"] = "元婴丹",
             ["inspect_str"] = "金丹期突破到元婴期使用",
             ["recipe_desc"] = "金丹期突破到元婴期使用",
+            ["shadow_fail_by_other_hit"] = "心魔只能自己破除，外人帮忙只会直接失败",
+            ["shadow_task_timeout"] = "心魔存在太久，自己消散了",
+            ["shadow_task_faild"] = "你没能战胜心魔",
+            ["shadow_task_succeed"] = "你成功战胜了心魔",
         },
         ["bogd_item_soul_formation_pill"] = {
             ["name"] = "化神丹",

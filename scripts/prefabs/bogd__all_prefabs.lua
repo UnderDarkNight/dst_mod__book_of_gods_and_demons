@@ -8,6 +8,7 @@ local file_folders = {
     "00_others",                                 -- 其他物品
     "01_items",                                  -- 物品
     "02_sfx",                                    -- 特效
+    "03_debuffs",                                -- debuff
 
 
 }
