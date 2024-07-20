@@ -223,7 +223,7 @@
             root.text = text
         ----------------------------------------------------------------------------------------------------------------
         ---  经验值
-            local exp_text = root:AddChild(Text(CODEFONT,25,"3000/3000",{ 0/255 , 0/255 ,0/255 , 0.5}))
+            local exp_text = root:AddChild(Text(CODEFONT,20,"3000/3000",{ 0/255 , 0/255 ,0/255 , 0.5}))
             exp_text:SetPosition(0,0)
             exp_text:SetString("1500/3000")            
             root.exp_text = exp_text

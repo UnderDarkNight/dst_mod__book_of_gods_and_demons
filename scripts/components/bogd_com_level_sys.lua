@@ -83,7 +83,7 @@
         -- self.shield_max = self.shield_base + (self.level - 1)
         local ret_shield = self.shield_base + (self.level - 1)
         for i = 1, self.level, 1 do
-            if self.level_up_locks[i] then
+            if self.level_up_locks[i-1] then
                 ret_shield = ret_shield + 15
             end
         end        

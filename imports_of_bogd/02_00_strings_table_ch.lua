@@ -79,6 +79,13 @@ local strings = {
             ["inspect_str"] = "化神期突破到合体期使用",
             ["recipe_desc"] = "化神期突破到合体期使用",
         },
+        ["bogd_item_body_integration_pill_building"] = {
+            ["name"] = "通天印",
+            ["inspect_str"] = "化神期突破到合体期使用",
+            ["recipe_desc"] = "化神期突破到合体期使用",
+            ["wrong_building"] = "这不是你的通天印",
+            ["wrong_level"] = "未达到使用通天印的境界",
+        },
         ["bogd_item_great_vehicle_pill"] = {
             ["name"] = "大乘丹",
             ["inspect_str"] = "合体期突破到大乘期使用",

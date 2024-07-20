@@ -1,7 +1,7 @@
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------
----- 天体珠宝灯
+---- 金丹
 --------------------------------------------------------------------------------------------------------------------------------------------
 AddRecipeToFilter("bogd_item_golden_core_pill","CHARACTER")     ---- 添加物品到目标标签
 AddRecipe2(
@@ -17,3 +17,22 @@ AddRecipe2(
     {"CHARACTER","MAGIC"}
 )
 RemoveRecipeFromFilter("bogd_item_golden_core_pill","MODS")                       -- -- 在【模组物品】标签里移除这个。
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+---- 合体丹
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+AddRecipeToFilter("bogd_item_body_integration_pill","CHARACTER")     ---- 添加物品到目标标签
+AddRecipe2(
+    "bogd_item_body_integration_pill",            --  --  inst.prefab  实体名字
+    { Ingredient("moonglass", 20),Ingredient("greengem", 5),Ingredient("moon_tree_blossom", 20),Ingredient("driftwood_log", 5) }, 
+    TECH.CELESTIAL_ONE, --- TECH.天体宝球
+    {
+        nounlock = true,
+        -- no_deconstruction = false,
+        atlas = "images/inventoryimages/bogd_item_body_integration_pill.xml",
+        image = "bogd_item_body_integration_pill.tex",
+    },
+    {"CHARACTER","MAGIC"}
+)
+RemoveRecipeFromFilter("bogd_item_body_integration_pill","MODS")                       -- -- 在【模组物品】标签里移除这个。

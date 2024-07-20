@@ -87,6 +87,13 @@ local strings = {
             ["inspect_str"] = "Used for breaking through from the Soul Formation Stage to the Body Integration Stage.",
             ["recipe_desc"] = "Used for breaking through from the Soul Formation Stage to the Body Integration Stage.",
         },
+        ["bogd_item_body_integration_pill_building"] = {
+            ["name"] = "Promotion Stamp",
+            ["inspect_str"] = "Used for breaking through from the Soul Formation Stage to the Body Integration Stage.",
+            ["recipe_desc"] = "Used for breaking through from the Soul Formation Stage to the Body Integration Stage.",
+            ["wrong_building"] = "This is not your Stamp",
+            ["wrong_level"] = "The cultivation realm has not been reached to use the Stamp",
+        },
         ["bogd_item_great_vehicle_pill"] = {
             ["name"] = "Great Vehicle Pill",
             ["inspect_str"] = "Used for breaking through from the Body Integration Stage to the Great Vehicle Stage.",
