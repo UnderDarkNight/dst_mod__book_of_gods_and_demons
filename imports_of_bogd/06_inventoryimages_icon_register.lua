@@ -22,6 +22,7 @@ local files_name = {
 		"bogd_item_soul_formation_pill_not_charged", 						--- 未充能的化神丹
 		"bogd_item_body_integration_pill", 									--- 合体丹
 		"bogd_item_great_vehicle_pill", 									--- 大乘丹
+		"bogd_item_ascension_pill", 										--- 飞升丹
 	---------------------------------------------------------------------------------------
 
 }

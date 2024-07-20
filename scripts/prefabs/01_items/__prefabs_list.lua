@@ -34,6 +34,7 @@ local prefabs_name_list = {
     "05_soul_formation_pill_not_charged",           -- 未充能的化神丹
     "06_body_integration_pill",                     -- 合体丹
     "07_great_vehicle_pill",                        -- 大乘丹
+    "08_ascension_pill",                            -- 飞升丹
 
     
 }

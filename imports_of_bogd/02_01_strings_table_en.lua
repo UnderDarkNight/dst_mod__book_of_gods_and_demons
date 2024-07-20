@@ -103,6 +103,8 @@ local strings = {
             ["name"] = "Ascension Pill",
             ["inspect_str"] = "Used upon the completion of the Great Vehicle Stage for Ascension.",
             ["recipe_desc"] = "Used upon the completion of the Great Vehicle Stage for Ascension.",
+            ["faild"] = "The world does not permit ascension.",
+
         },
     --------------------------------------------------------------------
 }
