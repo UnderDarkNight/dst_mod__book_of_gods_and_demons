@@ -109,3 +109,25 @@
 
 
     end)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---- 启停总按钮
+    AddPlayerPostInit(function(inst)
+        if not TheWorld.ismastersim then
+            return
+        end
+
+        inst:ListenForEvent("bogd_event.book_cmd_start",function()
+            if not inst.components.bogd_com_level_sys.enable then
+                inst.components.bogd_com_level_sys:SetEnable(true)                
+                inst.components.bogd_com_rpc_event:PushEvent("bogd_com_level_sys_enable")
+            end
+        end)
+        inst:ListenForEvent("bogd_event.book_cmd_stop",function()
+            if inst.components.bogd_com_level_sys.enable then
+                inst.components.bogd_com_level_sys:Reset()
+                inst.components.bogd_com_rpc_event:PushEvent("bogd_com_level_sys_disable")
+            end
+        end)
+
+    end)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
