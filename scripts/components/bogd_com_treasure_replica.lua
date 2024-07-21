@@ -113,23 +113,27 @@
             if icon_atlas ~= nil and icon ~= nil then
                 local background = root:AddChild(Image(icon_atlas,icon))
                 background:SetScale(main_scale,main_scale,main_scale)
+                root.background = background
             end
         -----------------------------------------------------------------------------
         --- 名字
             local DisplayName = root:AddChild(Text(TITLEFONT,25,"3000/3000",{ 255/255 , 255/255 ,255/255 , 1}))
             DisplayName:SetPosition(0,45)
             DisplayName:SetString(tostring(name))
+            root.DisplayName = DisplayName
         -----------------------------------------------------------------------------
         --- 等级
             local DisplayLevel = root:AddChild(Text(TITLEFONT,25,"3000/3000",{ 0/255 , 0/255 ,0/255 , 1}))
             DisplayLevel:SetPosition(0,0)
             DisplayLevel:SetString("Lv."..tostring(level))
+            root.DisplayLevel = DisplayLevel
         -----------------------------------------------------------------------------
         --- CD 
             local DisplayCD = root:AddChild(Text(TITLEFONT,20,"3000/3000",{ 255/255 , 255/255 ,255/255 , 1}))
             DisplayCD:SetPosition(0,-45)
             -- DisplayCD:SetString("CD:"..tostring(cd_time))
             DisplayCD:Hide()
+            root.DisplayCD = DisplayCD
         -----------------------------------------------------------------------------
         --- CD
             root.inst:ListenForEvent("treasure_hud_update",function()

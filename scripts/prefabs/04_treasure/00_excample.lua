@@ -101,6 +101,9 @@ local assets =
             replica_com:SetSGAction("give")
             replica_com:SetText("bogd_treasure",STRINGS.ACTIONS.EQUIP)
             replica_com:SetTestFn(function(inst,doer,right_click)
+                if inst.replica.equippable:IsRestricted(doer) then
+                    return false
+                end
                 if inst.replica.inventoryitem:IsGrandOwner(doer) then
                     local item = doer.replica.inventory:GetEquippedItem(EQUIPSLOTS.TREASURE)
                     if item then

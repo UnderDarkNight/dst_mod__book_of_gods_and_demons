@@ -113,6 +113,23 @@
                 return
             end
         ----------------------------------------------------------------------------------------------------------------
+        --- 经验条颜色切换
+            local function exp_bar_color_switch(bar)
+                if inst.replica.bogd_com_level_sys:IsGod() then
+                    bar:GetAnimState():Hide("YELLOW")
+                    bar:GetAnimState():Show("GREEN")
+                    bar:GetAnimState():Hide("RED")
+                elseif inst.replica.bogd_com_level_sys:IsDemon() then
+                    bar:GetAnimState():Hide("YELLOW")
+                    bar:GetAnimState():Hide("GREEN")
+                    bar:GetAnimState():Show("RED")
+                else
+                    bar:GetAnimState():Show("YELLOW")
+                    bar:GetAnimState():Hide("GREEN")
+                    bar:GetAnimState():Hide("RED")
+                end
+            end
+        ----------------------------------------------------------------------------------------------------------------
         --- 创建 root
             local root = front_root:AddChild(Widget())
             root:SetHAnchor(1) -- 设置原点x坐标位置，0、1、2分别对应屏幕中、左、右
@@ -225,9 +242,15 @@
         ---  经验值
             local exp_text = root:AddChild(Text(CODEFONT,20,"3000/3000",{ 0/255 , 0/255 ,0/255 , 0.5}))
             exp_text:SetPosition(0,0)
-            exp_text:SetString("1500/3000")
+            exp_text:SetString("1500 / 3000")
             exp_text:SetScale(0.8,1,1)
             root.exp_text = exp_text
+        ----------------------------------------------------------------------------------------------------------------
+        --- 神魔状态
+            local body_type = root:AddChild(Text(TITLEFONT,30,"神",{ 255/255 , 255/255 ,255/255 , 1}))
+            body_type:SetPosition(-80,0)
+            body_type:Hide()
+            root.body_type = body_type
         ----------------------------------------------------------------------------------------------------------------
         --- warning
             -- local warning = root:AddChild(UIAnim())
@@ -277,7 +300,7 @@
 
                 local exp_current = inst.replica.bogd_com_level_sys:Exp_Get()
                 local exp_max = inst.replica.bogd_com_level_sys:Exp_Max_Get()                
-                exp_text:SetString(exp_current.."/"..exp_max)
+                exp_text:SetString(exp_current.." / "..exp_max)
 
                 local percent = exp_current/exp_max
                 exp_bar_anim:SetPercent("idle",percent)
@@ -295,6 +318,30 @@
             if inst.replica.bogd_com_level_sys.classified then
                 inst.replica.bogd_com_level_sys.classified:ListenForEvent("bogd_exp_dirty",value_refresh)
             end
+        ----------------------------------------------------------------------------------------------------------------
+        ---- 神魔相关的切换
+            local function Body_Type_Init()
+                exp_bar_color_switch(exp_bar)
+                exp_bar_color_switch(exp_bar2)
+                if inst.replica.bogd_com_level_sys:IsHuman() then
+                    body_type:SetString(GetTranslatedStr("人"))
+                    body_type:Hide()
+                    exp_text:SetColour({0/255,0/255,0/255,1})
+                elseif inst.replica.bogd_com_level_sys:IsGod() then
+                    body_type:SetString(GetTranslatedStr("神"))
+                    body_type:Show()
+                    exp_text:SetColour({0/255,0/255,0/255,1})
+                elseif inst.replica.bogd_com_level_sys:IsDemon()then
+                    body_type:SetString(GetTranslatedStr("魔"))
+                    body_type:Show()
+                    exp_text:SetColour({0/255,0/255,0/255,1})
+                end
+            end
+
+            if inst.replica.bogd_com_level_sys.classified then
+                inst.replica.bogd_com_level_sys.classified:ListenForEvent("bogd_body_type_dirty",Body_Type_Init)
+            end
+            root.inst:DoTaskInTime(0,Body_Type_Init)
         ----------------------------------------------------------------------------------------------------------------
             front_root.bogd_exp_bar = root
         ----------------------------------------------------------------------------------------------------------------

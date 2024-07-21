@@ -55,6 +55,12 @@
             replica_com:SetLevelUpLock(value)
         end
     end
+    local function body_type(self,value)
+        local replica_com = GetReplicaCom(self)
+        if replica_com then
+            replica_com:SetBodyType(value)
+        end
+    end
 ----------------------------------------------------------------------------------------------------------------------------------
 ---- 根据等级，生成下一级需要的经验
     --[[
@@ -116,6 +122,9 @@ local bogd_com_level_sys = Class(function(self, inst)
         self.level_up_lock_flag = false
         self.level_up_locks = {}
     ---------------------------------------
+    --- 神魔系统
+        self.body_type = "human"
+    ---------------------------------------
 
 
 
@@ -130,6 +139,7 @@ nil,
     exp_max = exp_max,
     level = level,
     level_up_lock_flag = level_up_lock_flag,
+    body_type = body_type,
 
 })
 ---------------------------------------------------------------------------------------------------
@@ -158,6 +168,9 @@ nil,
             if treasure_item then
                 treasure_item:Remove()
             end
+        -------------------------------------------------------------------------------------
+        -- 重置为人类
+            self:OnBecomeHuman()
         -------------------------------------------------------------------------------------
 
     end
@@ -355,6 +368,41 @@ nil,
         return self.level
     end
 ---------------------------------------------------------------------------------------------------
+--- 神魔相关的API
+    function bogd_com_level_sys:GetBodyType()
+        return self.body_type
+    end
+    function bogd_com_level_sys:SetBodyType(body_type)
+        self.body_type = body_type
+    end
+    function bogd_com_level_sys:OnBecomeGod()
+        if not self:IsGod() then
+            self:SetBodyType("god")
+            self.inst:PushEvent("bogd_become_god")
+        end
+    end
+    function bogd_com_level_sys:OnBecomeDemon()
+        if not self:IsDemon() then
+            self:SetBodyType("demon")
+            self.inst:PushEvent("bogd_become_demon")
+        end
+    end
+    function bogd_com_level_sys:OnBecomeHuman()
+        if not self:IsHuman() then
+            self:SetBodyType("human")
+            self.inst:PushEvent("bogd_become_human")
+        end
+    end
+    function bogd_com_level_sys:IsGod()
+        return self.body_type == "god"
+    end
+    function bogd_com_level_sys:IsDemon()
+        return self.body_type == "demon"
+    end
+    function bogd_com_level_sys:IsHuman()
+        return self.body_type == "human"
+    end
+---------------------------------------------------------------------------------------------------
 ----- onload/onsave 函数
     function bogd_com_level_sys:AddOnLoadFn(fn)
         if type(fn) == "function" then
@@ -411,6 +459,7 @@ nil,
             exp_current = self.exp_current,            
             level = self.level,
             enable = self.enable,
+            body_type = self.body_type,
 
             level_up_lock_flag = self.level_up_lock_flag,
             
@@ -439,6 +488,9 @@ nil,
         end
         if data.level_up_lock_flag then
             self.level_up_lock_flag = data.level_up_lock_flag
+        end
+        if data.body_type then
+            self.body_type = data.body_type
         end
         level_up_exp_init(self)
         self:ActiveOnLoadFns()

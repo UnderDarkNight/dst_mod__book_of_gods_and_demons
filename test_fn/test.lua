@@ -375,8 +375,13 @@ local flg,error_code = pcall(function()
         -- end
     ----------------------------------------------------------------------------------------------------------------
     ---
-            local item = ThePlayer.components.inventory:GetEquippedItem(EQUIPSLOTS.TREASURE)
-            item:Remove()
+            -- local item = ThePlayer.components.inventory:GetEquippedItem(EQUIPSLOTS.TREASURE)
+            -- item:Remove()
+            -- ThePlayer.components.bogd_com_level_sys:OnBecomeGod()
+            -- ThePlayer.components.bogd_com_level_sys:OnBecomeDemon()
+            ThePlayer.components.bogd_com_level_sys:OnBecomeHuman()
+
+            print(ThePlayer.replica.bogd_com_level_sys:GetBodyType())
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

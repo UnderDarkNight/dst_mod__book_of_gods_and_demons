@@ -42,6 +42,10 @@ local strings = {
             ["合体期"] = "Body Integration",
             ["大乘期"] = "Great Vehicle",
 
+            ["神"] = "GOD",
+            ["魔"] = "DEMON",
+            ["人"] = "HUMAN",
+
             ["需要突破"] = "Require A Breakthrough",
         },
         ["level"] = {

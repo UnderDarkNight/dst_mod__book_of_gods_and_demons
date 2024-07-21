@@ -169,6 +169,40 @@ end)
         end
     end
 ---------------------------------------------------------------------------------------------------
+--- 神魔系统
+    function bogd_com_level_sys:SetBodyType(value)
+        if self.classified then
+            self.classified.bogd_body_type:set(value)
+        end
+    end
+    function bogd_com_level_sys:GetBodyType()
+        if self.inst.components.bogd_com_level_sys ~= nil then
+            return self.inst.components.bogd_com_level_sys.body_type
+        elseif self.classified ~= nil then
+            return self.classified.bogd_body_type:value()
+        else
+            return "human"
+        end
+    end
+    function bogd_com_level_sys:IsGod()
+        return self:GetBodyType() == "god"
+    end
+    function bogd_com_level_sys:IsDemon()
+        return self:GetBodyType() == "demon"
+    end
+    function bogd_com_level_sys:IsHuman()
+        return self:GetBodyType() == "human"
+    end
+    function bogd_com_level_sys:IsNotGod()
+        return self:GetBodyType() ~= "god"
+    end
+    function bogd_com_level_sys:IsNotDemon()
+        return self:GetBodyType() ~= "demon"
+    end
+    function bogd_com_level_sys:IsNotHuman()
+        return self:GetBodyType() ~= "human"
+    end
+---------------------------------------------------------------------------------------------------
 return bogd_com_level_sys
 
 

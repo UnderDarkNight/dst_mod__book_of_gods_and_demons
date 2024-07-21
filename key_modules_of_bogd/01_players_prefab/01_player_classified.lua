@@ -26,6 +26,9 @@ AddPrefabPostInit(
         ---- 等级
             inst.bogd_level = net_ushortint(inst.GUID, "bogd_level", "bogd_level_dirty")
         ------------------------------------------------------------------------------------------------------
+        ---- 神魔状态
+            inst.bogd_body_type = net_string(inst.GUID, "bogd_body_type", "bogd_body_type_dirty")
+        ------------------------------------------------------------------------------------------------------
 
 
 
