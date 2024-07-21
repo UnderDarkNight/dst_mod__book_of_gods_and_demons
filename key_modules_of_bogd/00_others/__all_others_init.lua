@@ -1,5 +1,8 @@
 
 
+modimport("key_modules_of_bogd/00_others/00_debugging_hook.lua")
+--- 测试
+
 modimport("key_modules_of_bogd/00_others/01_replica_register.lua")
 --- 注册replica
 

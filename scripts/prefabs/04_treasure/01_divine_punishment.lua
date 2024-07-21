@@ -51,6 +51,8 @@ local assets =
                 inst:DoTaskInTime(0,function()
                     inst.components.bogd_com_treasure:OnEquipped(owner)
                     inst:ListenForEvent("death", death_event_in_player,owner)
+                    owner:SpawnChild("channel_absorb_smoulder")
+                    owner:SpawnChild("bogd_sfx_elect_shock"):PushEvent("Set",{})
                 end)
             end)
             inst.components.equippable:SetOnUnequip(function(inst, owner) --- 加载的时候会执行一次 SetOnEquip 再 SetOnUnequip，会造成崩溃
@@ -83,7 +85,7 @@ local assets =
                     HUD.inst:ListenForEvent("onremove",function()
                         HUD.dotted_circle:Remove()                            
                     end)
-                    HUD.dotted_circle:DoPeriodicTask(FRAMES*2,function()
+                    HUD.dotted_circle:DoPeriodicTask(FRAMES,function()
                         if inst.replica.bogd_com_treasure:Is_CD_Started() or (ThePlayer and ThePlayer:HasTag("playerghost") )then
                             HUD.dotted_circle:Hide()
                         else
@@ -101,49 +103,39 @@ local assets =
             inst:AddComponent("bogd_com_treasure")
             inst.components.bogd_com_treasure:SetCDTime(5)     -- CD 时间
             inst.components.bogd_com_treasure:SetIcon("images/treasure/bogd_treasure_divine_punishment.xml","bogd_treasure_divine_punishment.tex") -- 图标贴图
-            inst.components.bogd_com_treasure:SetSpellFn(function(inst,doer,pt)  -- 技能执行
+            inst.components.bogd_com_treasure:SetSpellFn(function(inst,doer,pt)  -- 技能执行                        
                 -- print("灵宝触发",pt)
                 -- SpawnPrefab("log").Transform:SetPosition(pt.x,0,pt.z)
-                ----------------------------------------------------------------------------------------------
-                --- 创建绑定武器
-                    if inst.weapon == nil then
-                        local weapon = CreateEntity()
-                        weapon.entity:AddTransform()
-                        weapon.entity:AddNetwork()
-                        weapon:AddComponent("weapon")
-                        weapon.components.weapon:SetDamage(100)
-                        weapon.components.weapon:SetElectric()
-                        weapon:AddComponent("inventoryitem")
-                        weapon:AddComponent("equippable")
-                        weapon.entity:SetParent(inst.entity)
-                        inst:ListenForEvent("onremove",function()
-                            weapon:Remove()
-                        end)
-                        inst.weapon = weapon
-                    end
                 ----------------------------------------------------------------------------------------------
                 --- 寻找合适的目标
                     local musthavetags = { "_combat" }
                     local canthavetags = { "INLIMBO", "notarget", "noattack", "invisible", "wall", "player", "companion" }
                     local musthaveoneoftags = {}
                     local ents = TheSim:FindEntities(pt.x, 0, pt.z, DMAGE_RADIUS, musthavetags, canthavetags, musthaveoneoftags)
-                    local targets = {}
+                    local ret_targets = {}
                     for k, temp in pairs(ents) do
-                        if temp and temp.components.combat and temp.components.combat:CanBeAttacked(doer) then
-                            table.insert(targets, temp)
+                        if temp and temp.components.combat and temp.components.combat:CanBeAttacked(doer)  then
+                            if temp.components.health and not temp.components.health:IsDead() then
+                                table.insert(ret_targets,temp)
+                            end
                         end
                     end
                     local fx = SpawnPrefab("lightning")
                     fx.Transform:SetPosition(pt.x,0,pt.z)
-                    doer.SoundEmitter:PlaySound("dontstarve/rain/thunder_close")
-                    inst:DoTaskInTime(0.2,function()
-                        for k, the_target in pairs(targets) do
-                            the_target.components.combat:GetAttacked(doer, 100, inst.weapon)
-                        end
-                    end)
+                    for k, temp in ipairs(ret_targets) do
+                        temp.components.combat:GetAttacked(doer, 100, inst)
+                        -- print("attacked",temp)
+                        -- doer.components.combat:DoAttack(temp,inst)
+                        SpawnPrefab("bogd_sfx_elect_shock"):PushEvent("Set",{
+                            pt = Vector3(temp.Transform:GetWorldPosition()),
+                        })
+                    end
                 ----------------------------------------------------------------------------------------------
-
-                inst.components.bogd_com_treasure:SetCDStart()
+                --- 开始CD
+                    if not TUNING.BOGD_DEBUGGING_MODE then
+                        inst.components.bogd_com_treasure:SetCDStart()
+                    end
+                ----------------------------------------------------------------------------------------------
             end)
 
         end
@@ -226,6 +218,9 @@ local assets =
             inst.components.inventoryitem.atlasname = "images/inventoryimages/bogd_treasure_divine_punishment.xml"
         ----------------------------------------------------------------------------------------------
         --- 
+            inst:AddComponent("weapon")
+            inst.components.weapon:SetDamage(100)
+            inst.components.weapon:SetElectric()
         ----------------------------------------------------------------------------------------------
         MakeHauntableLaunch(inst)
 

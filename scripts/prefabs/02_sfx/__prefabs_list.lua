@@ -30,6 +30,7 @@ local prefabs_name_list = {
     "01_shadow_sheild", --- 护盾特效
     "02_beam", --- 光柱
     "03_dotted_circle", --- 虚线圈圈
+    "04_elect_shock",   --- 电击特效
 }
 
 

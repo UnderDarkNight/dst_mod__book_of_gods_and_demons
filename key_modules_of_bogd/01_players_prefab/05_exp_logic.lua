@@ -82,7 +82,8 @@
                             lock_task = nil
                         end)
                         inst:SpawnChild("wathgrithr_spirit")
-                        inst:SpawnChild("halloween_firepuff_cold_1")              
+                        inst:SpawnChild("halloween_firepuff_cold_1")
+                        inst:SpawnChild("moonpulse_fx")
                     end
                     inst.components.bogd_com_rpc_event:PushEvent("bogd_event.whisper",{
                         m_colour = {255/255,100/255,100/255},
