@@ -104,6 +104,46 @@ local strings = {
             ["inspect_str"] = "示例灵宝",
             ["recipe_desc"] = "示例灵宝",
         },
+        ["bogd_treasure_divine_punishment"] = {
+            ["name"] = "灵·神罚",
+            ["inspect_str"] = "召唤闪电，魔不能使用",
+        },
+        ["bogd_treasure_shadow_tentacle"] = {
+            ["name"] = "灵·影鞭",
+            ["inspect_str"] = "召唤触手，神不能使用",
+        },
+        ["bogd_treasure_magic_shield"] = {
+            ["name"] = "灵·护体",
+            ["inspect_str"] = "给自己套个护盾",
+        },
+        ["bogd_treasure_map_blink"] = {
+            ["name"] = "灵·缩地",
+            ["inspect_str"] = "传送到地图指定位置",
+        },
+        ["bogd_treasure_damage_enhancement"] = {
+            ["name"] = "灵·强化",
+            ["inspect_str"] = "增加自身攻击力",
+        },
+        ["bogd_treasure_pet_summon"] = {
+            ["name"] = "灵·神宠",
+            ["inspect_str"] = "召唤宠物，魔不能使用",
+        },
+        ["bogd_treasure_treatment"] = {
+            ["name"] = "灵·妙手",
+            ["inspect_str"] = "恢复血量和精神，魔不能使用",
+        },
+        ["bogd_treasure_frostfall"] = {
+            ["name"] = "灵·霜降",
+            ["inspect_str"] = "冰冻范围内怪物",
+        },
+        ["bogd_treasure_poison_ring"] = {
+            ["name"] = "灵·流逝",
+            ["inspect_str"] = "创造个毒圈",
+        },
+        ["bogd_treasure_meteorites"] = {
+            ["name"] = "灵·天罚",
+            ["inspect_str"] = "召唤陨石",
+        },
     --------------------------------------------------------------------
 }
 

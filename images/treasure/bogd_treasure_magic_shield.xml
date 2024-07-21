@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Atlas>
+	<Texture filename="bogd_treasure_magic_shield.tex" />
+	<Elements>
+		<Element name="bogd_treasure_magic_shield.tex" u1="0.001" u2="0.97946875" v2="0.999" v1="0.09475" variant="" />
+	</Elements>
+</Atlas>

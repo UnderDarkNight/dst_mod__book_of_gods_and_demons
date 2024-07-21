@@ -5,13 +5,13 @@
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 local assets =
 {
-    Asset("ANIM", "anim/bogd_treasure_excample.zip"),
+    Asset("ANIM", "anim/bogd_treasure_divine_punishment.zip"),
 
-    Asset( "IMAGE", "images/inventoryimages/bogd_treasure_excample.tex" ),  -- 物品贴图
-    Asset( "ATLAS", "images/inventoryimages/bogd_treasure_excample.xml" ),  -- 物品贴图
+    Asset( "IMAGE", "images/inventoryimages/bogd_treasure_divine_punishment.tex" ),  -- 物品贴图
+    Asset( "ATLAS", "images/inventoryimages/bogd_treasure_divine_punishment.xml" ),  -- 物品贴图
 
-    Asset( "IMAGE", "images/treasure/bogd_treasure_excample.tex" ),         -- UI贴图
-    Asset( "ATLAS", "images/treasure/bogd_treasure_excample.xml" ),         -- UI贴图
+    Asset( "IMAGE", "images/treasure/bogd_treasure_divine_punishment.tex" ),         -- UI贴图
+    Asset( "ATLAS", "images/treasure/bogd_treasure_divine_punishment.xml" ),         -- UI贴图
 
 
 }
@@ -85,7 +85,7 @@ local assets =
 
             inst:AddComponent("bogd_com_treasure")
             inst.components.bogd_com_treasure:SetCDTime(10)     -- CD 时间
-            inst.components.bogd_com_treasure:SetIcon("images/treasure/bogd_treasure_excample.xml","bogd_treasure_excample.tex") -- 图标贴图
+            inst.components.bogd_com_treasure:SetIcon("images/treasure/bogd_treasure_divine_punishment.xml","bogd_treasure_divine_punishment.tex") -- 图标贴图
             inst.components.bogd_com_treasure:SetSpellFn(function(inst,doer,pt)  -- 技能执行
                 print("灵宝触发",pt)
                 SpawnPrefab("log").Transform:SetPosition(pt.x,0,pt.z)
@@ -137,8 +137,8 @@ local assets =
 
         MakeInventoryPhysics(inst)
 
-        inst.AnimState:SetBank("bogd_treasure_excample")
-        inst.AnimState:SetBuild("bogd_treasure_excample")
+        inst.AnimState:SetBank("bogd_treasure_divine_punishment")
+        inst.AnimState:SetBuild("bogd_treasure_divine_punishment")
         inst.AnimState:PlayAnimation("idle")
 
         inst:AddTag("bogd_treasure")  -- 用于快捷键标记识别
@@ -168,8 +168,8 @@ local assets =
             inst:AddComponent("inventoryitem")
             inst.components.inventoryitem.keepondeath = true        --- 死亡不掉落
             inst.components.inventoryitem:SetSinks(true) --- 落水消失
-            inst.components.inventoryitem.imagename = "bogd_treasure_excample"
-            inst.components.inventoryitem.atlasname = "images/inventoryimages/bogd_treasure_excample.xml"
+            inst.components.inventoryitem.imagename = "bogd_treasure_divine_punishment"
+            inst.components.inventoryitem.atlasname = "images/inventoryimages/bogd_treasure_divine_punishment.xml"
         ----------------------------------------------------------------------------------------------
         --- 
         ----------------------------------------------------------------------------------------------
@@ -178,4 +178,4 @@ local assets =
         return inst
     end
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-return Prefab("bogd_treasure_excample", fn, assets)
+return Prefab("bogd_treasure_divine_punishment", fn, assets)

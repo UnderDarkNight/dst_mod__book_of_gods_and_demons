@@ -2,6 +2,6 @@
 <Atlas>
 	<Texture filename="bogd_treasure_excample.tex" />
 	<Elements>
-		<Element name="bogd_treasure_excample.tex" u1="0.001" u2="0.62009375" v2="0.999" v1="0.37209375" variant="" />
+		<Element name="bogd_treasure_excample.tex" u1="0.001" u2="0.999" v2="0.999" v1="0.0869375" variant="" />
 	</Elements>
 </Atlas>

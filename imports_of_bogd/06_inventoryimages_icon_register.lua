@@ -26,6 +26,16 @@ local files_name = {
 	---------------------------------------------------------------------------------------
 	-- 04_treasure
 		"bogd_treasure_excample", 									--- 示例灵宝
+		"bogd_treasure_divine_punishment",							--- 灵·神罚
+		"bogd_treasure_shadow_tentacle",							--- 灵·影鞭
+		"bogd_treasure_magic_shield",								--- 灵·护体
+		"bogd_treasure_map_blink", 									--- 灵·缩地
+		"bogd_treasure_damage_enhancement",							--- 灵·强化
+		"bogd_treasure_pet_summon",									--- 灵·神宠
+		"bogd_treasure_treatment", 									--- 灵·妙手
+		"bogd_treasure_frostfall", 									--- 灵·霜降
+		"bogd_treasure_poison_ring",								--- 灵·流逝
+		"bogd_treasure_meteorites",									--- 灵·天罚
 	---------------------------------------------------------------------------------------
 
 }

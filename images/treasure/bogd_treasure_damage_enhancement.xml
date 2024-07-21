@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Atlas>
+	<Texture filename="bogd_treasure_damage_enhancement.tex" />
+	<Elements>
+		<Element name="bogd_treasure_damage_enhancement.tex" u1="0.001" u2="0.999" v2="0.999" v1="0.0869375" variant="" />
+	</Elements>
+</Atlas>

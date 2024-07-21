@@ -111,6 +111,62 @@ local strings = {
 
         },
     --------------------------------------------------------------------
+    --- 04_treasure
+        ["bogd_treasure_excample"] = {
+            ["name"] = "示例灵宝",
+            ["inspect_str"] = "示例灵宝",
+            ["recipe_desc"] = "示例灵宝",
+        },
+        ["bogd_treasure_divine_punishment"] = {
+            ["name"] = "Spirit Divine Punishment",
+            ["inspect_str"] = "Summons lightning, cannot be used by demons.",
+        },
+        
+        ["bogd_treasure_shadow_tentacle"] = {
+            ["name"] = "Spirit Shadow Whip",
+            ["inspect_str"] = "Summons tentacles, cannot be used by gods.",
+        },
+        
+        ["bogd_treasure_magic_shield"] = {
+            ["name"] = "Spirit Protective Shield",
+            ["inspect_str"] = "Casts a protective shield around oneself.",
+        },
+        
+        ["bogd_treasure_map_blink"] = {
+            ["name"] = "Spirit Ground Shrinking",
+            ["inspect_str"] = "Teleports to a designated location on the map.",
+        },
+        
+        ["bogd_treasure_damage_enhancement"] = {
+            ["name"] = "Spirit Enhancement",
+            ["inspect_str"] = "Increases one's own attack power.",
+        },
+        
+        ["bogd_treasure_pet_summon"] = {
+            ["name"] = "Spirit Divine Pet",
+            ["inspect_str"] = "Summons a pet, cannot be used by demons.",
+        },
+        
+        ["bogd_treasure_treatment"] = {
+            ["name"] = "Spirit Healing Touch",
+            ["inspect_str"] = "Restores health and spirit, cannot be used by demons.",
+        },
+        
+        ["bogd_treasure_frostfall"] = {
+            ["name"] = "Spirit Frostfall",
+            ["inspect_str"] = "Freezes monsters within range.",
+        },
+        
+        ["bogd_treasure_poison_ring"] = {
+            ["name"] = "Spirit Flowing Away",
+            ["inspect_str"] = "Creates a poisonous circle.",
+        },
+        
+        ["bogd_treasure_meteorites"] = {
+            ["name"] = "Spirit Heavenly Punishment",
+            ["inspect_str"] = "Summons meteors.",
+        },
+    --------------------------------------------------------------------
 }
 
 ----------------------------------------------------------------------------------------------------------------------------------------

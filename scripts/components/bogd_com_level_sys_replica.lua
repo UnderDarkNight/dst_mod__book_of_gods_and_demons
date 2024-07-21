@@ -59,10 +59,22 @@ end)
         self:EnableBroadcast()
     end
     function bogd_com_level_sys:GetEnable()
-        if self.classified then
+        if self.inst.components.bogd_com_level_sys then
+            return self.inst.components.bogd_com_level_sys.enable
+        elseif self.classified then
             return self.classified.bogd_enable:value()
         end
         return false
+    end
+    function bogd_com_level_sys:CheckCanEquipSpecialItem() --- 初始化加载存档的时候 GetEnable 调用错误
+        if self.CheckCanEquipSpecialItemFlag == nil then
+            self.inst:DoTaskInTime(0,function()
+                self.CheckCanEquipSpecialItemFlag = true
+            end)
+            return true
+        else
+            return self:GetEnable()
+        end
     end
 ---------------------------------------------------------------------------------------------------
 --- 等级锁激活

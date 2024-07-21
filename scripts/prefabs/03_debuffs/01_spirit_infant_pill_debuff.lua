@@ -110,7 +110,10 @@ local function OnAttached(inst,target) -- 玩家得到 debuff 的瞬间。 穿�
         end
     -----------------------------------------------------
     --- 定期循环检查
-        local TIMER = 180
+        local TIMER = 180000
+        if TUNING.BOGD_DEBUGGING_MODE then
+            TIMER = 30
+        end
         target:DoPeriodicTask(1,function()
             -----------------------------------------------------
             --- 玩家穿越走

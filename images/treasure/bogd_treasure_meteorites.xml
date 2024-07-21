@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Atlas>
+	<Texture filename="bogd_treasure_meteorites.tex" />
+	<Elements>
+		<Element name="bogd_treasure_meteorites.tex" u1="0.001" u2="0.999" v2="0.999" v1="0.07521875" variant="" />
+	</Elements>
+</Atlas>

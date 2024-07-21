@@ -39,7 +39,7 @@
             local level = inst.replica.bogd_com_treasure:GetLevel()
             local name = inst:GetDisplayName()
             local icon_atlas,icon = inst.replica.bogd_com_treasure:GetIcon()
-            local main_scale = 0.4
+            local main_scale = 0.32
         -----------------------------------------------------------------------------
         --- root 节点
             local root = front_root:AddChild(Widget())
