@@ -28,6 +28,8 @@ local Prefabs_addr_base = string.sub(temp_addr,1,temp_str_index2) .. "/"    --- 
 local prefabs_name_list = {
     
     "00_excample",                          --- 示例用物品
+    
+
     "01_divine_punishment",                 --- 灵·神罚
     "02_shadow_tentacle",                   --- 灵·影鞭
     "03_magic_shield",                      --- 灵·护体

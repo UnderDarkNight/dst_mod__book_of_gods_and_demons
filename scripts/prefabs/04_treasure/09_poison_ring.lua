@@ -28,6 +28,12 @@ local assets =
                 return false
             end
         end
+        local function death_event_in_player() -- 指定状态的玩家死后丟失
+            local owner = inst.components.bogd_com_treasure.owner
+            if owner.components.bogd_com_level_sys:IsHuman() then
+                inst:Remove()
+            end
+        end
         inst:ListenForEvent("BOGD_OnEntityReplicated.equippable", function(inst, replica_com)
             -- replica_com.IsRestricted = function(self,player) end
             hook_IsRestricted(replica_com)
@@ -37,12 +43,16 @@ local assets =
             -- inst.components.equippable.IsRestricted = function(self,player)  end
             hook_IsRestricted(inst.components.equippable)
             inst.components.equippable:SetOnEquip(function(inst, owner)
-                inst.components.bogd_com_treasure:OnEquipped(owner)
+                inst:DoTaskInTime(0,function()
+                    inst.components.bogd_com_treasure:OnEquipped(owner)
+                    inst:ListenForEvent("death", death_event_in_player,owner)
+                end)
             end)
             inst.components.equippable:SetOnUnequip(function(inst, owner) --- 加载的时候会执行一次 SetOnEquip 再 SetOnUnequip，会造成崩溃
                 inst:DoTaskInTime(0,function()
                     inst.components.bogd_com_treasure:OnUnequipped(owner)
                     inst:Remove()  --- 脱下即消失
+                    inst:RemoveEventCallback("death", death_event_in_player,owner)
                 end)
             end)
             inst.components.equippable.equipslot = EQUIPSLOTS.TREASURE

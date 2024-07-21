@@ -149,7 +149,7 @@ nil,
         end
     end
     function bogd_com_treasure:CastSpell(doer,pt)
-        if self.spell_fn then
+        if self.spell_fn and not doer:HasTag("playerghost") then
             self.spell_fn(self.inst,doer,pt)
         end
     end
