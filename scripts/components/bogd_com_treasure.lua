@@ -114,6 +114,7 @@ nil,
             self.__cd_task = self.inst:DoPeriodicTask(1,function()
                 self.cd_time_left = self.cd_time_left - 1
                 if self.cd_time_left <= 0 then
+                    self.cd_time_left = 0
                     self.cd_started = false
                     self.__cd_task:Cancel()
                 end
@@ -121,15 +122,18 @@ nil,
         end
     end
     function bogd_com_treasure:CD_Onload() -- 加载的时候检查CD
-        if self.cd_started then
-            self.__cd_task = self.inst:DoPeriodicTask(1,function()
-                self.cd_time_left = self.cd_time_left - 1
-                if self.cd_time_left <= 0 then
-                    self.cd_started = false
-                    self.__cd_task:Cancel()
-                end
-            end)
-        end
+        self.inst:DoTaskInTime(0,function()            
+            if self.cd_started then
+                self.__cd_task = self.inst:DoPeriodicTask(1,function()
+                    self.cd_time_left = self.cd_time_left - 1
+                    if self.cd_time_left <= 0 then
+                        self.cd_time_left = 0
+                        self.cd_started = false
+                        self.__cd_task:Cancel()
+                    end
+                end)
+            end
+        end)
     end
 ------------------------------------------------------------------------
 -- icon

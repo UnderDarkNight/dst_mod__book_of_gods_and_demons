@@ -16,11 +16,6 @@ local assets =
 
 }
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---- 界面UI
-    local function client_ui_setup(inst)
-        
-    end
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- 主函数
     local function fn()
         local inst = CreateEntity()
@@ -56,10 +51,67 @@ local assets =
                 inst:AddComponent("equippable")
                 -- inst.components.equippable.IsRestricted = function(self,player)  end
                 hook_IsRestricted(inst.components.equippable)
+                inst.components.equippable:SetOnEquip(function(inst, owner)
+                    inst.components.bogd_com_treasure:OnEquipped(owner)
+                end)
+                inst.components.equippable:SetOnUnequip(function(inst, owner) --- 加载的时候会执行一次 SetOnEquip 再 SetOnUnequip，会造成崩溃
+                    inst:DoTaskInTime(0,function()
+                        inst.components.bogd_com_treasure:OnUnequipped(owner)
+                        inst:Remove()  --- 脱下即消失
+                    end)
+                end)
+                inst.components.equippable.equipslot = EQUIPSLOTS.TREASURE
+                -- inst.components.equippable.equipslot = EQUIPSLOTS.BODY
+                inst.components.equippable:SetPreventUnequipping(true)  --- 避免被脱下
             end
         ----------------------------------------------------------------------------------------------
-        ---
-            client_ui_setup(inst)
+        --- 灵宝关键组件
+            inst:ListenForEvent("BOGD_OnEntityReplicated.bogd_com_treasure",function(inst, replica_com)
+            end)
+            ------------------------------------------------------
+            --- 指示圈圈
+                local hud_installed = function(inst)
+                    local HUD = inst.replica.bogd_com_treasure.HUD
+                    if not HUD then
+                        return
+                    end
+
+                    if HUD.dotted_circle == nil then
+                        HUD.dotted_circle = SpawnPrefab("bogd_sfx_dotted_circle_client")
+                        HUD.dotted_circle:PushEvent("Set",{
+                            range = 4
+                        })
+                        HUD.inst:ListenForEvent("onremove",function()
+                            HUD.dotted_circle:Remove()                            
+                        end)
+
+                        HUD.dotted_circle:DoPeriodicTask(FRAMES,function()
+                            if inst.replica.bogd_com_treasure:Is_CD_Started() then
+                                HUD.dotted_circle:Hide()
+                            else
+                                HUD.dotted_circle:Show()
+                                local pt = TheInput:GetWorldPosition()
+                                HUD.dotted_circle.Transform:SetPosition(pt.x,0,pt.z)
+                            end
+                        end)
+                    end
+                end
+                inst:ListenForEvent("trueasure_equipped_client",hud_installed)
+                inst:ListenForEvent("treasure_hud_update",hud_installed)
+            ------------------------------------------------------
+
+            if TheWorld.ismastersim then
+
+                inst:AddComponent("bogd_com_treasure")
+                inst.components.bogd_com_treasure:SetCDTime(10)
+                inst.components.bogd_com_treasure:SetIcon("images/treasure/bogd_treasure_excample.xml","bogd_treasure_excample.tex")
+                inst.components.bogd_com_treasure:SetSpellFn(function(inst,doer,pt)
+                    print("灵宝触发",pt)
+                    SpawnPrefab("log").Transform:SetPosition(pt.x,0,pt.z)
+                    inst.components.bogd_com_treasure:SetCDStart()
+                end)
+
+            end
         ----------------------------------------------------------------------------------------------
 
         if not TheWorld.ismastersim then
@@ -71,35 +123,13 @@ local assets =
         ----------------------------------------------------------------------------------------------
         --- 标准物品库
             inst:AddComponent("inspectable")
-
             inst:AddComponent("inventoryitem")
             inst.components.inventoryitem.keepondeath = true        --- 死亡不掉落
             inst.components.inventoryitem:SetSinks(true) --- 落水消失
             inst.components.inventoryitem.imagename = "bogd_treasure_excample"
             inst.components.inventoryitem.atlasname = "images/inventoryimages/bogd_treasure_excample.xml"
         ----------------------------------------------------------------------------------------------
-        --- 灵宝关键组件
-            inst:AddComponent("bogd_com_treasure")
-            inst.components.bogd_com_treasure:SetCDTime(10)
-            inst.components.bogd_com_treasure:SetIcon("images/treasure/bogd_treasure_excample.xml","bogd_treasure_excample.tex")
-            inst.components.bogd_com_treasure:SetSpellFn(function(inst,doer,pt)
-                print("灵宝触发",pt)
-                SpawnPrefab("log").Transform:SetPosition(pt.x,0,pt.z)
-                inst.components.bogd_com_treasure:SetCDStart()
-            end)
-        ----------------------------------------------------------------------------------------------
-        --- 装备组件
-            -- inst:AddComponent("equippable")
-            inst.components.equippable:SetOnEquip(function(inst, owner)
-                inst.components.bogd_com_treasure:OnEquipped(owner)
-            end)
-            inst.components.equippable:SetOnUnequip(function(inst, owner)
-                inst.components.bogd_com_treasure:OnUnequipped(owner)
-                inst:Remove()  --- 脱下即消失
-            end)
-            inst.components.equippable.equipslot = EQUIPSLOTS.TREASURE
-            -- inst.components.equippable.equipslot = EQUIPSLOTS.BODY
-            inst.components.equippable:SetPreventUnequipping(true)  --- 避免被脱下
+        --- 
         ----------------------------------------------------------------------------------------------
         MakeHauntableLaunch(inst)
 
