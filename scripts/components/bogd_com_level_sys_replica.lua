@@ -54,6 +54,7 @@ end)
     function bogd_com_level_sys:Enable(flag)
         if self.classified then
             self.classified.bogd_enable:set(flag)
+            -- self.classified.bogd_enable:push()
         end
         self:EnableBroadcast()
     end

@@ -166,7 +166,7 @@
             root.x_percent,root.y_percent = GetBadgeLoation()
             root:LocationScaleFix()
 
-            inst:DoPeriodicTask(2,function()
+            root.inst:DoPeriodicTask(2,function()
                 root:LocationScaleFix()
             end)
         ----------------------------------------------------------------------------------------------------------------

@@ -177,6 +177,13 @@ priority = 100000000000000  -- MOD加载优先级 影响某些功能的兼容性
         options = Create_Number_Setting(0.5,20,0.5),
         default = 1,
       }, 
+      {
+        name = "TREASURE_HOTKEY",
+        label = IsChinese() and "灵宝快捷键" or "Treasure Hotkey",
+        hover = IsChinese() and "灵宝快捷键" or "Treasure Hotkey",
+        options = keys_option,
+        default = "KEY_F6",
+      }, 
   ----------------------------------------------------------------------------------------------------------
   ---
       {name = "AAAB",label = "",hover = "",options ={{description = "", data = true}},default = true,}, 

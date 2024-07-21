@@ -26,3 +26,6 @@ modimport("key_modules_of_bogd/01_players_prefab/12_level_and_light.lua")
 
 modimport("key_modules_of_bogd/01_players_prefab/13_player_reroll_and_level.lua")
 --- 玩家重选角色
+
+modimport("key_modules_of_bogd/01_players_prefab/14_treasure_controller.lua")
+--- 灵宝系统

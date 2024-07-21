@@ -24,6 +24,8 @@ AddReplicableComponent("bogd_com_acceptable")  --- 通用接受模块
 AddReplicableComponent("bogd_com_item_use_to")  --- 通用给予模块
 AddReplicableComponent("bogd_com_workable")  --- 通用右键使用模块
 
+AddReplicableComponent("bogd_com_treasure")  --- 灵宝系统
+
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ---

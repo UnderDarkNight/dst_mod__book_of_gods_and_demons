@@ -237,73 +237,141 @@ local flg,error_code = pcall(function()
 
         -- front_root.test_root = root
 
-        ThePlayer.__test_fn = function()
+        -- ThePlayer.__test_fn = function()
             
 
-            local front_root = ThePlayer.HUD
+        --     local front_root = ThePlayer.HUD
 
-            ------------------------------------------------------------------------------------
-            --- 主节点
+        --     ------------------------------------------------------------------------------------
+        --     --- 主节点
+        --         local root = front_root:AddChild(Widget())
+        --         root:SetHAnchor(0) -- 设置原点x坐标位置，0、1、2分别对应屏幕中、左、右
+        --         root:SetVAnchor(0) -- 设置原点y坐标位置，0、1、2分别对应屏幕中、上、下
+        --         root:SetPosition(0,0)
+        --         root:MoveToBack()
+        --         root:SetScaleMode(SCALEMODE_FIXEDSCREEN_NONDYNAMIC) --- 缩放模式
+        --         local main_scale = 0.7
+        --     ------------------------------------------------------------------------------------
+        --     --- 背景
+        --         local bg = root:AddChild(Image())
+        --         bg:SetTexture("images/book/book_of_gods_and_demons.xml","background.tex")
+        --         bg:SetScale(main_scale,main_scale,main_scale)
+
+        --     ------------------------------------------------------------------------------------
+        --     --- 关闭按钮
+        --         local close_button = root:AddChild(ImageButton(
+        --             "images/book/book_of_gods_and_demons.xml",
+        --             "close.tex",
+        --             "close.tex",
+        --             "close.tex",
+        --             "close.tex",
+        --             "close.tex"
+        --         ))
+        --         close_button:SetScale(main_scale,main_scale,main_scale)
+        --         close_button:SetOnDown(function()
+        --             root:Kill()
+        --         end)
+        --         close_button:SetPosition(400,200)
+        --     ------------------------------------------------------------------------------------
+        --     --- 开始修仙按钮
+        --         local close_button = root:AddChild(ImageButton(
+        --             "images/book/book_of_gods_and_demons.xml",
+        --             "start.tex",
+        --             "start.tex",
+        --             "start.tex",
+        --             "start.tex",
+        --             "start.tex"
+        --         ))
+        --         close_button:SetScale(main_scale,main_scale,main_scale)
+        --         close_button:SetOnDown(function()
+        --             ThePlayer.replica.bogd_com_rpc_event:PushEvent("bogd_event.book_cmd_start")
+        --         end)
+        --         close_button:SetPosition(-300,0)
+        --     ------------------------------------------------------------------------------------
+        --     --- 停止修仙按钮
+        --         local close_button = root:AddChild(ImageButton(
+        --             "images/book/book_of_gods_and_demons.xml",
+        --             "stop.tex",
+        --             "stop.tex",
+        --             "stop.tex",
+        --             "stop.tex",
+        --             "stop.tex"
+        --         ))
+        --         close_button:SetScale(main_scale,main_scale,main_scale)
+        --         close_button:SetOnDown(function()
+        --             ThePlayer.replica.bogd_com_rpc_event:PushEvent("bogd_event.book_cmd_stop")
+
+        --         end)
+        --         close_button:SetPosition(300,0)
+        --     ------------------------------------------------------------------------------------
+        -- end
+    ----------------------------------------------------------------------------------------------------------------
+    --- 灵宝界面
+        ThePlayer.__test_fn = function(inst)
+
+
+
+            local front_root = ThePlayer.HUD.controls.status
+            -----------------------------------------------------------------------------
+            --- 参数表
+                local level = inst.replica.bogd_com_treasure:GetLevel()
+                local name = inst:GetDisplayName()
+                local icon_atlas,icon = inst.replica.bogd_com_treasure:GetIcon()
+                local main_scale = 0.4
+            -----------------------------------------------------------------------------
+            --- root 节点
                 local root = front_root:AddChild(Widget())
-                root:SetHAnchor(0) -- 设置原点x坐标位置，0、1、2分别对应屏幕中、左、右
-                root:SetVAnchor(0) -- 设置原点y坐标位置，0、1、2分别对应屏幕中、上、下
-                root:SetPosition(0,0)
+                root:SetHAnchor(1) -- 设置原点x坐标位置，0、1、2分别对应屏幕中、左、右
+                root:SetVAnchor(2) -- 设置原点y坐标位置，0、1、2分别对应屏幕中、上、下
+                root:SetPosition(1000,500)
                 root:MoveToBack()
                 root:SetScaleMode(SCALEMODE_FIXEDSCREEN_NONDYNAMIC) --- 缩放模式
-                local main_scale = 0.7
-            ------------------------------------------------------------------------------------
-            --- 背景
-                local bg = root:AddChild(Image())
-                bg:SetTexture("images/book/book_of_gods_and_demons.xml","background.tex")
-                bg:SetScale(main_scale,main_scale,main_scale)
+            -----------------------------------------------------------------------------
+            --- 图标
+                if icon_atlas ~= nil and icon ~= nil then
+                    local background = root:AddChild(Image(icon_atlas,icon))
+                    background:SetScale(main_scale,main_scale,main_scale)
+                end
+            -----------------------------------------------------------------------------
+            --- 名字
+                local DisplayName = root:AddChild(Text(TITLEFONT,25,"3000/3000",{ 255/255 , 255/255 ,255/255 , 1}))
+                DisplayName:SetPosition(0,45)
+                DisplayName:SetString(tostring(name))
+            -----------------------------------------------------------------------------
+            --- 等级
+                local DisplayLevel = root:AddChild(Text(TITLEFONT,25,"3000/3000",{ 0/255 , 0/255 ,0/255 , 1}))
+                DisplayLevel:SetPosition(0,0)
+                DisplayLevel:SetString("Lv."..tostring(level))
+            -----------------------------------------------------------------------------
+            --- CD 
+                local DisplayCD = root:AddChild(Text(TITLEFONT,20,"3000/3000",{ 255/255 , 255/255 ,255/255 , 1}))
+                DisplayCD:SetPosition(0,-45)
+                -- DisplayCD:SetString("CD:"..tostring(cd_time))
+                DisplayCD:Hide()
+            -----------------------------------------------------------------------------
+            --- CD
+                root.inst:ListenForEvent("treasure_hud_update",function()
+                    -- local cd_time = inst.replica.bogd_com_treasure:GetCDTime()
+                    local cd_time_left = inst.replica.bogd_com_treasure:GetCDTimeLeft()
+                    if cd_time_left > 0 then
+                        DisplayCD:Show()
+                        DisplayCD:SetString("CD : "..tostring(cd_time_left))
+                    else
+                        DisplayCD:Hide()
+                    end
+                end,inst)
+            -----------------------------------------------------------------------------
+            --- 其他显示参数
+                root.inst:ListenForEvent("update",function()
+                    level = inst.replica.bogd_com_treasure:GetLevel()
+                    DisplayLevel:SetString("Lv."..tostring(level))    
+                end)
+            -----------------------------------------------------------------------------
 
-            ------------------------------------------------------------------------------------
-            --- 关闭按钮
-                local close_button = root:AddChild(ImageButton(
-                    "images/book/book_of_gods_and_demons.xml",
-                    "close.tex",
-                    "close.tex",
-                    "close.tex",
-                    "close.tex",
-                    "close.tex"
-                ))
-                close_button:SetScale(main_scale,main_scale,main_scale)
-                close_button:SetOnDown(function()
-                    root:Kill()
-                end)
-                close_button:SetPosition(400,200)
-            ------------------------------------------------------------------------------------
-            --- 开始修仙按钮
-                local close_button = root:AddChild(ImageButton(
-                    "images/book/book_of_gods_and_demons.xml",
-                    "start.tex",
-                    "start.tex",
-                    "start.tex",
-                    "start.tex",
-                    "start.tex"
-                ))
-                close_button:SetScale(main_scale,main_scale,main_scale)
-                close_button:SetOnDown(function()
-                    ThePlayer.replica.bogd_com_rpc_event:PushEvent("bogd_event.book_cmd_start")
-                end)
-                close_button:SetPosition(-300,0)
-            ------------------------------------------------------------------------------------
-            --- 停止修仙按钮
-                local close_button = root:AddChild(ImageButton(
-                    "images/book/book_of_gods_and_demons.xml",
-                    "stop.tex",
-                    "stop.tex",
-                    "stop.tex",
-                    "stop.tex",
-                    "stop.tex"
-                ))
-                close_button:SetScale(main_scale,main_scale,main_scale)
-                close_button:SetOnDown(function()
-                    ThePlayer.replica.bogd_com_rpc_event:PushEvent("bogd_event.book_cmd_stop")
 
-                end)
-                close_button:SetPosition(300,0)
-            ------------------------------------------------------------------------------------
+
+
+            return root
         end
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")

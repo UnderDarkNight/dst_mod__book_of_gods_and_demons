@@ -245,6 +245,7 @@ nil,
             return
         end
         value = math.ceil(value) -- 向上取整
+        self.inst:PushEvent("bogd_exp_delta", {value = value})
         local current_exp = self.exp_current
         local max_exp = self.exp_max
 
