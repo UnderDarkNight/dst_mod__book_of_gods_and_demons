@@ -231,6 +231,9 @@ local bogd_com_treasure = Class(function(self, inst)
             --     self.HUD = owner.__test_fn(self.inst)
             -- end
             self.HUD = CreateHud(self.inst)
+            if self.HUD then
+                self.inst:PushEvent("treasure_hud_created",self.HUD)
+            end
         end)
         self.inst:ListenForEvent("treasure_unequipped_client",function()
             if self.HUD then

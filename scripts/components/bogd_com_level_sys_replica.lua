@@ -58,6 +58,12 @@ end)
         end
         self:EnableBroadcast()
     end
+    function bogd_com_level_sys:GetEnable()
+        if self.classified then
+            return self.classified.bogd_enable:value()
+        end
+        return false
+    end
 ---------------------------------------------------------------------------------------------------
 --- 等级锁激活
     function bogd_com_level_sys:SetLevelUpLock(flag)

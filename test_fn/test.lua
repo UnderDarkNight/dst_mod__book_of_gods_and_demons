@@ -307,72 +307,76 @@ local flg,error_code = pcall(function()
         -- end
     ----------------------------------------------------------------------------------------------------------------
     --- 灵宝界面
-        ThePlayer.__test_fn = function(inst)
+        -- ThePlayer.__test_fn = function(inst)
 
 
 
-            local front_root = ThePlayer.HUD.controls.status
-            -----------------------------------------------------------------------------
-            --- 参数表
-                local level = inst.replica.bogd_com_treasure:GetLevel()
-                local name = inst:GetDisplayName()
-                local icon_atlas,icon = inst.replica.bogd_com_treasure:GetIcon()
-                local main_scale = 0.4
-            -----------------------------------------------------------------------------
-            --- root 节点
-                local root = front_root:AddChild(Widget())
-                root:SetHAnchor(1) -- 设置原点x坐标位置，0、1、2分别对应屏幕中、左、右
-                root:SetVAnchor(2) -- 设置原点y坐标位置，0、1、2分别对应屏幕中、上、下
-                root:SetPosition(1000,500)
-                root:MoveToBack()
-                root:SetScaleMode(SCALEMODE_FIXEDSCREEN_NONDYNAMIC) --- 缩放模式
-            -----------------------------------------------------------------------------
-            --- 图标
-                if icon_atlas ~= nil and icon ~= nil then
-                    local background = root:AddChild(Image(icon_atlas,icon))
-                    background:SetScale(main_scale,main_scale,main_scale)
-                end
-            -----------------------------------------------------------------------------
-            --- 名字
-                local DisplayName = root:AddChild(Text(TITLEFONT,25,"3000/3000",{ 255/255 , 255/255 ,255/255 , 1}))
-                DisplayName:SetPosition(0,45)
-                DisplayName:SetString(tostring(name))
-            -----------------------------------------------------------------------------
-            --- 等级
-                local DisplayLevel = root:AddChild(Text(TITLEFONT,25,"3000/3000",{ 0/255 , 0/255 ,0/255 , 1}))
-                DisplayLevel:SetPosition(0,0)
-                DisplayLevel:SetString("Lv."..tostring(level))
-            -----------------------------------------------------------------------------
-            --- CD 
-                local DisplayCD = root:AddChild(Text(TITLEFONT,20,"3000/3000",{ 255/255 , 255/255 ,255/255 , 1}))
-                DisplayCD:SetPosition(0,-45)
-                -- DisplayCD:SetString("CD:"..tostring(cd_time))
-                DisplayCD:Hide()
-            -----------------------------------------------------------------------------
-            --- CD
-                root.inst:ListenForEvent("treasure_hud_update",function()
-                    -- local cd_time = inst.replica.bogd_com_treasure:GetCDTime()
-                    local cd_time_left = inst.replica.bogd_com_treasure:GetCDTimeLeft()
-                    if cd_time_left > 0 then
-                        DisplayCD:Show()
-                        DisplayCD:SetString("CD : "..tostring(cd_time_left))
-                    else
-                        DisplayCD:Hide()
-                    end
-                end,inst)
-            -----------------------------------------------------------------------------
-            --- 其他显示参数
-                root.inst:ListenForEvent("update",function()
-                    level = inst.replica.bogd_com_treasure:GetLevel()
-                    DisplayLevel:SetString("Lv."..tostring(level))    
-                end)
-            -----------------------------------------------------------------------------
+        --     local front_root = ThePlayer.HUD.controls.status
+        --     -----------------------------------------------------------------------------
+        --     --- 参数表
+        --         local level = inst.replica.bogd_com_treasure:GetLevel()
+        --         local name = inst:GetDisplayName()
+        --         local icon_atlas,icon = inst.replica.bogd_com_treasure:GetIcon()
+        --         local main_scale = 0.4
+        --     -----------------------------------------------------------------------------
+        --     --- root 节点
+        --         local root = front_root:AddChild(Widget())
+        --         root:SetHAnchor(1) -- 设置原点x坐标位置，0、1、2分别对应屏幕中、左、右
+        --         root:SetVAnchor(2) -- 设置原点y坐标位置，0、1、2分别对应屏幕中、上、下
+        --         root:SetPosition(1000,500)
+        --         root:MoveToBack()
+        --         root:SetScaleMode(SCALEMODE_FIXEDSCREEN_NONDYNAMIC) --- 缩放模式
+        --     -----------------------------------------------------------------------------
+        --     --- 图标
+        --         if icon_atlas ~= nil and icon ~= nil then
+        --             local background = root:AddChild(Image(icon_atlas,icon))
+        --             background:SetScale(main_scale,main_scale,main_scale)
+        --         end
+        --     -----------------------------------------------------------------------------
+        --     --- 名字
+        --         local DisplayName = root:AddChild(Text(TITLEFONT,25,"3000/3000",{ 255/255 , 255/255 ,255/255 , 1}))
+        --         DisplayName:SetPosition(0,45)
+        --         DisplayName:SetString(tostring(name))
+        --     -----------------------------------------------------------------------------
+        --     --- 等级
+        --         local DisplayLevel = root:AddChild(Text(TITLEFONT,25,"3000/3000",{ 0/255 , 0/255 ,0/255 , 1}))
+        --         DisplayLevel:SetPosition(0,0)
+        --         DisplayLevel:SetString("Lv."..tostring(level))
+        --     -----------------------------------------------------------------------------
+        --     --- CD 
+        --         local DisplayCD = root:AddChild(Text(TITLEFONT,20,"3000/3000",{ 255/255 , 255/255 ,255/255 , 1}))
+        --         DisplayCD:SetPosition(0,-45)
+        --         -- DisplayCD:SetString("CD:"..tostring(cd_time))
+        --         DisplayCD:Hide()
+        --     -----------------------------------------------------------------------------
+        --     --- CD
+        --         root.inst:ListenForEvent("treasure_hud_update",function()
+        --             -- local cd_time = inst.replica.bogd_com_treasure:GetCDTime()
+        --             local cd_time_left = inst.replica.bogd_com_treasure:GetCDTimeLeft()
+        --             if cd_time_left > 0 then
+        --                 DisplayCD:Show()
+        --                 DisplayCD:SetString("CD : "..tostring(cd_time_left))
+        --             else
+        --                 DisplayCD:Hide()
+        --             end
+        --         end,inst)
+        --     -----------------------------------------------------------------------------
+        --     --- 其他显示参数
+        --         root.inst:ListenForEvent("update",function()
+        --             level = inst.replica.bogd_com_treasure:GetLevel()
+        --             DisplayLevel:SetString("Lv."..tostring(level))    
+        --         end)
+        --     -----------------------------------------------------------------------------
 
 
 
 
-            return root
-        end
+        --     return root
+        -- end
+    ----------------------------------------------------------------------------------------------------------------
+    ---
+            local item = ThePlayer.components.inventory:GetEquippedItem(EQUIPSLOTS.TREASURE)
+            item:Remove()
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)
