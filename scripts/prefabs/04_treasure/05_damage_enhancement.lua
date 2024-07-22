@@ -63,43 +63,31 @@ local assets =
 --- bogd_com_treasure 组件
     local function bogd_com_treasure_setup(inst)
         inst:ListenForEvent("BOGD_OnEntityReplicated.bogd_com_treasure",function(inst, replica_com)
-        end)
-        ------------------------------------------------------
-        --- 指示圈圈
-            inst:ListenForEvent("treasure_hud_created",function(inst,HUD)
-                if not HUD then
-                    return
-                end
-                if HUD.dotted_circle == nil then
-                    HUD.dotted_circle = SpawnPrefab("bogd_sfx_dotted_circle_client")
-                    HUD.dotted_circle:PushEvent("Set",{
-                        range = 4
-                    })
-                    HUD.inst:ListenForEvent("onremove",function()
-                        HUD.dotted_circle:Remove()                            
-                    end)
-                    HUD.dotted_circle:DoPeriodicTask(FRAMES,function()
-                        if inst.replica.bogd_com_treasure:Is_CD_Started() then
-                            HUD.dotted_circle:Hide()
-                        else
-                            HUD.dotted_circle:Show()
-                            local pt = TheInput:GetWorldPosition()
-                            HUD.dotted_circle.Transform:SetPosition(pt.x,0,pt.z)
-                        end
-                    end)
-                end
-            end)
-        ------------------------------------------------------
+        end)        
 
         if TheWorld.ismastersim then
 
             inst:AddComponent("bogd_com_treasure")
-            inst.components.bogd_com_treasure:SetCDTime(10)     -- CD 时间
+            inst.components.bogd_com_treasure:SetCDTime(120)     -- CD 时间
             inst.components.bogd_com_treasure:SetIcon("images/treasure/bogd_treasure_damage_enhancement.xml","bogd_treasure_damage_enhancement.tex") -- 图标贴图
             inst.components.bogd_com_treasure:SetSpellFn(function(inst,doer,pt)  -- 技能执行
-                print("灵宝触发",pt)
-                SpawnPrefab("log").Transform:SetPosition(pt.x,0,pt.z)
-                inst.components.bogd_com_treasure:SetCDStart()
+
+                local extra_damage = 100    -- 伤害加成
+                local buff_time = 40        -- 持续时间
+
+                local fx = doer:SpawnChild("bogd_sfx_damage_enhancement")
+                fx:PushEvent("Set",{
+                    pt = Vector3(0,2.5,0),
+                    scale = Vector3(1.5,2.5,1)
+                })
+                doer.components.bogd_com_combat_extra_damage:DoDelta(extra_damage)
+                doer:DoTaskInTime(buff_time,function()
+                    fx:Remove()
+                    doer.components.bogd_com_combat_extra_damage:DoDelta(-extra_damage)
+                end)
+                if not TUNING.BOGD_DEBUGGING_MODE then
+                    inst.components.bogd_com_treasure:SetCDStart()
+                end
             end)
 
         end

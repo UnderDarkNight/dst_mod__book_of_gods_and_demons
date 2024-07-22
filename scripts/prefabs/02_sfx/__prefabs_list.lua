@@ -32,6 +32,7 @@ local prefabs_name_list = {
     "03_dotted_circle", --- 虚线圈圈
     "04_elect_shock",   --- 电击特效
     "05_green_sheild",  --- 绿色护盾
+    "06_dmg_enhancement",  --- 伤害增加 特效  emote_fx 的改装
 }
 
 
