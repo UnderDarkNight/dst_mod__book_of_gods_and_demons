@@ -62,7 +62,7 @@
                         root:SetPosition(0,0)
                         root:MoveToBack()
                         root:SetScaleMode(SCALEMODE_FIXEDSCREEN_NONDYNAMIC) --- 缩放模式
-                        local main_scale = 0.7
+                        local main_scale = 1
                     ------------------------------------------------------------------------------------
                     --- 背景
                         local bg = root:AddChild(Image())
@@ -83,10 +83,10 @@
                         close_button:SetOnDown(function()
                             root:Kill()
                         end)
-                        close_button:SetPosition(400,200)
+                        close_button:SetPosition(350,130)
                     ------------------------------------------------------------------------------------
                     --- 开始修仙按钮
-                        local close_button = root:AddChild(ImageButton(
+                        local start_button = root:AddChild(ImageButton(
                             "images/book/book_of_gods_and_demons.xml",
                             "start.tex",
                             "start.tex",
@@ -94,15 +94,15 @@
                             "start.tex",
                             "start.tex"
                         ))
-                        close_button:SetScale(main_scale,main_scale,main_scale)
-                        close_button:SetOnDown(function()
+                        start_button:SetScale(main_scale,main_scale,main_scale)
+                        start_button:SetOnDown(function()
                             ThePlayer.replica.bogd_com_rpc_event:PushEvent("bogd_event.book_cmd_start")
                             root:Kill()
                         end)
-                        close_button:SetPosition(-300,0)
+                        start_button:SetPosition(-220,130)
                     ------------------------------------------------------------------------------------
                     --- 停止修仙按钮
-                        local close_button = root:AddChild(ImageButton(
+                        local stop_button = root:AddChild(ImageButton(
                             "images/book/book_of_gods_and_demons.xml",
                             "stop.tex",
                             "stop.tex",
@@ -110,12 +110,12 @@
                             "stop.tex",
                             "stop.tex"
                         ))
-                        close_button:SetScale(main_scale,main_scale,main_scale)
-                        close_button:SetOnDown(function()
+                        stop_button:SetScale(main_scale,main_scale,main_scale)
+                        stop_button:SetOnDown(function()
                             ThePlayer.replica.bogd_com_rpc_event:PushEvent("bogd_event.book_cmd_stop")
                             root:Kill()
                         end)
-                        close_button:SetPosition(300,0)
+                        stop_button:SetPosition(200,130)
                     ------------------------------------------------------------------------------------
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
                 end)

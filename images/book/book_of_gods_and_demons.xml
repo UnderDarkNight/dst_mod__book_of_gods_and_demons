@@ -2,10 +2,11 @@
 <Atlas>
 	<Texture filename="book_of_gods_and_demons.tex" />
 	<Elements>
-		<Element name="background.tex" u1="0.15676171875" u2="0.82468359375" v2="0.999" v1="0.2949453125" variant="" />
-		<Element name="close.tex" u1="0.05422265625" u2="0.09128515625" v2="0.999" v1="0.922875" variant="" />
+		<Element name="74C9255A3292685018AE179B862F936A.tex" u1="0.001" u2="0.4599375" v2="0.8827890625" v1="0.3535390625" variant="" />
+		<Element name="background.tex" u1="0.4619375" u2="0.920875" v2="0.999" v1="0.46975" variant="" />
+		<Element name="close.tex" u1="0.05422265625" u2="0.0644296875" v2="0.9745859375" v1="0.952171875" variant="" />
 		<Element name="main.tex" u1="0.001" u2="0.05222265625" v2="0.999" v1="0.909203125" variant="" />
-		<Element name="start.tex" u1="0.001" u2="0.15476171875" v2="0.907203125" v1="0.78615625" variant="" />
-		<Element name="stop.tex" u1="0.001" u2="0.15476171875" v2="0.78415625" v1="0.663109375" variant="" />
+		<Element name="start.tex" u1="0.001" u2="0.03855078125" v2="0.907203125" v1="0.8847890625" variant="" />
+		<Element name="stop.tex" u1="0.05422265625" u2="0.0917734375" v2="0.999" v1="0.9765859375" variant="" />
 	</Elements>
 </Atlas>

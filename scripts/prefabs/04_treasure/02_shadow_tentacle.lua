@@ -16,6 +16,9 @@ local assets =
 
 }
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---
+    local DMAGE_RADIUS = 3
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- equippable 组件
     local function equippable_setup(inst)
         local function hook_IsRestricted(com)
@@ -73,7 +76,7 @@ local assets =
                 if HUD.dotted_circle == nil then
                     HUD.dotted_circle = SpawnPrefab("bogd_sfx_dotted_circle_client")
                     HUD.dotted_circle:PushEvent("Set",{
-                        range = 4
+                        range = DMAGE_RADIUS
                     })
                     HUD.inst:ListenForEvent("onremove",function()
                         HUD.dotted_circle:Remove()                            
@@ -94,12 +97,86 @@ local assets =
         if TheWorld.ismastersim then
 
             inst:AddComponent("bogd_com_treasure")
-            inst.components.bogd_com_treasure:SetCDTime(10)     -- CD 时间
+            inst.components.bogd_com_treasure:SetCDTime(5)     -- CD 时间
             inst.components.bogd_com_treasure:SetIcon("images/treasure/bogd_treasure_shadow_tentacle.xml","bogd_treasure_shadow_tentacle.tex") -- 图标贴图
             inst.components.bogd_com_treasure:SetSpellFn(function(inst,doer,pt)  -- 技能执行
-                print("灵宝触发",pt)
-                SpawnPrefab("log").Transform:SetPosition(pt.x,0,pt.z)
-                inst.components.bogd_com_treasure:SetCDStart()
+                ----------------------------------------------------------------------------------------------
+                --- 创建触须
+                    local function NoHoles(pt)
+                        return not TheWorld.Map:IsPointNearHole(pt)
+                    end
+                    local function create_tentacle(target,owner)
+                        local pt = Vector3(target.Transform:GetWorldPosition())
+                        local offset = FindWalkableOffset(pt, math.random() * TWOPI, 2, 3, false, true, NoHoles, false, true)
+                        if offset ~= nil then
+                            local tentacle = SpawnPrefab("shadowtentacle")
+                            if tentacle ~= nil then
+                                tentacle.components.combat:SetDefaultDamage(35)
+                                tentacle.components.combat:SetRange(4)
+                                tentacle.owner = owner
+                                tentacle.Transform:SetPosition(pt.x + offset.x, 0, pt.z + offset.z)
+                                tentacle.components.combat:SetTarget(target)
+                                tentacle.AnimState:SetScale(2,2,2)
+                                return tentacle
+                            end
+                        end
+                        return nil
+                    end
+                ----------------------------------------------------------------------------------------------
+                --- 
+                    local max_tentacles_num = 3  --- 最大触手数量
+                ----------------------------------------------------------------------------------------------
+                --- 寻找合适的目标
+                    local musthavetags = { "_combat" }
+                    local canthavetags = { "INLIMBO", "notarget", "noattack", "invisible", "wall", "player", "companion" }
+                    local musthaveoneoftags = {}
+                    local ents = TheSim:FindEntities(pt.x, 0, pt.z, DMAGE_RADIUS, musthavetags, canthavetags, musthaveoneoftags)
+                    local ret_targets = {}
+                    for k, temp in pairs(ents) do
+                        if temp and temp.components.combat and temp.components.combat:CanBeAttacked(doer)  then
+                            if temp.components.health and not temp.components.health:IsDead() then
+                                if #ret_targets <= max_tentacles_num then
+                                    table.insert(ret_targets,temp)
+                                end
+                            end
+                        end
+                    end
+                ----------------------------------------------------------------------------------------------
+                ---
+                    if #ret_targets <= 0 then
+                        return
+                    end
+                    local ret_tentacles = {}
+                    -- for k, temp_target in pairs(ret_targets) do
+                    --     table.insert(ret_tentacles,create_tentacle(temp_target,doer))
+                    -- end
+                    ---------------------------------------------------
+                    -- 最多创建 max_tentacles_num 个触手，如果目标数少于 max_tentacles_num 个，则多个攻击同一个
+                        if #ret_targets == max_tentacles_num then
+                            for k, temp_target in pairs(ret_targets) do
+                                table.insert(ret_tentacles,create_tentacle(temp_target,doer))
+                            end
+                        else
+                            for k, temp_target in pairs(ret_targets) do
+                                table.insert(ret_tentacles,create_tentacle(temp_target,doer))
+                            end
+                            while #ret_tentacles < max_tentacles_num do
+                                local temp_target = ret_targets[math.random(#ret_targets)]
+                                table.insert(ret_tentacles,create_tentacle(temp_target,doer))                                
+                            end
+                        end
+                    ---------------------------------------------------
+
+                    if #ret_tentacles > 0 then
+                        doer.SoundEmitter:PlaySound("dontstarve/common/shadowTentacleAttack_1")
+                        doer.SoundEmitter:PlaySound("dontstarve/common/shadowTentacleAttack_2")
+                    end
+                ----------------------------------------------------------------------------------------------
+                ---- 执行CD
+                    if not TUNING.BOGD_DEBUGGING_MODE then
+                        inst.components.bogd_com_treasure:SetCDStart()
+                    end
+                ----------------------------------------------------------------------------------------------
             end)
 
         end
