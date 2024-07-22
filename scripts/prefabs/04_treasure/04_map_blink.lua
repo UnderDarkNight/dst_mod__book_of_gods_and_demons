@@ -16,7 +16,84 @@ local assets =
 
 }
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--- 激活跳图相关的操作
+    local function unistall_replica_map_jump(inst,doer)
+        doer.replica.bogd_com_map_jumper:SetTestFn(nil)        
+    end
+    local function install_replica_map_jump(inst,doer)
+        doer.replica.bogd_com_map_jumper:SetTestFn(function(doer,pt)
+            ----------------------------------------------------------------------------------
+            --- 物品失效
+                if not inst:IsValid() then
+                    unistall_replica_map_jump(inst,doer)
+                    return false
+                end
+            ----------------------------------------------------------------------------------
+            --- 死了不能用
+                if doer:HasTag("playerghost") then
+                    return false
+                end
+            ----------------------------------------------------------------------------------
+            --- 符合条件才能用
+                if inst.replica.bogd_com_treasure:Is_CD_Started() then
+                    return false
+                end
+                return TheWorld.Map:IsAboveGroundAtPoint(pt.x,0,pt.z)
+            ----------------------------------------------------------------------------------
+        end)
+        inst:ListenForEvent("onremove",function()
+            doer.replica.bogd_com_map_jumper:SetTestFn(nil)
+        end)
+    end
+
+
+    local function map_jump_onequip(inst,doer)
+        doer.components.bogd_com_map_jumper:SetPreSpellFn(function(doer,pt)
+            doer.components.bogd_com_rpc_event:PushEvent("bogd_event.ToggleMap") -- 下发关闭地图命令
+        end)
+        doer.components.bogd_com_map_jumper:SetSpellFn(function(doer,pt)
+            ----------------------------------------------------------------------------------
+            --- 物品失效
+                if not inst:IsValid() then
+                    unistall_replica_map_jump(inst,doer)
+                    doer.components.bogd_com_map_jumper:SetPreSpellFn(nil)
+                    doer.components.bogd_com_map_jumper:SetSpellFn(nil)
+                    return
+                end
+            ----------------------------------------------------------------------------------
+            --- 执行传送
+                if doer.components.playercontroller ~= nil then
+                    doer.components.playercontroller:RemotePausePrediction(5)   --- 暂停远程预测。  --- 暂停10帧预测
+                    doer.components.playercontroller:Enable(false)
+                end
+                local function trans2pt(inst,pt)
+                    if inst.Physics then
+                        inst.Physics:Teleport(pt.x,pt.y,pt.z)
+                    else
+                        inst.Transform:SetPosition(pt.x,pt.y,pt.z)
+                    end
+                end
+                trans2pt(doer,pt)
+                doer:DoTaskInTime(0,function()
+                    if doer.components.playercontroller ~= nil then
+                        doer.components.playercontroller:Enable(true)
+                    end
+                end)
+            ----------------------------------------------------------------------------------
+            --- 让物品CD开始计时
+                inst.components.bogd_com_treasure:SetCDStart()
+            ----------------------------------------------------------------------------------
+        end)
+        install_replica_map_jump(inst,doer)
+    end
+    local function map_jump_unequip(inst,doer)
+        doer.components.bogd_com_map_jumper:SetPreSpellFn(nil)
+        doer.components.bogd_com_map_jumper:SetSpellFn(nil)
+        unistall_replica_map_jump(inst,doer)
+    end
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- equippable 组件
+
     local function equippable_setup(inst)
         local function hook_IsRestricted(com)
             com.IsRestricted = function(self,player)    --- 是否被屏蔽，return false 才能穿戴
@@ -46,6 +123,7 @@ local assets =
                 inst:DoTaskInTime(0,function()
                     inst.components.bogd_com_treasure:OnEquipped(owner)
                     inst:ListenForEvent("death", death_event_in_player,owner)
+                    map_jump_onequip(inst,owner)
                 end)
             end)
             inst.components.equippable:SetOnUnequip(function(inst, owner) --- 加载的时候会执行一次 SetOnEquip 再 SetOnUnequip，会造成崩溃
@@ -53,6 +131,7 @@ local assets =
                     inst.components.bogd_com_treasure:OnUnequipped(owner)
                     inst:Remove()  --- 脱下即消失
                     inst:RemoveEventCallback("death", death_event_in_player,owner)
+                    map_jump_unequip(inst,owner)
                 end)
             end)
             inst.components.equippable.equipslot = EQUIPSLOTS.TREASURE
@@ -65,41 +144,26 @@ local assets =
         inst:ListenForEvent("BOGD_OnEntityReplicated.bogd_com_treasure",function(inst, replica_com)
         end)
         ------------------------------------------------------
-        --- 指示圈圈
+        --- 图标创建后，往玩家身上套 函数
             inst:ListenForEvent("treasure_hud_created",function(inst,HUD)
                 if not HUD then
                     return
                 end
-                if HUD.dotted_circle == nil then
-                    HUD.dotted_circle = SpawnPrefab("bogd_sfx_dotted_circle_client")
-                    HUD.dotted_circle:PushEvent("Set",{
-                        range = 4
-                    })
-                    HUD.inst:ListenForEvent("onremove",function()
-                        HUD.dotted_circle:Remove()                            
-                    end)
-                    HUD.dotted_circle:DoPeriodicTask(FRAMES,function()
-                        if inst.replica.bogd_com_treasure:Is_CD_Started() then
-                            HUD.dotted_circle:Hide()
-                        else
-                            HUD.dotted_circle:Show()
-                            local pt = TheInput:GetWorldPosition()
-                            HUD.dotted_circle.Transform:SetPosition(pt.x,0,pt.z)
-                        end
-                    end)
-                end
+                install_replica_map_jump(inst,ThePlayer)
             end)
         ------------------------------------------------------
 
         if TheWorld.ismastersim then
 
             inst:AddComponent("bogd_com_treasure")
-            inst.components.bogd_com_treasure:SetCDTime(10)     -- CD 时间
+            local cd_time = 120
+            if TUNING.BOGD_DEBUGGING_MODE then
+                cd_time = 10
+            end
+            inst.components.bogd_com_treasure:SetCDTime(cd_time)     -- CD 时间
             inst.components.bogd_com_treasure:SetIcon("images/treasure/bogd_treasure_map_blink.xml","bogd_treasure_map_blink.tex") -- 图标贴图
             inst.components.bogd_com_treasure:SetSpellFn(function(inst,doer,pt)  -- 技能执行
-                print("灵宝触发",pt)
-                SpawnPrefab("log").Transform:SetPosition(pt.x,0,pt.z)
-                inst.components.bogd_com_treasure:SetCDStart()
+                -- inst.components.bogd_com_treasure:SetCDStart()
             end)
 
         end

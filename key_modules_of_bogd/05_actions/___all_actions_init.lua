@@ -14,3 +14,6 @@ modimport("key_modules_of_bogd/05_actions/04_sg_special_quick_eat.lua")
 
 modimport("key_modules_of_bogd/05_actions/05_sg_special_eat.lua")
 --- 慢速吃
+
+modimport("key_modules_of_bogd/05_actions/06_com_action_blink_map.lua")
+--- 地图跳跃

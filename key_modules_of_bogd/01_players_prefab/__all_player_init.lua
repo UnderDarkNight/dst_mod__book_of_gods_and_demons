@@ -29,3 +29,6 @@ modimport("key_modules_of_bogd/01_players_prefab/13_player_reroll_and_level.lua"
 
 modimport("key_modules_of_bogd/01_players_prefab/14_treasure_controller.lua")
 --- 灵宝系统
+
+modimport("key_modules_of_bogd/01_players_prefab/15_map_jumper_setup.lua")
+--- 地图跳跃
