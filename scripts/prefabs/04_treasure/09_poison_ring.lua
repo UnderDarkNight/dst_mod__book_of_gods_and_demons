@@ -24,7 +24,9 @@ local assets =
                 if not player.replica.bogd_com_level_sys:CheckCanEquipSpecialItem() then -- 没有开启修仙
                     return true
                 end
-
+                if player.replica.bogd_com_level_sys:IsDemon() then -- 魔 不能用
+                    return true
+                end
                 return false
             end
         end
@@ -94,12 +96,30 @@ local assets =
         if TheWorld.ismastersim then
 
             inst:AddComponent("bogd_com_treasure")
-            inst.components.bogd_com_treasure:SetCDTime(10)     -- CD 时间
+            inst.components.bogd_com_treasure:SetCDTime(5)     -- CD 时间
             inst.components.bogd_com_treasure:SetIcon("images/treasure/bogd_treasure_poison_ring.xml","bogd_treasure_poison_ring.tex") -- 图标贴图
             inst.components.bogd_com_treasure:SetSpellFn(function(inst,doer,pt)  -- 技能执行
-                print("灵宝触发",pt)
-                SpawnPrefab("log").Transform:SetPosition(pt.x,0,pt.z)
-                inst.components.bogd_com_treasure:SetCDStart()
+
+                local fx = SpawnPrefab("sporecloud")
+                fx.Transform:SetPosition(pt.x,0,pt.z)
+                fx.components.combat:SetDefaultDamage(10) -- 10伤害
+                ------------------------------------------------------
+                --- 玩家不受到伤害
+                    local old_IsValidTarget = fx.components.combat.IsValidTarget
+                    fx.components.combat.IsValidTarget = function(self,target,...)
+                        if target and target:HasTag("player") then
+                            return false
+                        end
+                        return old_IsValidTarget(self,target,...)
+                    end
+                ------------------------------------------------------
+                fx:DoTaskInTime(10,function()
+                    fx:FinishImmediately()
+                end)
+
+                if not TUNING.BOGD_DEBUGGING_MODE then
+                    inst.components.bogd_com_treasure:SetCDStart()
+                end
             end)
 
         end

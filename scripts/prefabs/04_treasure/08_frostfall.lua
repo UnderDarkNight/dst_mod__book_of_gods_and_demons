@@ -16,6 +16,9 @@ local assets =
 
 }
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--- 参数
+    local DAMAGE_RADIUS = 4
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- equippable 组件
     local function equippable_setup(inst)
         local function hook_IsRestricted(com)
@@ -24,7 +27,9 @@ local assets =
                 if not player.replica.bogd_com_level_sys:CheckCanEquipSpecialItem() then -- 没有开启修仙
                     return true
                 end
-
+                if player.replica.bogd_com_level_sys:IsDemon() then -- 魔 不能用
+                    return true
+                end
                 return false
             end
         end
@@ -73,7 +78,7 @@ local assets =
                 if HUD.dotted_circle == nil then
                     HUD.dotted_circle = SpawnPrefab("bogd_sfx_dotted_circle_client")
                     HUD.dotted_circle:PushEvent("Set",{
-                        range = 4
+                        range = DAMAGE_RADIUS
                     })
                     HUD.inst:ListenForEvent("onremove",function()
                         HUD.dotted_circle:Remove()                            
@@ -94,12 +99,37 @@ local assets =
         if TheWorld.ismastersim then
 
             inst:AddComponent("bogd_com_treasure")
-            inst.components.bogd_com_treasure:SetCDTime(10)     -- CD 时间
+            inst.components.bogd_com_treasure:SetCDTime(5)     -- CD 时间
             inst.components.bogd_com_treasure:SetIcon("images/treasure/bogd_treasure_frostfall.xml","bogd_treasure_frostfall.tex") -- 图标贴图
             inst.components.bogd_com_treasure:SetSpellFn(function(inst,doer,pt)  -- 技能执行
-                print("灵宝触发",pt)
-                SpawnPrefab("log").Transform:SetPosition(pt.x,0,pt.z)
-                inst.components.bogd_com_treasure:SetCDStart()
+                -- print("灵宝触发",pt)
+                -- SpawnPrefab("log").Transform:SetPosition(pt.x,0,pt.z)
+                ------------------------------------------------------------------------------------------------------------
+                --- 寻找目标
+                    local musthavetags = { "_combat" }
+                    local canthavetags = { "INLIMBO", "notarget", "noattack", "invisible", "wall", "player", "companion" }
+                    local musthaveoneoftags = {}
+                    local ents = TheSim:FindEntities(pt.x, 0, pt.z, DAMAGE_RADIUS, musthavetags, canthavetags, musthaveoneoftags)
+                    local ret_targets = {}
+                    for k, temp in pairs(ents) do
+                        if temp and temp:IsValid() and temp.components.freezable and not temp.components.freezable:IsFrozen(doer)  then
+                            table.insert(ret_targets,temp)
+                            temp.components.freezable:Freeze(5)
+                            -- 特效
+                            SpawnPrefab("glass_fx").Transform:SetPosition(temp.Transform:GetWorldPosition())
+                        end
+                    end
+                ------------------------------------------------------------------------------------------------------------
+                ---
+                    if #ret_targets == 0 then
+                        return
+                    end
+                ------------------------------------------------------------------------------------------------------------
+                --- 消耗CD
+                    if not TUNING.BOGD_DEBUGGING_MODE then
+                        inst.components.bogd_com_treasure:SetCDStart()
+                    end
+                ------------------------------------------------------------------------------------------------------------
             end)
 
         end

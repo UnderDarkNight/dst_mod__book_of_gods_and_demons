@@ -27,7 +27,9 @@ local assets =
                 if not player.replica.bogd_com_level_sys:CheckCanEquipSpecialItem() then -- 没有开启修仙
                     return true
                 end
-
+                if player.replica.bogd_com_level_sys:IsDemon() then -- 魔 不能用
+                    return true
+                end
                 return false
             end
         end

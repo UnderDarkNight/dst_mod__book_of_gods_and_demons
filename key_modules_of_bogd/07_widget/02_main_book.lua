@@ -83,7 +83,7 @@
                         close_button:SetOnDown(function()
                             root:Kill()
                         end)
-                        close_button:SetPosition(350,130)
+                        close_button:SetPosition(350,135)
                     ------------------------------------------------------------------------------------
                     --- 开始修仙按钮
                         local start_button = root:AddChild(ImageButton(
@@ -99,7 +99,7 @@
                             ThePlayer.replica.bogd_com_rpc_event:PushEvent("bogd_event.book_cmd_start")
                             root:Kill()
                         end)
-                        start_button:SetPosition(-220,130)
+                        start_button:SetPosition(-210,135)
                     ------------------------------------------------------------------------------------
                     --- 停止修仙按钮
                         local stop_button = root:AddChild(ImageButton(
@@ -115,7 +115,7 @@
                             ThePlayer.replica.bogd_com_rpc_event:PushEvent("bogd_event.book_cmd_stop")
                             root:Kill()
                         end)
-                        stop_button:SetPosition(200,130)
+                        stop_button:SetPosition(210,135)
                     ------------------------------------------------------------------------------------
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
                 end)

@@ -271,10 +271,10 @@ local flg,error_code = pcall(function()
         --         close_button:SetOnDown(function()
         --             root:Kill()
         --         end)
-        --         close_button:SetPosition(350,130)
+        --         close_button:SetPosition(350,135)
         --     ------------------------------------------------------------------------------------
         --     --- 开始修仙按钮
-        --         local close_button = root:AddChild(ImageButton(
+        --         local start_button = root:AddChild(ImageButton(
         --             "images/book/book_of_gods_and_demons.xml",
         --             "start.tex",
         --             "start.tex",
@@ -282,14 +282,14 @@ local flg,error_code = pcall(function()
         --             "start.tex",
         --             "start.tex"
         --         ))
-        --         close_button:SetScale(main_scale,main_scale,main_scale)
-        --         close_button:SetOnDown(function()
+        --         start_button:SetScale(main_scale,main_scale,main_scale)
+        --         start_button:SetOnDown(function()
         --             ThePlayer.replica.bogd_com_rpc_event:PushEvent("bogd_event.book_cmd_start")
         --         end)
-        --         close_button:SetPosition(-220,130)
+        --         start_button:SetPosition(-210,135)
         --     ------------------------------------------------------------------------------------
         --     --- 停止修仙按钮
-        --         local close_button = root:AddChild(ImageButton(
+        --         local stop_button = root:AddChild(ImageButton(
         --             "images/book/book_of_gods_and_demons.xml",
         --             "stop.tex",
         --             "stop.tex",
@@ -297,13 +297,17 @@ local flg,error_code = pcall(function()
         --             "stop.tex",
         --             "stop.tex"
         --         ))
-        --         close_button:SetScale(main_scale,main_scale,main_scale)
-        --         close_button:SetOnDown(function()
+        --         stop_button:SetScale(main_scale,main_scale,main_scale)
+        --         stop_button:SetOnDown(function()
         --             ThePlayer.replica.bogd_com_rpc_event:PushEvent("bogd_event.book_cmd_stop")
 
         --         end)
-        --         close_button:SetPosition(200,130)
+        --         stop_button:SetPosition(210,135)
         --     ------------------------------------------------------------------------------------
+
+        --     ThePlayer:DoTaskInTime(3,function()
+        --         root:Kill()
+        --     end)
         -- end
         -- ThePlayer.__test_fn()
     ----------------------------------------------------------------------------------------------------------------
@@ -388,15 +392,18 @@ local flg,error_code = pcall(function()
             -- ThePlayer.SoundEmitter:PlaySound("dontstarve/music/music_work_ruins")
             -- ThePlayer.SoundEmitter:PlaySound("dontstarve/impacts/impact_forcefield_armour_dull")
             -- ThePlayer.SoundEmitter:PlaySound("rifts3/mutated_varg/blast_pre_f17")
-            local inst = ThePlayer:SpawnChild("bogd_sfx_green_snap")
-            inst:PushEvent("Set",{
-                pt = Vector3(0,4.5,0),
-                color = Vector3(1,1,1),
-                a = 0.8,
-                MultColour_Flag = true,
-            })
+            -- local inst = ThePlayer:SpawnChild("bogd_sfx_green_snap")
+            -- inst:PushEvent("Set",{
+            --     pt = Vector3(0,4.5,0),
+            --     color = Vector3(1,1,1),
+            --     a = 0.8,
+            --     MultColour_Flag = true,
+            -- })
 
-            inst:DoTaskInTime(5,inst.Remove)
+            -- inst:DoTaskInTime(5,inst.Remove)
+    ----------------------------------------------------------------------------------------------------------------
+    ---
+            
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

@@ -2,11 +2,10 @@
 <Atlas>
 	<Texture filename="book_of_gods_and_demons.tex" />
 	<Elements>
-		<Element name="74C9255A3292685018AE179B862F936A.tex" u1="0.001" u2="0.4599375" v2="0.8827890625" v1="0.3535390625" variant="" />
-		<Element name="background.tex" u1="0.4619375" u2="0.920875" v2="0.999" v1="0.46975" variant="" />
-		<Element name="close.tex" u1="0.05422265625" u2="0.0644296875" v2="0.9745859375" v1="0.952171875" variant="" />
-		<Element name="main.tex" u1="0.001" u2="0.05222265625" v2="0.999" v1="0.909203125" variant="" />
-		<Element name="start.tex" u1="0.001" u2="0.03855078125" v2="0.907203125" v1="0.8847890625" variant="" />
-		<Element name="stop.tex" u1="0.05422265625" u2="0.0917734375" v2="0.999" v1="0.9765859375" variant="" />
+		<Element name="background.tex" u1="0.1836171875" u2="0.9843515625" v2="0.999" v1="0.002953125" variant="" />
+		<Element name="close.tex" u1="0.001" u2="0.0234140625" v2="0.999" v1="0.952171875" variant="" />
+		<Element name="main.tex" u1="0.001" u2="0.1054453125" v2="0.950171875" v1="0.768578125" variant="" />
+		<Element name="start.tex" u1="0.0254140625" u2="0.102515625" v2="0.999" v1="0.952171875" variant="" />
+		<Element name="stop.tex" u1="0.104515625" u2="0.1816171875" v2="0.999" v1="0.952171875" variant="" />
 	</Elements>
 </Atlas>
