@@ -73,7 +73,7 @@ local assets =
                 if HUD.dotted_circle == nil then
                     HUD.dotted_circle = SpawnPrefab("bogd_sfx_dotted_circle_client")
                     HUD.dotted_circle:PushEvent("Set",{
-                        range = 4
+                        range = 4.5
                     })
                     HUD.inst:ListenForEvent("onremove",function()
                         HUD.dotted_circle:Remove()                            
@@ -94,12 +94,33 @@ local assets =
         if TheWorld.ismastersim then
 
             inst:AddComponent("bogd_com_treasure")
-            inst.components.bogd_com_treasure:SetCDTime(10)     -- CD 时间
+            inst.components.bogd_com_treasure:SetCDTime(5)     -- CD 时间
             inst.components.bogd_com_treasure:SetIcon("images/treasure/bogd_treasure_meteorites.xml","bogd_treasure_meteorites.tex") -- 图标贴图
             inst.components.bogd_com_treasure:SetSpellFn(function(inst,doer,pt)  -- 技能执行
-                print("灵宝触发",pt)
-                SpawnPrefab("log").Transform:SetPosition(pt.x,0,pt.z)
-                inst.components.bogd_com_treasure:SetCDStart()
+                -- print("灵宝触发",pt)
+                -- SpawnPrefab("log").Transform:SetPosition(pt.x,0,pt.z)
+                local meteor_dmg = 35
+                inst.components.weapon:SetDamage(meteor_dmg)
+
+                for i = 0, 3, 1 do
+                    inst:DoTaskInTime(i*1.5,function()
+                        SpawnPrefab("bogd_sfx_meteor"):PushEvent("Set",{
+                            pt = pt,
+                            doattack = function(_,target)
+                                if target and target:IsValid() and target ~= doer then
+                                    if target.components.combat and target.components.health and not target.components.health:IsDead() then
+                                        target.components.combat:GetAttacked(doer,meteor_dmg,inst)
+                                    end
+                                end
+                            end
+                        })
+                    end)
+                end
+
+                if not TUNING.BOGD_DEBUGGING_MODE then
+                    inst.components.bogd_com_treasure:SetCDStart()
+                end
+
             end)
 
         end
@@ -182,6 +203,8 @@ local assets =
             inst.components.inventoryitem.atlasname = "images/inventoryimages/bogd_treasure_meteorites.xml"
         ----------------------------------------------------------------------------------------------
         --- 
+            inst:AddComponent("weapon")
+            inst.components.weapon:SetDamage(0)
         ----------------------------------------------------------------------------------------------
         MakeHauntableLaunch(inst)
 
