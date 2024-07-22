@@ -33,6 +33,7 @@ local prefabs_name_list = {
     "04_elect_shock",   --- 电击特效
     "05_green_sheild",  --- 绿色护盾
     "06_dmg_enhancement",  --- 伤害增加 特效  emote_fx 的改装
+    "07_green_snap",        --- 绿色响指
 }
 
 

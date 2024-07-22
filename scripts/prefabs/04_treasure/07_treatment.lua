@@ -16,6 +16,9 @@ local assets =
 
 }
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--- 参数
+    local DAMAGE_RADIUS = 5
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- equippable 组件
     local function equippable_setup(inst)
         local function hook_IsRestricted(com)
@@ -73,7 +76,9 @@ local assets =
                 if HUD.dotted_circle == nil then
                     HUD.dotted_circle = SpawnPrefab("bogd_sfx_dotted_circle_client")
                     HUD.dotted_circle:PushEvent("Set",{
-                        range = 4
+                        range = DAMAGE_RADIUS,
+                        -- MultColour_Flag = true,
+                        color = Vector3(0,255,0),
                     })
                     HUD.inst:ListenForEvent("onremove",function()
                         HUD.dotted_circle:Remove()                            
@@ -94,12 +99,42 @@ local assets =
         if TheWorld.ismastersim then
 
             inst:AddComponent("bogd_com_treasure")
-            inst.components.bogd_com_treasure:SetCDTime(10)     -- CD 时间
+            inst.components.bogd_com_treasure:SetCDTime(8)     -- CD 时间
             inst.components.bogd_com_treasure:SetIcon("images/treasure/bogd_treasure_treatment.xml","bogd_treasure_treatment.tex") -- 图标贴图
             inst.components.bogd_com_treasure:SetSpellFn(function(inst,doer,pt)  -- 技能执行
-                print("灵宝触发",pt)
-                SpawnPrefab("log").Transform:SetPosition(pt.x,0,pt.z)
-                inst.components.bogd_com_treasure:SetCDStart()
+                -- print("灵宝触发",pt)
+                -- SpawnPrefab("log").Transform:SetPosition(pt.x,0,pt.z)
+
+                local treatment_health = 30  -- 恢复的血量
+                local treatment_sanity = 30  -- 恢复的San
+
+                local ents = TheSim:FindEntities(pt.x, 0, pt.z, DAMAGE_RADIUS, {"player"}, {"playerghost"}, nil)
+                for k, temp_player in pairs(ents) do
+                    local fx = temp_player:SpawnChild("bogd_sfx_green_snap")
+                    fx:PushEvent("Set",{
+                        pt = Vector3(0,4.5,0),
+                        color = Vector3(1,1,1),
+                        a = 0.8,
+                        MultColour_Flag = true,
+                        fn = function()
+                            if temp_player:HasTag("playerghost") then
+                                return
+                            end
+                            if temp_player.components.health then
+                                temp_player.components.health:DoDelta(treatment_health)
+                            end
+                            if temp_player.components.sanity then
+                                temp_player.components.sanity:DoDelta(treatment_sanity)
+                            end
+                        end   
+                    })
+                end
+                if #ents == 0 then
+                    return
+                end
+                if not TUNING.BOGD_DEBUGGING_MODE then
+                    inst.components.bogd_com_treasure:SetCDStart()
+                end
             end)
 
         end

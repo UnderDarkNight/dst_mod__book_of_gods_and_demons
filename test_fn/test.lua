@@ -388,11 +388,12 @@ local flg,error_code = pcall(function()
             -- ThePlayer.SoundEmitter:PlaySound("dontstarve/music/music_work_ruins")
             -- ThePlayer.SoundEmitter:PlaySound("dontstarve/impacts/impact_forcefield_armour_dull")
             -- ThePlayer.SoundEmitter:PlaySound("rifts3/mutated_varg/blast_pre_f17")
-
-            local inst = ThePlayer:SpawnChild("bogd_sfx_damage_enhancement")
+            local inst = ThePlayer:SpawnChild("bogd_sfx_green_snap")
             inst:PushEvent("Set",{
-                pt = Vector3(0,2.5,0),
-                scale = Vector3(1.5,2.5,1)
+                pt = Vector3(0,4.5,0),
+                color = Vector3(1,1,1),
+                a = 0.8,
+                MultColour_Flag = true,
             })
 
             inst:DoTaskInTime(5,inst.Remove)

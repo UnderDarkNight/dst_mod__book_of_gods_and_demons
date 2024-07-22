@@ -17,7 +17,7 @@ local assets =
 }
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- 
-    local DMAGE_RADIUS = 3
+    local DAMAGE_RADIUS = 3
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- equippable 组件
     local function equippable_setup(inst)
@@ -80,7 +80,7 @@ local assets =
                 if HUD.dotted_circle == nil then
                     HUD.dotted_circle = SpawnPrefab("bogd_sfx_dotted_circle_client")
                     HUD.dotted_circle:PushEvent("Set",{
-                        range = DMAGE_RADIUS
+                        range = DAMAGE_RADIUS
                     })
                     HUD.inst:ListenForEvent("onremove",function()
                         HUD.dotted_circle:Remove()                            
@@ -111,7 +111,7 @@ local assets =
                     local musthavetags = { "_combat" }
                     local canthavetags = { "INLIMBO", "notarget", "noattack", "invisible", "wall", "player", "companion" }
                     local musthaveoneoftags = {}
-                    local ents = TheSim:FindEntities(pt.x, 0, pt.z, DMAGE_RADIUS, musthavetags, canthavetags, musthaveoneoftags)
+                    local ents = TheSim:FindEntities(pt.x, 0, pt.z, DAMAGE_RADIUS, musthavetags, canthavetags, musthaveoneoftags)
                     local ret_targets = {}
                     for k, temp in pairs(ents) do
                         if temp and temp.components.combat and temp.components.combat:CanBeAttacked(doer)  then
