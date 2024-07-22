@@ -63,43 +63,33 @@ local assets =
 --- bogd_com_treasure 组件
     local function bogd_com_treasure_setup(inst)
         inst:ListenForEvent("BOGD_OnEntityReplicated.bogd_com_treasure",function(inst, replica_com)
-        end)
-        ------------------------------------------------------
-        --- 指示圈圈
-            inst:ListenForEvent("treasure_hud_created",function(inst,HUD)
-                if not HUD then
-                    return
-                end
-                if HUD.dotted_circle == nil then
-                    HUD.dotted_circle = SpawnPrefab("bogd_sfx_dotted_circle_client")
-                    HUD.dotted_circle:PushEvent("Set",{
-                        range = 4
-                    })
-                    HUD.inst:ListenForEvent("onremove",function()
-                        HUD.dotted_circle:Remove()                            
-                    end)
-                    HUD.dotted_circle:DoPeriodicTask(FRAMES,function()
-                        if inst.replica.bogd_com_treasure:Is_CD_Started() then
-                            HUD.dotted_circle:Hide()
-                        else
-                            HUD.dotted_circle:Show()
-                            local pt = TheInput:GetWorldPosition()
-                            HUD.dotted_circle.Transform:SetPosition(pt.x,0,pt.z)
-                        end
-                    end)
-                end
-            end)
-        ------------------------------------------------------
+        end)        
 
         if TheWorld.ismastersim then
 
             inst:AddComponent("bogd_com_treasure")
-            inst.components.bogd_com_treasure:SetCDTime(10)     -- CD 时间
+            inst.components.bogd_com_treasure:SetCDTime(120)     -- CD 时间
             inst.components.bogd_com_treasure:SetIcon("images/treasure/bogd_treasure_magic_shield.xml","bogd_treasure_magic_shield.tex") -- 图标贴图
             inst.components.bogd_com_treasure:SetSpellFn(function(inst,doer,pt)  -- 技能执行
-                print("灵宝触发",pt)
-                SpawnPrefab("log").Transform:SetPosition(pt.x,0,pt.z)
-                inst.components.bogd_com_treasure:SetCDStart()
+                -- print("灵宝触发",pt)
+                -- SpawnPrefab("log").Transform:SetPosition(pt.x,0,pt.z)
+
+                local sheild_inst = doer:SpawnChild("bogd_sfx_green_sheild")
+                doer.components.bogd_com_combat_hook:Add(sheild_inst,function(attacker, damage, weapon, stimuli, spdamage)
+                    if damage > 0 or #spdamage > 0 then
+                        damage = 0
+                        spdamage = nil
+                        doer.SoundEmitter:PlaySound("dontstarve/impacts/impact_forcefield_armour_dull")
+                    end
+                    return damage, spdamage
+                end)
+                sheild_inst:DoTaskInTime(20,function()
+                    sheild_inst:PushEvent("close")
+                end)
+
+                if not TUNING.BOGD_DEBUGGING_MODE then
+                    inst.components.bogd_com_treasure:SetCDStart()
+                end
             end)
 
         end

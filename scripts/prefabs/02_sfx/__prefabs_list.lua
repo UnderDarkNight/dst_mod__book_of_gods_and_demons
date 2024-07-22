@@ -31,6 +31,7 @@ local prefabs_name_list = {
     "02_beam", --- 光柱
     "03_dotted_circle", --- 虚线圈圈
     "04_elect_shock",   --- 电击特效
+    "05_green_sheild",  --- 绿色护盾
 }
 
 

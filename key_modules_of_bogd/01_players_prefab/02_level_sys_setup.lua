@@ -16,6 +16,9 @@
         if inst.components.bogd_data == nil then
             inst:AddComponent("bogd_data")
         end
+        if inst.components.bogd_com_combat_hook == nil then
+            inst:AddComponent("bogd_com_combat_hook")
+        end
 
         if inst.components.bogd_com_level_sys == nil then
             inst:AddComponent("bogd_com_level_sys")
@@ -26,7 +29,13 @@
             if inst.components.combat then            
                 local old_GetAttacked = inst.components.combat.GetAttacked
                 inst.components.combat.GetAttacked = function(self,attacker, damage, weapon, stimuli, spdamage,...)
-                    damage,spdamage = self.inst.components.bogd_com_level_sys:Shield_Cost_In_Combat_GetAttacked(attacker, damage, weapon, stimuli, spdamage)
+                    ------------------------------------------------------------------------------------
+                    --- 通用屏蔽器
+                        damage,spdamage = self.inst.components.bogd_com_combat_hook:GetAttackedHooked(attacker, damage, weapon, stimuli, spdamage)
+                    ------------------------------------------------------------------------------------
+                    --- 等级护盾
+                        damage,spdamage = self.inst.components.bogd_com_level_sys:Shield_Cost_In_Combat_GetAttacked(attacker, damage, weapon, stimuli, spdamage)
+                    ------------------------------------------------------------------------------------
                     return old_GetAttacked(self,attacker, damage, weapon, stimuli, spdamage,...)
                 end
             end

@@ -19,4 +19,8 @@ AddPlayerPostInit(function(inst)
         inst:AddComponent("bogd_com_rpc_event")
     end
 
+    if inst.components.bogd_com_combat_extra_damage == nil then
+        inst:AddComponent("bogd_com_combat_extra_damage")
+    end
+
 end)

@@ -19,6 +19,11 @@ AddPlayerPostInit(function(inst)
     end
 
     ---------------------------------------------------------------------------------------------------
+    ---- 独立的伤害增加组件
+        if inst.components.bogd_com_combat_extra_damage == nil then
+            inst:AddComponent("bogd_com_combat_extra_damage")
+        end
+    ---------------------------------------------------------------------------------------------------
     ---- 倍增器
         local mult_inst = CreateEntity()
         inst:ListenForEvent("onremove",function()
@@ -52,10 +57,18 @@ AddPlayerPostInit(function(inst)
     ---------------------------------------------------------------------------------------------------
     --- hook 进官方的伤害计算函数
         local old_CalcDamage = inst.components.combat.CalcDamage
-        inst.components.combat.CalcDamage = function(...)
-            local old_ret = {old_CalcDamage(...)}
+        inst.components.combat.CalcDamage = function(self,...)
+            local old_ret = {old_CalcDamage(self,...)}
             if type(old_ret[1]) == "number" then
-                old_ret[1] = old_ret[1] + extra_damage
+                ----------------------------------------------------
+                -- 神魔等级系统的伤害加成
+                    old_ret[1] = old_ret[1] + extra_damage
+                ----------------------------------------------------
+                -- 额外的等级系统的伤害加成
+                    if self.inst.components.bogd_com_combat_extra_damage ~= nil then
+                        old_ret[1] = old_ret[1] + self.inst.components.bogd_com_combat_extra_damage:GetDamage()
+                    end
+                ----------------------------------------------------
             end
             return unpack(old_ret)
         end

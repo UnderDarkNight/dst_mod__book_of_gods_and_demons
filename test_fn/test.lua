@@ -237,75 +237,75 @@ local flg,error_code = pcall(function()
         -- front_root.test_root = root
         --------------------------------------------------------------
 
-        ThePlayer.__test_fn = function()
+        -- ThePlayer.__test_fn = function()
             
 
-            local front_root = ThePlayer.HUD
+        --     local front_root = ThePlayer.HUD
 
-            ------------------------------------------------------------------------------------
-            --- 主节点
-                local root = front_root:AddChild(Widget())
-                root:SetHAnchor(0) -- 设置原点x坐标位置，0、1、2分别对应屏幕中、左、右
-                root:SetVAnchor(0) -- 设置原点y坐标位置，0、1、2分别对应屏幕中、上、下
-                root:SetPosition(0,0)
-                root:MoveToBack()
-                root:SetScaleMode(SCALEMODE_FIXEDSCREEN_NONDYNAMIC) --- 缩放模式
-                local main_scale = 1
-            ------------------------------------------------------------------------------------
-            --- 背景
-                local bg = root:AddChild(Image())
-                bg:SetTexture("images/book/book_of_gods_and_demons.xml","background.tex")
-                bg:SetScale(main_scale,main_scale,main_scale)
+        --     ------------------------------------------------------------------------------------
+        --     --- 主节点
+        --         local root = front_root:AddChild(Widget())
+        --         root:SetHAnchor(0) -- 设置原点x坐标位置，0、1、2分别对应屏幕中、左、右
+        --         root:SetVAnchor(0) -- 设置原点y坐标位置，0、1、2分别对应屏幕中、上、下
+        --         root:SetPosition(0,0)
+        --         root:MoveToBack()
+        --         root:SetScaleMode(SCALEMODE_FIXEDSCREEN_NONDYNAMIC) --- 缩放模式
+        --         local main_scale = 1
+        --     ------------------------------------------------------------------------------------
+        --     --- 背景
+        --         local bg = root:AddChild(Image())
+        --         bg:SetTexture("images/book/book_of_gods_and_demons.xml","background.tex")
+        --         bg:SetScale(main_scale,main_scale,main_scale)
 
-            ------------------------------------------------------------------------------------
-            --- 关闭按钮
-                local close_button = root:AddChild(ImageButton(
-                    "images/book/book_of_gods_and_demons.xml",
-                    "close.tex",
-                    "close.tex",
-                    "close.tex",
-                    "close.tex",
-                    "close.tex"
-                ))
-                close_button:SetScale(main_scale,main_scale,main_scale)
-                close_button:SetOnDown(function()
-                    root:Kill()
-                end)
-                close_button:SetPosition(350,130)
-            ------------------------------------------------------------------------------------
-            --- 开始修仙按钮
-                local close_button = root:AddChild(ImageButton(
-                    "images/book/book_of_gods_and_demons.xml",
-                    "start.tex",
-                    "start.tex",
-                    "start.tex",
-                    "start.tex",
-                    "start.tex"
-                ))
-                close_button:SetScale(main_scale,main_scale,main_scale)
-                close_button:SetOnDown(function()
-                    ThePlayer.replica.bogd_com_rpc_event:PushEvent("bogd_event.book_cmd_start")
-                end)
-                close_button:SetPosition(-220,130)
-            ------------------------------------------------------------------------------------
-            --- 停止修仙按钮
-                local close_button = root:AddChild(ImageButton(
-                    "images/book/book_of_gods_and_demons.xml",
-                    "stop.tex",
-                    "stop.tex",
-                    "stop.tex",
-                    "stop.tex",
-                    "stop.tex"
-                ))
-                close_button:SetScale(main_scale,main_scale,main_scale)
-                close_button:SetOnDown(function()
-                    ThePlayer.replica.bogd_com_rpc_event:PushEvent("bogd_event.book_cmd_stop")
+        --     ------------------------------------------------------------------------------------
+        --     --- 关闭按钮
+        --         local close_button = root:AddChild(ImageButton(
+        --             "images/book/book_of_gods_and_demons.xml",
+        --             "close.tex",
+        --             "close.tex",
+        --             "close.tex",
+        --             "close.tex",
+        --             "close.tex"
+        --         ))
+        --         close_button:SetScale(main_scale,main_scale,main_scale)
+        --         close_button:SetOnDown(function()
+        --             root:Kill()
+        --         end)
+        --         close_button:SetPosition(350,130)
+        --     ------------------------------------------------------------------------------------
+        --     --- 开始修仙按钮
+        --         local close_button = root:AddChild(ImageButton(
+        --             "images/book/book_of_gods_and_demons.xml",
+        --             "start.tex",
+        --             "start.tex",
+        --             "start.tex",
+        --             "start.tex",
+        --             "start.tex"
+        --         ))
+        --         close_button:SetScale(main_scale,main_scale,main_scale)
+        --         close_button:SetOnDown(function()
+        --             ThePlayer.replica.bogd_com_rpc_event:PushEvent("bogd_event.book_cmd_start")
+        --         end)
+        --         close_button:SetPosition(-220,130)
+        --     ------------------------------------------------------------------------------------
+        --     --- 停止修仙按钮
+        --         local close_button = root:AddChild(ImageButton(
+        --             "images/book/book_of_gods_and_demons.xml",
+        --             "stop.tex",
+        --             "stop.tex",
+        --             "stop.tex",
+        --             "stop.tex",
+        --             "stop.tex"
+        --         ))
+        --         close_button:SetScale(main_scale,main_scale,main_scale)
+        --         close_button:SetOnDown(function()
+        --             ThePlayer.replica.bogd_com_rpc_event:PushEvent("bogd_event.book_cmd_stop")
 
-                end)
-                close_button:SetPosition(200,130)
-            ------------------------------------------------------------------------------------
-        end
-        ThePlayer.__test_fn()
+        --         end)
+        --         close_button:SetPosition(200,130)
+        --     ------------------------------------------------------------------------------------
+        -- end
+        -- ThePlayer.__test_fn()
     ----------------------------------------------------------------------------------------------------------------
     --- 灵宝界面
         -- ThePlayer.__test_fn = function(inst)
@@ -383,6 +383,12 @@ local flg,error_code = pcall(function()
             -- ThePlayer.components.bogd_com_level_sys:OnBecomeHuman()
 
             -- print(ThePlayer.replica.bogd_com_level_sys:GetBodyType())
+    ----------------------------------------------------------------------------------------------------------------
+    ---
+            -- ThePlayer.SoundEmitter:PlaySound("dontstarve/music/music_work_ruins")
+            ThePlayer.SoundEmitter:PlaySound("dontstarve/impacts/impact_forcefield_armour_dull")
+                    -- ThePlayer.SoundEmitter:PlaySound("rifts3/mutated_varg/blast_pre_f17")
+
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

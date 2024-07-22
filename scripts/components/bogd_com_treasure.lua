@@ -149,9 +149,11 @@ nil,
         end
     end
     function bogd_com_treasure:CastSpell(doer,pt)
-        if self.spell_fn and not doer:HasTag("playerghost") then
-            self.spell_fn(self.inst,doer,pt)
-        end
+        self.inst:DoTaskInTime(0,function()            
+            if self.spell_fn and not doer:HasTag("playerghost") and not self.cd_started then
+                self.spell_fn(self.inst,doer,pt)
+            end
+        end)
     end
 ------------------------------------------------------------------------
 -- level 相关
