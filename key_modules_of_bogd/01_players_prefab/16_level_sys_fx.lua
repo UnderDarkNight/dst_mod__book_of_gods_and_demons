@@ -12,7 +12,7 @@
 
         inst:ListenForEvent("bogd_become_god",function()
             local x,y,z = inst.Transform:GetWorldPosition()
-            -- SpawnPrefab("moonpulse_fx").Transform:SetPosition(x,y,z)
+            SpawnPrefab("moonpulse_fx").Transform:SetPosition(x,y,z)
             -- SpawnPrefab("cavehole_flick").Transform:SetPosition(x,y,z)
             SpawnPrefab("moon_geyser_explode").Transform:SetPosition(x,y,z)
         end)

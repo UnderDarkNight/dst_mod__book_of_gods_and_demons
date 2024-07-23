@@ -80,7 +80,7 @@ local function fn()
     --------------------------------------------------------------------------
     -- 叠堆
         inst:AddComponent("stackable")
-        inst.components.stackable:SetStackSize(TUNING.STACK_SIZE_TINYITEM)
+        inst.components.stackable.maxsize = TUNING.STACK_SIZE_TINYITEM
     --------------------------------------------------------------------------
     -- 可烧毁
         inst:AddComponent("fuel")

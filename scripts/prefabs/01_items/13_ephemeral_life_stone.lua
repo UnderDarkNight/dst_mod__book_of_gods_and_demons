@@ -47,8 +47,10 @@ local function fn()
     inst.components.inventoryitem.imagename = prefab_name
     inst.components.inventoryitem.atlasname = "images/inventoryimages/"..prefab_name..".xml"
 
-    --------------------------------------------------------------------------
-
+    --------------------------------------------------------------------------    
+    -- 叠堆
+        inst:AddComponent("stackable")
+        inst.components.stackable.maxsize = TUNING.STACK_SIZE_TINYITEM        
     --------------------------------------------------------------------------
 
     MakeHauntableLaunch(inst)

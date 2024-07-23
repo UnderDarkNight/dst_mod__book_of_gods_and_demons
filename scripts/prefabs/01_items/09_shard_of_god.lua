@@ -14,7 +14,28 @@
         Asset( "ATLAS", "images/inventoryimages/bogd_item_shard_of_god.xml" ),
     }
 ------------------------------------------------------------------------------------------------------
-
+--- workable setup
+    local function workable_setup(inst)
+        inst:ListenForEvent("BOGD_OnEntityReplicated.bogd_com_workable",function(inst,replica_com)
+            replica_com:SetTestFn(function(inst,doer,right_click)
+                if inst.replica.inventoryitem:IsGrandOwner(doer) then
+                    return true
+                end
+                return false            
+            end)
+            replica_com:SetSGAction("bogd_special_quick_eat")
+            replica_com:SetText(prefab_name,STRINGS.ACTIONS.EAT)
+        end)
+        if TheWorld.ismastersim then
+            inst:AddComponent("bogd_com_workable")
+            inst.components.bogd_com_workable:SetOnWorkFn(function(inst,doer)
+                inst.components.stackable:Get():Remove()
+                doer.components.bogd_com_level_sys:Shield_DoDelta(10)
+                return true
+            end)
+        end
+    end
+------------------------------------------------------------------------------------------------------
 local function fn()
 
     local inst = CreateEntity() -- 创建实体
@@ -35,6 +56,7 @@ local function fn()
 
 
     inst.entity:SetPristine()
+    workable_setup(inst)
     if not TheWorld.ismastersim then
         return inst
     end
@@ -49,7 +71,7 @@ local function fn()
     --------------------------------------------------------------------------
     -- 叠堆
         inst:AddComponent("stackable")
-        inst.components.stackable:SetStackSize(TUNING.STACK_SIZE_TINYITEM)
+        inst.components.stackable.maxsize = TUNING.STACK_SIZE_TINYITEM
     --------------------------------------------------------------------------
     -- 可烧毁
         inst:AddComponent("fuel")
