@@ -161,6 +161,10 @@ nil,
         self.level = math.clamp(num,1,self.max_level)
         self:LevelUpdate()
     end
+    function bogd_com_treasure:GetLevel()
+        return self.level
+    end
+
     function bogd_com_treasure:LevelDoDelta(num)
         local old_level = self.level
         self:SetLevel(self.level + num)

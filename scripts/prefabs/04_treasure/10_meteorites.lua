@@ -99,7 +99,9 @@ local assets =
             inst.components.bogd_com_treasure:SetSpellFn(function(inst,doer,pt)  -- 技能执行
                 -- print("灵宝触发",pt)
                 -- SpawnPrefab("log").Transform:SetPosition(pt.x,0,pt.z)
-                local meteor_dmg = 35
+
+                local level = inst.components.bogd_com_treasure:GetLevel()
+                local meteor_dmg = 35 + level
                 inst.components.weapon:SetDamage(meteor_dmg)
 
                 for i = 0, 3, 1 do

@@ -24,7 +24,9 @@ local assets =
                 if not player.replica.bogd_com_level_sys:CheckCanEquipSpecialItem() then -- 没有开启修仙
                     return true
                 end
-
+                if player.replica.bogd_com_level_sys:IsDemon() then -- 魔 不能用
+                    return true
+                end
                 return false
             end
         end
@@ -66,29 +68,29 @@ local assets =
         end)
         ------------------------------------------------------
         --- 指示圈圈
-            inst:ListenForEvent("treasure_hud_created",function(inst,HUD)
-                if not HUD then
-                    return
-                end
-                if HUD.dotted_circle == nil then
-                    HUD.dotted_circle = SpawnPrefab("bogd_sfx_dotted_circle_client")
-                    HUD.dotted_circle:PushEvent("Set",{
-                        range = 4
-                    })
-                    HUD.inst:ListenForEvent("onremove",function()
-                        HUD.dotted_circle:Remove()                            
-                    end)
-                    HUD.dotted_circle:DoPeriodicTask(FRAMES,function()
-                        if inst.replica.bogd_com_treasure:Is_CD_Started() then
-                            HUD.dotted_circle:Hide()
-                        else
-                            HUD.dotted_circle:Show()
-                            local pt = TheInput:GetWorldPosition()
-                            HUD.dotted_circle.Transform:SetPosition(pt.x,0,pt.z)
-                        end
-                    end)
-                end
-            end)
+            -- inst:ListenForEvent("treasure_hud_created",function(inst,HUD)
+            --     if not HUD then
+            --         return
+            --     end
+            --     if HUD.dotted_circle == nil then
+            --         HUD.dotted_circle = SpawnPrefab("bogd_sfx_dotted_circle_client")
+            --         HUD.dotted_circle:PushEvent("Set",{
+            --             range = 4
+            --         })
+            --         HUD.inst:ListenForEvent("onremove",function()
+            --             HUD.dotted_circle:Remove()                            
+            --         end)
+            --         HUD.dotted_circle:DoPeriodicTask(FRAMES,function()
+            --             if inst.replica.bogd_com_treasure:Is_CD_Started() then
+            --                 HUD.dotted_circle:Hide()
+            --             else
+            --                 HUD.dotted_circle:Show()
+            --                 local pt = TheInput:GetWorldPosition()
+            --                 HUD.dotted_circle.Transform:SetPosition(pt.x,0,pt.z)
+            --             end
+            --         end)
+            --     end
+            -- end)
         ------------------------------------------------------
 
         if TheWorld.ismastersim then
@@ -97,10 +99,42 @@ local assets =
             inst.components.bogd_com_treasure:SetCDTime(10)     -- CD 时间
             inst.components.bogd_com_treasure:SetIcon("images/treasure/bogd_treasure_pet_summon.xml","bogd_treasure_pet_summon.tex") -- 图标贴图
             inst.components.bogd_com_treasure:SetSpellFn(function(inst,doer,pt)  -- 技能执行
-                print("灵宝触发",pt)
-                SpawnPrefab("log").Transform:SetPosition(pt.x,0,pt.z)
-                inst.components.bogd_com_treasure:SetCDStart()
+
+                if inst.pet and inst.pet:IsValid() then
+                    inst.pet.Transform:SetPosition(pt.x,0,pt.z)
+                    inst.pet:SpawnChild("spawn_fx_tiny")
+                    return
+                end
+
+                local pet = SpawnPrefab("pigman")  -- 生成宠物
+                pet.linked_player = doer
+                pet.linked_item = inst
+
+                pet.Transform:SetPosition(pt.x,0,pt.z)
+                pet:SpawnChild("spawn_fx_tiny")
+                local debuff_name = "bogd_debuff_pet_summon"
+                while true do
+                    local debuff_inst = pet:GetDebuff(debuff_name)
+                    if debuff_inst then
+                        break
+                    end
+                    pet:AddDebuff(debuff_name,debuff_name)
+                end
+                inst.pet = pet
+
+
+
             end)
+            -------------------------------------------------------
+            --- 移除后跟着移除宠物
+                inst:ListenForEvent("onremove",function(inst)
+                    if inst.pet and inst.pet:IsValid() then
+                        inst.pet:SpawnChild("spawn_fx_tiny")
+                        inst.pet:Remove()
+                    end
+                end)
+            -------------------------------------------------------
+
 
         end
     end

@@ -107,8 +107,9 @@ local assets =
                 -- print("灵宝触发",pt)
                 -- SpawnPrefab("log").Transform:SetPosition(pt.x,0,pt.z)
 
-                local treatment_health = 30  -- 恢复的血量
-                local treatment_sanity = 30  -- 恢复的San
+                local level = inst.components.bogd_com_treasure:GetLevel()
+                local treatment_health = 30 + level  -- 恢复的血量
+                local treatment_sanity = 30 + level -- 恢复的San
 
                 local ents = TheSim:FindEntities(pt.x, 0, pt.z, DAMAGE_RADIUS, {"player"}, {"playerghost"}, nil)
                 for k, temp_player in pairs(ents) do

@@ -72,7 +72,8 @@ local assets =
             inst.components.bogd_com_treasure:SetIcon("images/treasure/bogd_treasure_damage_enhancement.xml","bogd_treasure_damage_enhancement.tex") -- 图标贴图
             inst.components.bogd_com_treasure:SetSpellFn(function(inst,doer,pt)  -- 技能执行
 
-                local extra_damage = 100    -- 伤害加成
+                local level = inst.components.bogd_com_treasure:GetLevel()
+                local extra_damage = 100 + level    -- 伤害加成
                 local buff_time = 40        -- 持续时间
 
                 local fx = doer:SpawnChild("bogd_sfx_damage_enhancement")

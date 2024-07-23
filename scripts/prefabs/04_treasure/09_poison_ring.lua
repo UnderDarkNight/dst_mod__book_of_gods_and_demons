@@ -100,9 +100,12 @@ local assets =
             inst.components.bogd_com_treasure:SetIcon("images/treasure/bogd_treasure_poison_ring.xml","bogd_treasure_poison_ring.tex") -- 图标贴图
             inst.components.bogd_com_treasure:SetSpellFn(function(inst,doer,pt)  -- 技能执行
 
+                local level = inst.components.bogd_com_treasure:GetLevel()
+                local damage = 10 + level   -- 伤害
+
                 local fx = SpawnPrefab("sporecloud")
                 fx.Transform:SetPosition(pt.x,0,pt.z)
-                fx.components.combat:SetDefaultDamage(10) -- 10伤害
+                fx.components.combat:SetDefaultDamage(damage) -- 伤害
                 ------------------------------------------------------
                 --- 玩家不受到伤害
                     local old_IsValidTarget = fx.components.combat.IsValidTarget

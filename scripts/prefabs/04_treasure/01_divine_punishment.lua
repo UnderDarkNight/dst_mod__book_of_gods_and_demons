@@ -107,6 +107,10 @@ local assets =
                 -- print("灵宝触发",pt)
                 -- SpawnPrefab("log").Transform:SetPosition(pt.x,0,pt.z)
                 ----------------------------------------------------------------------------------------------
+                --- 
+                    local level = inst.components.bogd_com_treasure:GetLevel()
+                    local damage = 100 + 100 * level
+                ----------------------------------------------------------------------------------------------
                 --- 寻找合适的目标
                     local musthavetags = { "_combat" }
                     local canthavetags = { "INLIMBO", "notarget", "noattack", "invisible", "wall", "player", "companion" }
@@ -123,7 +127,7 @@ local assets =
                     local fx = SpawnPrefab("lightning")
                     fx.Transform:SetPosition(pt.x,0,pt.z)
                     for k, temp in ipairs(ret_targets) do
-                        temp.components.combat:GetAttacked(doer, 100, inst)
+                        temp.components.combat:GetAttacked(doer, damage, inst)
                         -- print("attacked",temp)
                         -- doer.components.combat:DoAttack(temp,inst)
                         SpawnPrefab("bogd_sfx_elect_shock"):PushEvent("Set",{

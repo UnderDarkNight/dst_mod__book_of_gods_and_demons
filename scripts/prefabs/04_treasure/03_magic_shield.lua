@@ -73,23 +73,30 @@ local assets =
             inst.components.bogd_com_treasure:SetSpellFn(function(inst,doer,pt)  -- 技能执行
                 -- print("灵宝触发",pt)
                 -- SpawnPrefab("log").Transform:SetPosition(pt.x,0,pt.z)
-
-                local sheild_inst = doer:SpawnChild("bogd_sfx_green_sheild")
-                doer.components.bogd_com_combat_hook:Add(sheild_inst,function(attacker, damage, weapon, stimuli, spdamage)
-                    if damage > 0 or #spdamage > 0 then
-                        damage = 0
-                        spdamage = nil
-                        doer.SoundEmitter:PlaySound("dontstarve/impacts/impact_forcefield_armour_dull")
+                ------------------------------------------------------------------------------------------------------
+                --- 参数
+                    local level = inst.components.bogd_com_treasure:GetLevel()
+                    local time = 20 + level
+                ------------------------------------------------------------------------------------------------------
+                ---
+                    local sheild_inst = doer:SpawnChild("bogd_sfx_green_sheild")
+                    doer.components.bogd_com_combat_hook:Add(sheild_inst,function(attacker, damage, weapon, stimuli, spdamage)
+                        if damage > 0 or #spdamage > 0 then
+                            damage = 0
+                            spdamage = nil
+                            doer.SoundEmitter:PlaySound("dontstarve/impacts/impact_forcefield_armour_dull")
+                        end
+                        return damage, spdamage
+                    end)
+                    sheild_inst:DoTaskInTime(time,function()
+                        sheild_inst:PushEvent("close")
+                    end)
+                ------------------------------------------------------------------------------------------------------
+                --- CD
+                    if not TUNING.BOGD_DEBUGGING_MODE then
+                        inst.components.bogd_com_treasure:SetCDStart()
                     end
-                    return damage, spdamage
-                end)
-                sheild_inst:DoTaskInTime(20,function()
-                    sheild_inst:PushEvent("close")
-                end)
-
-                if not TUNING.BOGD_DEBUGGING_MODE then
-                    inst.components.bogd_com_treasure:SetCDStart()
-                end
+                ------------------------------------------------------------------------------------------------------
             end)
 
         end

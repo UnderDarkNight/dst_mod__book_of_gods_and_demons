@@ -108,13 +108,13 @@ local assets =
                     local function NoHoles(pt)
                         return not TheWorld.Map:IsPointNearHole(pt)
                     end
-                    local function create_tentacle(target,owner)
+                    local function create_tentacle(target,owner,damage)
                         local pt = Vector3(target.Transform:GetWorldPosition())
                         local offset = FindWalkableOffset(pt, math.random() * TWOPI, 2, 3, false, true, NoHoles, false, true)
                         if offset ~= nil then
                             local tentacle = SpawnPrefab("shadowtentacle")
                             if tentacle ~= nil then
-                                tentacle.components.combat:SetDefaultDamage(35)
+                                tentacle.components.combat:SetDefaultDamage(damage or 35)
                                 tentacle.components.combat:SetRange(4)
                                 tentacle.owner = owner
                                 tentacle.Transform:SetPosition(pt.x + offset.x, 0, pt.z + offset.z)
@@ -127,6 +127,8 @@ local assets =
                     end
                 ----------------------------------------------------------------------------------------------
                 --- 
+                    local level = inst.components.bogd_com_treasure:GetLevel()
+                    local damage = 35 + level                    
                     local max_tentacles_num = 3  --- 最大触手数量
                 ----------------------------------------------------------------------------------------------
                 --- 寻找合适的目标
@@ -157,15 +159,15 @@ local assets =
                     -- 最多创建 max_tentacles_num 个触手，如果目标数少于 max_tentacles_num 个，则多个攻击同一个
                         if #ret_targets == max_tentacles_num then
                             for k, temp_target in pairs(ret_targets) do
-                                table.insert(ret_tentacles,create_tentacle(temp_target,doer))
+                                table.insert(ret_tentacles,create_tentacle(temp_target,doer,damage))
                             end
                         else
                             for k, temp_target in pairs(ret_targets) do
-                                table.insert(ret_tentacles,create_tentacle(temp_target,doer))
+                                table.insert(ret_tentacles,create_tentacle(temp_target,doer,damage))
                             end
                             while #ret_tentacles < max_tentacles_num do
                                 local temp_target = ret_targets[math.random(#ret_targets)]
-                                table.insert(ret_tentacles,create_tentacle(temp_target,doer))                                
+                                table.insert(ret_tentacles,create_tentacle(temp_target,doer,damage))                                
                             end
                         end
                     ---------------------------------------------------
