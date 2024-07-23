@@ -20,6 +20,9 @@ local assets =
             replica_com:SetText("bogd_treasure_lv_up",STRINGS.ACTIONS.BUNDLE)
             replica_com:SetTestFn(function(inst,doer,right_click)
                 if inst.replica.inventoryitem:IsGrandOwner(doer) then
+                    if doer.replica.bogd_com_level_sys:IsHuman() then
+                        return false
+                    end
                     local item = doer.replica.inventory:GetEquippedItem(EQUIPSLOTS.TREASURE)
                     if item and item.prefab == target_prefab then
                         return true
