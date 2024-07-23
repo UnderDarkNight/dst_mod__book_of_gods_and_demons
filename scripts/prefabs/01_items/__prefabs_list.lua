@@ -36,6 +36,14 @@ local prefabs_name_list = {
     "07_great_vehicle_pill",                        -- 大乘丹
     "08_ascension_pill",                            -- 飞升丹
 
+    "09_shard_of_god",                              -- 神之碎片
+    "10_shard_of_demon",                            -- 魔之碎片
+    "11_blood_of_god",                              -- 神之血
+    "12_blood_of_demon",                            -- 魔之血
+    "13_ephemeral_life_stone",                      -- 浮生石
+
+    
+
     
 }
 

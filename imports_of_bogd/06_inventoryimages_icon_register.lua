@@ -23,6 +23,11 @@ local files_name = {
 		"bogd_item_body_integration_pill", 									--- 合体丹
 		"bogd_item_great_vehicle_pill", 									--- 大乘丹
 		"bogd_item_ascension_pill", 										--- 飞升丹
+		"bogd_item_shard_of_god", 											--- 神之碎片
+		"bogd_item_shard_of_demon", 										--- 魔之碎片
+		"bogd_item_blood_of_god", 											--- 神之血
+		"bogd_item_blood_of_demon", 										--- 魔之血
+		"bogd_item_ephemeral_life_stone",									--- 浮生石
 	---------------------------------------------------------------------------------------
 	-- 04_treasure
 		"bogd_treasure_excample", 									--- 示例灵宝

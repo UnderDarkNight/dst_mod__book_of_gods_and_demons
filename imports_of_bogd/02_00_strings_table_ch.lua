@@ -97,6 +97,31 @@ local strings = {
             ["recipe_desc"] = "大乘期圆满后飞升使用",
             ["faild"] = "这个世界无法飞升",
         },
+        ["bogd_item_shard_of_god"] = {
+            ["name"] = "神格碎片",
+            ["inspect_str"] = "神格碎片",
+            ["recipe_desc"] = "神格碎片",
+        },
+        ["bogd_item_shard_of_demon"] = {
+            ["name"] = "魔化碎片",
+            ["inspect_str"] = "魔化碎片",
+            ["recipe_desc"] = "魔化碎片",
+        },
+        ["bogd_item_blood_of_god"] = {
+            ["name"] = "神之精血",
+            ["inspect_str"] = "神之精血",
+            ["recipe_desc"] = "神之精血",
+        },
+        ["bogd_item_blood_of_demon"] = {
+            ["name"] = "魔之精血",
+            ["inspect_str"] = "魔之精血",
+            ["recipe_desc"] = "魔之精血",
+        },
+        ["bogd_item_ephemeral_life_stone"] = {
+            ["name"] = "浮生石",
+            ["inspect_str"] = "记录过我悲惨的过去，是人非人！一梦浮生~",
+            ["recipe_desc"] = "浮生石",
+        },
     --------------------------------------------------------------------
     --- 04_treasure
         ["bogd_treasure_excample"] = {

@@ -108,7 +108,31 @@ local strings = {
             ["inspect_str"] = "Used upon the completion of the Great Vehicle Stage for Ascension.",
             ["recipe_desc"] = "Used upon the completion of the Great Vehicle Stage for Ascension.",
             ["faild"] = "The world does not permit ascension.",
-
+        },
+        ["bogd_item_shard_of_god"] = {
+            ["name"] = "Shard of God",
+            ["inspect_str"] = "Shard of God",
+            ["recipe_desc"] = "Shard of God",
+        },
+        ["bogd_item_shard_of_demon"] = {
+            ["name"] = "Shard of Demon",
+            ["inspect_str"] = "Shard of Demon",
+            ["recipe_desc"] = "Shard of Demon",
+        },
+        ["bogd_item_blood_of_god"] = {
+            ["name"] = "Blood of God",
+            ["inspect_str"] = "Blood of God",
+            ["recipe_desc"] = "Blood of God",
+        },
+        ["bogd_item_blood_of_demon"] = {
+            ["name"] = "Blood of Demon",
+            ["inspect_str"] = "Blood of Demon",
+            ["recipe_desc"] = "Blood of Demon",
+        },
+        ["bogd_item_ephemeral_life_stone"] = {
+            ["name"] = "Ephemeral Life Stone",
+            ["inspect_str"] = "Having chronicled the sorrows of my past, I exist in a state beyond human or beast! A dream, fleeting and ephemeral, is this life ~",
+            ["recipe_desc"] = "Ephemeral Life Stone",
         },
     --------------------------------------------------------------------
     --- 04_treasure

@@ -93,6 +93,8 @@
                     })
                     inst.SoundEmitter:PlaySound("dontstarve/common/together/celestial_orb/active") -- 音效
                     inst.components.bogd_com_rpc_event:PushEvent("bogd_exp_bar_drop") -- 下发掉落动画
+
+                    inst.components.inventory:GiveItem(SpawnPrefab("bogd_item_ephemeral_life_stone"))
                 ------------------------------------------------------------------------------
             end
         end)
