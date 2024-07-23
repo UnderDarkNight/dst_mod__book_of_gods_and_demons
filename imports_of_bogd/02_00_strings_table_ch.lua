@@ -43,6 +43,29 @@ local strings = {
             ["breakthrough_faild"] = "突破失败",
             ["ms_playerreroll"] = "角色更换、境界跌落",
         },
+        ["level_break_through_world_annoucne"] = {
+            ["foundation_establishment"] = { -- 刚突破到筑基触发
+                [1] = { name = "天道", str = "弹丸之地，也想挣脱枷锁？愚蠢！！！！" , type = "world" },
+                [2] = { name = "神", str = "修真一途，当于天争。你压制不住他们的！！", type = "god" },
+                [3] = { name = "魔", str = "哟哟哟~让你跟我合作，弑杀天道，你非觉得可耻，真可笑~~~桀桀桀", type = "demon" },
+                [4] = { name = "神", str = "啊！！！天道！！！待我破除封印之时....啊！！啊！！！", type = "god" },
+                [5] = { name = "魔", str = "疼吧~叫吧 ~我可不怕~", type = "demon" },
+                [6] = { name = "神", str = "小友，我在天外天...等....你。", type = "god" },
+            },
+            ["spirit_infant"] = { -- 刚突破到元婴触发
+                [1] = { name = "天道", str = "想不到，遗弃孤岛，还有这般棘手！", type = "world" },
+                [2] = { name = "魔", str = "哟~可有我魔族圣子？我在炼狱等你哟~放心，我不怕天道~", type = "demon" },
+                [3] = { name = "天道", str = "遗弃之子，唾弃之地，你！也的死！", type = "world" },
+                [4] = { name = "神", str = "小友，天外天，需要你，神族需要你。", type = "god" },
+            },
+            ["ascension"] = {   -- 飞升触发
+                [1] = { name = "天道", str = "想不到，遗弃孤岛，还有这般棘手！", type = "world" },
+                [2] = { name = "魔", str = "哟~可有我魔族圣子？我在炼狱等你哟~放心，我不怕天道~", type = "demon" },
+                [3] = { name = "天道", str = "遗弃之子，唾弃之地，你！也得死！", type = "world" },
+                [4] = { name = "神", str = "小友，天外天，需要你，神族需要你。", type = "god" },
+            },
+
+        },
     --------------------------------------------------------------------
     --- 01_items
         ["bogd_item_foundation_establishment_pill"] = {

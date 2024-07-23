@@ -53,12 +53,24 @@
                     return false
                 end
 
-                doer:DoTaskInTime(0.1,function()
-                    if doer.components.talker then
-                        doer.components.talker:Say(TUNING.BOGD_FN:GetStrings(inst.prefab,"faild"))
+                -- doer:DoTaskInTime(0.1,function()
+                --     if doer.components.talker then
+                --         doer.components.talker:Say(TUNING.BOGD_FN:GetStrings(inst.prefab,"faild"))
+                --     end
+                -- end)
+                if doer.components.combat then
+                    local task = doer:DoPeriodicTask(0.3,function()
+                        doer.components.combat:GetAttacked(inst,10000)
+                    end)
+                    doer.bogd_item_ascension_pill_player_death_event = function()
+                        task:Cancel()
+                        doer:RemoveEventCallback("death",doer.bogd_item_ascension_pill_player_death_event)
+                        doer.bogd_item_ascension_pill_player_death_event = nil
                     end
-                end)
-
+                    doer:ListenForEvent("death",doer.bogd_item_ascension_pill_player_death_event)
+                end
+                doer:PushEvent("bogd_level_breakthrough_strings_display","ascension")
+                inst:Remove()
                 return true
             end)
         end

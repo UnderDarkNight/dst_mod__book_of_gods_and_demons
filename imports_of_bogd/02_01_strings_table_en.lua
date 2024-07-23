@@ -53,7 +53,28 @@ local strings = {
             ["breakthrough_succeed"] = "Breakthrough Succeed",
             ["breakthrough_faild"] = "Breakthrough Failed",
             ["ms_playerreroll"] = "Character change, resulting in a drop in cultivation realm.",
-
+        },
+        ["level_break_through_world_announce"] = {
+            ["foundation_establishment"] = { -- Triggered upon breakthrough to Foundation Establishment
+                [1] = { name = "Heavenly Dao", str = "A mere speck of land wants to break free from its shackles? Foolish!!!!!!", type = "world" },
+                [2] = { name = "God", str = "On the path of cultivation, one must contend with Heaven. You cannot suppress them!!", type = "god" },
+                [3] = { name = "Demon", str = "Ha ha ha~ Cooperate with me, to slay the Heavenly Dao, you think it's shameful, truly laughable~~~~ Muahahaha", type = "demon" },
+                [4] = { name = "God", str = "Ah!!!!! Heavenly Dao!!!!! Wait for me when I break the seal.... Ah!!!!! Ah!!!!!", type = "god" },
+                [5] = { name = "Demon", str = "Hurts~ Scream~ I'm not afraid~", type = "demon" },
+                [6] = { name = "God", str = "Young friend, I am in the Heavens Beyond... wait.... for... you.", type = "god" },
+            },
+            ["spirit_infant"] = { -- Triggered upon breakthrough to Spirit Infant
+                [1] = { name = "Heavenly Dao", str = "Never thought that on this forsaken island, there would be such a thorny problem!", type = "world" },
+                [2] = { name = "Demon", str = "Oh~ Is there my Demon Clan's Holy Son? I'm waiting for you in Hell~ Rest assured, I'm not afraid of the Heavenly Dao~", type = "demon" },
+                [3] = { name = "Heavenly Dao", str = "Child of the Forsaken, Land of Scorn, you! Must die!", type = "world" },
+                [4] = { name = "God", str = "Young friend, the Heavens Beyond need you, the Divine Race needs you.", type = "god" },
+            },
+            ["ascension"] = {   -- Triggered upon Ascension
+                [1] = { name = "Heavenly Dao", str = "Never thought that on this forsaken island, there would be such a thorny problem!", type = "world" },
+                [2] = { name = "Demon", str = "Oh~ Is there my Demon Clan's Holy Son? I'm waiting for you in Hell~ Rest assured, I'm not afraid of the Heavenly Dao~", type = "demon" },
+                [3] = { name = "Heavenly Dao", str = "Child of the Forsaken, Land of Scorn, you! Must die!", type = "world" },
+                [4] = { name = "God", str = "Young friend, the Heavens Beyond need you, the Divine Race needs you.", type = "god" },
+            },
         },
     --------------------------------------------------------------------
     --- 01_items

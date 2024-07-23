@@ -403,9 +403,9 @@ local flg,error_code = pcall(function()
             -- inst:DoTaskInTime(5,inst.Remove)
     ----------------------------------------------------------------------------------------------------------------
     ---
-        local item = ThePlayer.replica.inventory:GetEquippedItem(EQUIPSLOTS.TREASURE)
-        item:PushEvent("treasure_hud_update")
-            
+        -- local item = ThePlayer.replica.inventory:GetEquippedItem(EQUIPSLOTS.TREASURE)
+        -- item:PushEvent("treasure_hud_update")
+        ThePlayer.components.bogd_com_level_sys:Exp_DoDelta(1000000000000000)
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)
