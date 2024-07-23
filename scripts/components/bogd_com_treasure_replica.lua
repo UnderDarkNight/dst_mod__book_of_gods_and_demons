@@ -148,10 +148,10 @@
             end,inst)
         -----------------------------------------------------------------------------
         --- 其他显示参数
-            root.inst:ListenForEvent("update",function()
+            root.inst:ListenForEvent("treasure_hud_update",function()
                 level = inst.replica.bogd_com_treasure:GetLevel()
-                DisplayLevel:SetString("Lv."..tostring(level))    
-            end)
+                DisplayLevel:SetString("Lv."..tostring(level))
+            end,inst)
         -----------------------------------------------------------------------------
         return root
     end
@@ -159,7 +159,7 @@
 local bogd_com_treasure = Class(function(self, inst)
     self.inst = inst
 
-    self.level = 1
+    self.level = 0
     self.owner = nil
     
     self.cd_time = 100
@@ -183,72 +183,79 @@ local bogd_com_treasure = Class(function(self, inst)
         self.__icon = net_string(inst.GUID, "treasure_icon","treasure_dirty")
     -----------------------------------------------------------
     -- 数据同步
-        inst:ListenForEvent("treasure_dirty",function()
-            self.level = self.__level:value()
+        if not TheNet:IsDedicated() then
+            inst:ListenForEvent("treasure_dirty",function()
+                self.level = self.__level:value()
 
-            -----------------------------------------------
-            --
-                local temp_owner = self.__owner:value()
-                if temp_owner == nil or temp_owner == self.inst then
-                    self.inst:PushEvent("treasure_unequipped")
+                -----------------------------------------------
+                -- 穿/脱 装备执行
+                    local temp_owner = self.__owner:value()
+                    if temp_owner == nil or temp_owner == self.inst then
+                        self.inst:PushEvent("treasure_unequipped")
 
-                    if ThePlayer and ThePlayer.HUD and ThePlayer == self.owner then
-                        self.inst:PushEvent("treasure_unequipped_client")                        
+                        if ThePlayer and ThePlayer.HUD and ThePlayer == self.owner then
+                            self.inst:PushEvent("treasure_unequipped_client")                        
+                        end
+
+                        self.owner = nil
+
+                    elseif temp_owner and temp_owner:HasTag("player") and self.owner ~= temp_owner then
+                        self.inst:PushEvent("trueasure_equipped",temp_owner)
+                        self.owner = temp_owner
+
+                        if ThePlayer and ThePlayer.HUD and ThePlayer == temp_owner then
+                            self.inst:DoTaskInTime(0,function()
+                                self.inst:PushEvent("trueasure_equipped_client",temp_owner)                            
+                            end)
+                        end
                     end
-
-                    self.owner = nil
-
-                elseif temp_owner and temp_owner:HasTag("player") and self.owner ~= temp_owner then
-                    self.inst:PushEvent("trueasure_equipped",temp_owner)
-                    self.owner = temp_owner
-
-                    if ThePlayer and ThePlayer.HUD and ThePlayer == temp_owner then
-                        self.inst:DoTaskInTime(0,function()
-                            self.inst:PushEvent("trueasure_equipped_client",temp_owner)                            
-                        end)
+                -----------------------------------------------
+                -- cd
+                    self.cd_time = self.__cd_time:value()
+                    self.cd_time_left = self.__cd_time_left:value()
+                    local temp_cd_started = self.__cd_started:value()
+                    if self.cd_started ~= temp_cd_started and temp_cd_started == true then
+                        self.inst:PushEvent("cd_start",self.cd_time)
                     end
-                end
-            -----------------------------------------------
-            -- cd
-                self.cd_time = self.__cd_time:value()
-                self.cd_time_left = self.__cd_time_left:value()
-                local temp_cd_started = self.__cd_started:value()
-                if self.cd_started ~= temp_cd_started and temp_cd_started == true then
-                    self.inst:PushEvent("cd_start",self.cd_time)
-                end
-                self.cd_started = temp_cd_started
-            -----------------------------------------------
-            -- icon
-                self.icon_atlas = self.__icon_atlas:value()
-                self.icon = self.__icon:value()
-            -----------------------------------------------
-            -- 刷新界面
-                if ThePlayer and ThePlayer.HUD and self.HUD then
-                    self.inst:PushEvent("treasure_hud_update")
-                end
-            -----------------------------------------------
-        end)
+                    self.cd_started = temp_cd_started
+                -----------------------------------------------
+                -- icon
+                    self.icon_atlas = self.__icon_atlas:value()
+                    self.icon = self.__icon:value()
+                -----------------------------------------------
+                -- 刷新界面
+                    if ThePlayer and ThePlayer.HUD and self.HUD then
+                        self.inst:PushEvent("treasure_hud_update")
+                        print("fake error +++ treasure_hud_update")
+                    end
+                -----------------------------------------------
+            end)
+        end
     -----------------------------------------------------------
     -- UI 安装
-        self.inst:ListenForEvent("trueasure_equipped_client",function(_,owner)
-            -- if owner.__test_fn then
-            --     self.HUD = owner.__test_fn(self.inst)
-            -- end
-            self.HUD = CreateHud(self.inst)
-            if self.HUD then
-                self.inst:PushEvent("treasure_hud_created",self.HUD)
-            end
-        end)
-        self.inst:ListenForEvent("treasure_unequipped_client",function()
-            if self.HUD then
-                self.HUD:Kill()
-            end
-        end)
-        self.inst:ListenForEvent("onremove",function()
-            if self.HUD then
-                self.HUD:Kill()
-            end
-        end)
+        if not TheNet:IsDedicated() then
+
+            self.inst:ListenForEvent("trueasure_equipped_client",function(_,owner)
+                -- if owner.__test_fn then
+                --     self.HUD = owner.__test_fn(self.inst)
+                -- end
+                self.HUD = CreateHud(self.inst)
+                if self.HUD then
+                    self.inst:PushEvent("treasure_hud_created",self.HUD)
+                end
+            end)
+            self.inst:ListenForEvent("treasure_unequipped_client",function()
+                if self.HUD then
+                    self.HUD:Kill()
+                end
+            end)
+            self.inst:ListenForEvent("onremove",function()
+                if self.HUD then
+                    self.HUD:Kill()
+                end
+            end)
+
+        end
     -----------------------------------------------------------
 
 end)

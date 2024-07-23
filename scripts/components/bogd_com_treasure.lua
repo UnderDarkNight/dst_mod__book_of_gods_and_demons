@@ -53,7 +53,7 @@
 local bogd_com_treasure = Class(function(self, inst)
     self.inst = inst
 
-    self.level = 1
+    self.level = 0
     self.max_level = 100
 
     self.owner = nil
@@ -78,6 +78,7 @@ local bogd_com_treasure = Class(function(self, inst)
 end,
 nil,
 {
+    level = set_level,
     owner = set_owner,
     cd_time = set_cd_time,
     cd_started = set_cd_started,
