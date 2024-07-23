@@ -28,16 +28,16 @@ local Prefabs_addr_base = string.sub(temp_addr,1,temp_str_index2) .. "/"    --- 
 local prefabs_name_list = {
     
     "00_excample",                          --- 示例用物品
-    -- "01_divine_punishment",                 --- 灵·神罚
-    -- "02_shadow_tentacle",                   --- 灵·影鞭
-    -- "03_magic_shield",                      --- 灵·护体
+    "01_divine_punishment",                 --- 灵·神罚
+    "02_shadow_tentacle",                   --- 灵·影鞭
+    "03_magic_shield",                      --- 灵·护体
     -- "04_map_blink",                         --- 灵·缩地
-    -- "05_damage_enhancement",                --- 灵·强化
-    -- "06_pet_summon",                        --- 灵·神宠
-    -- "07_treatment",                         --- 灵·妙手
+    "05_damage_enhancement",                --- 灵·强化
+    "06_pet_summon",                        --- 灵·神宠
+    "07_treatment",                         --- 灵·妙手
     -- "08_frostfall",                         --- 灵·霜降
-    -- "09_poison_ring",                       --- 灵·霜降
-    -- "10_meteorites",                        --- 灵·天罚
+    "09_poison_ring",                       --- 灵·霜降
+    "10_meteorites",                        --- 灵·天罚
 }
 
 

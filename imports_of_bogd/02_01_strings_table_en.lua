@@ -167,6 +167,53 @@ local strings = {
             ["inspect_str"] = "Summons meteors.",
         },
     --------------------------------------------------------------------
+    -- 05_treasure_lv_up
+        ["bogd_treasure_lv_up_excample"] = {
+            ["name"] = "Essence Example",
+            ["inspect_str"] = "General Spirit Treasure upgrade item",
+            ["recipe_desc"] = "General Spirit Treasure upgrade item",
+        },
+        ["bogd_treasure_lv_up_divine_punishment"] = {
+            ["name"] = "Essence of Divine Punishment",
+            ["inspect_str"] = "Upgrades the Spirit Divine Punishment",
+            ["recipe_desc"] = "Upgrades the Spirit Divine Punishment",
+        },
+        ["bogd_treasure_lv_up_shadow_tentacle"] = {
+            ["name"] = "Essence of Shadow Tentacle",
+            ["inspect_str"] = "Upgrades the Spirit Shadow Whip",
+            ["recipe_desc"] = "Upgrades the Spirit Shadow Whip",
+        },
+        ["bogd_treasure_lv_up_magic_shield"] = {
+            ["name"] = "Essence of Magic Shield",
+            ["inspect_str"] = "Upgrades the Spirit Protective Shield",
+            ["recipe_desc"] = "Upgrades the Spirit Protective Shield",
+        },
+        ["bogd_treasure_lv_up_damage_enhancement"] = {
+            ["name"] = "Essence of Damage Enhancement",
+            ["inspect_str"] = "Upgrades the Spirit Enhancement",
+            ["recipe_desc"] = "Upgrades the Spirit Enhancement",
+        },
+        ["bogd_treasure_lv_up_pet_summon"] = {
+            ["name"] = "Essence of Pet Summoning",
+            ["inspect_str"] = "Upgrades the Spirit Divine Pet",
+            ["recipe_desc"] = "Upgrades the Spirit Divine Pet",
+        },
+        ["bogd_treasure_lv_up_treatment"] = {
+            ["name"] = "Essence of Treatment",
+            ["inspect_str"] = "Upgrades the Spirit Healing Touch",
+            ["recipe_desc"] = "Upgrades the Spirit Healing Touch",
+        },
+        ["bogd_treasure_lv_up_poison_ring"] = {
+            ["name"] = "Essence of Poison Ring",
+            ["inspect_str"] = "Upgrades the Spirit Flowing Away",
+            ["recipe_desc"] = "Upgrades the Spirit Flowing Away",
+        },
+        ["bogd_treasure_lv_up_meteorites"] = {
+            ["name"] = "Essence of Meteorites",
+            ["inspect_str"] = "Upgrades the Spirit Heavenly Punishment",
+            ["recipe_desc"] = "Upgrades the Spirit Heavenly Punishment",
+        },
+    --------------------------------------------------------------------
 }
 
 ----------------------------------------------------------------------------------------------------------------------------------------

@@ -151,6 +151,46 @@ local strings = {
             ["inspect_str"] = "通用灵宝升级物品",
             ["recipe_desc"] = "通用灵宝升级物品",
         },
+        ["bogd_treasure_lv_up_divine_punishment"] = {
+            ["name"] = "蕴·神罚",
+            ["inspect_str"] = "用来升级 灵·神罚",
+            ["recipe_desc"] = "用来升级 灵·神罚",
+        },
+        ["bogd_treasure_lv_up_shadow_tentacle"] = {
+            ["name"] = "蕴·影鞭",
+            ["inspect_str"] = "用来升级 灵·影鞭",
+            ["recipe_desc"] = "用来升级 灵·影鞭",
+        },
+        ["bogd_treasure_lv_up_magic_shield"] = {
+            ["name"] = "蕴·护体",
+            ["inspect_str"] = "用来升级 灵·护体",
+            ["recipe_desc"] = "用来升级 灵·护体",
+        },
+        ["bogd_treasure_lv_up_damage_enhancement"] = {
+            ["name"] = "蕴·强化",
+            ["inspect_str"] = "用来升级 灵·护体",
+            ["recipe_desc"] = "用来升级 灵·护体",
+        },
+        ["bogd_treasure_lv_up_pet_summon"] = {
+            ["name"] = "蕴·神宠",
+            ["inspect_str"] = "用来升级 灵·神宠",
+            ["recipe_desc"] = "用来升级 灵·神宠",
+        },
+        ["bogd_treasure_lv_up_treatment"] = {
+            ["name"] = "蕴·妙手",
+            ["inspect_str"] = "用来升级 灵·妙手",
+            ["recipe_desc"] = "用来升级 灵·妙手",
+        },
+        ["bogd_treasure_lv_up_poison_ring"] = {
+            ["name"] = "蕴·流逝",
+            ["inspect_str"] = "用来升级 灵·流逝",
+            ["recipe_desc"] = "用来升级 灵·流逝",
+        },
+        ["bogd_treasure_lv_up_meteorites"] = {
+            ["name"] = "蕴·天罚",
+            ["inspect_str"] = "用来升级 灵·天罚",
+            ["recipe_desc"] = "用来升级 灵·天罚",
+        },
     --------------------------------------------------------------------
 }
 

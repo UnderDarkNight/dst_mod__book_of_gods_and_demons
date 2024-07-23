@@ -126,6 +126,12 @@
             local DisplayLevel = root:AddChild(Text(TITLEFONT,25,"3000/3000",{ 0/255 , 0/255 ,0/255 , 1}))
             DisplayLevel:SetPosition(0,0)
             DisplayLevel:SetString("Lv."..tostring(level))
+            if inst.level_str_color ~= nil then
+                DisplayLevel:SetColour(inst.level_str_color)
+            end
+            if inst.level_str_offset then
+                DisplayLevel:SetPosition(inst.level_str_offset.x,inst.level_str_offset.y,inst.level_str_offset.z)
+            end
             root.DisplayLevel = DisplayLevel
         -----------------------------------------------------------------------------
         --- CD 

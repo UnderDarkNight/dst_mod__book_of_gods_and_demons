@@ -39,6 +39,16 @@ local files_name = {
 	---------------------------------------------------------------------------------------
 	-- 05_treasure_lv_up
 		"bogd_treasure_lv_up_excample", 									--- 示例灵宝升级
+		"bogd_treasure_lv_up_divine_punishment",							--- 蕴·神罚
+		"bogd_treasure_lv_up_shadow_tentacle",								--- 蕴·影鞭
+		"bogd_treasure_lv_up_magic_shield",									--- 蕴·护体
+		-- "bogd_treasure_lv_up_map_blink", 									--- 蕴·缩地
+		"bogd_treasure_lv_up_damage_enhancement",							--- 蕴·强化
+		"bogd_treasure_lv_up_pet_summon",									--- 蕴·神宠
+		"bogd_treasure_lv_up_treatment", 									--- 蕴·妙手
+		-- "bogd_treasure_lv_up_frostfall", 									--- 蕴·霜降
+		"bogd_treasure_lv_up_poison_ring",									--- 蕴·流逝
+		"bogd_treasure_lv_up_meteorites",									--- 蕴·天罚
 	---------------------------------------------------------------------------------------
 
 }
