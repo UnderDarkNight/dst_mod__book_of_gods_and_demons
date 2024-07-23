@@ -215,6 +215,11 @@ end)
         return self:GetBodyType() ~= "human"
     end
 ---------------------------------------------------------------------------------------------------
+--- 灵宝相关API
+    function bogd_com_level_sys:GetTreasureItem()
+        return self.inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.TREASURE)
+    end
+---------------------------------------------------------------------------------------------------
 return bogd_com_level_sys
 
 

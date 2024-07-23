@@ -60,6 +60,10 @@ local assets =
             inst.components.equippable.equipslot = EQUIPSLOTS.TREASURE
             inst.components.equippable:SetPreventUnequipping(true)  --- 避免被脱下
         end
+        ----------------------------------------------------------------------
+        --- 玩家切换神魔状态
+            inst:ListenForEvent("player_become_demon",inst.Remove)
+        ----------------------------------------------------------------------
     end
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- bogd_com_treasure 组件

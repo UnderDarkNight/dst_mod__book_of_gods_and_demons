@@ -164,7 +164,7 @@ nil,
         })
         -------------------------------------------------------------------------------------
         --- 删除灵宝
-            local treasure_item = self.inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.TREASURE)
+            local treasure_item = self:GetTreasureItem()
             if treasure_item then
                 treasure_item:Remove()
             end
@@ -379,18 +379,30 @@ nil,
         if not self:IsGod() then
             self:SetBodyType("god")
             self.inst:PushEvent("bogd_become_god")
+            local item = self:GetTreasureItem()
+            if item then
+                item:PushEvent("player_become_god")
+            end
         end
     end
     function bogd_com_level_sys:OnBecomeDemon()
         if not self:IsDemon() then
             self:SetBodyType("demon")
             self.inst:PushEvent("bogd_become_demon")
+            local item = self:GetTreasureItem()
+            if item then
+                item:PushEvent("player_become_demon")
+            end
         end
     end
     function bogd_com_level_sys:OnBecomeHuman()
         if not self:IsHuman() then
             self:SetBodyType("human")
             self.inst:PushEvent("bogd_become_human")
+            local item = self:GetTreasureItem()
+            if item then
+                item:PushEvent("player_become_human")
+            end
         end
     end
     function bogd_com_level_sys:IsGod()
@@ -401,6 +413,11 @@ nil,
     end
     function bogd_com_level_sys:IsHuman()
         return self.body_type == "human"
+    end
+---------------------------------------------------------------------------------------------------
+--- 灵宝相关API
+    function bogd_com_level_sys:GetTreasureItem()
+        return self.inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.TREASURE)
     end
 ---------------------------------------------------------------------------------------------------
 ----- onload/onsave 函数

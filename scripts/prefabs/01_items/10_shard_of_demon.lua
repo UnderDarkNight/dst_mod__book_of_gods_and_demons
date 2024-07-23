@@ -48,6 +48,10 @@ local function fn()
     inst.components.inventoryitem.atlasname = "images/inventoryimages/"..prefab_name..".xml"
 
     --------------------------------------------------------------------------
+    -- 叠堆
+        inst:AddComponent("stackable")
+        inst.components.stackable:SetStackSize(TUNING.STACK_SIZE_TINYITEM)
+    --------------------------------------------------------------------------
     -- 可烧毁
         inst:AddComponent("fuel")
         inst.components.fuel.fuelvalue = TUNING.MED_FUEL

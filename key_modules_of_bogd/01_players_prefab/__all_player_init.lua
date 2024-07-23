@@ -32,3 +32,6 @@ modimport("key_modules_of_bogd/01_players_prefab/14_treasure_controller.lua")
 
 modimport("key_modules_of_bogd/01_players_prefab/15_map_jumper_setup.lua")
 --- 地图跳跃
+
+modimport("key_modules_of_bogd/01_players_prefab/16_level_sys_fx.lua")
+--- 修仙系统的相关特效
