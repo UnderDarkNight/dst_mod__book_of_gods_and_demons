@@ -26,9 +26,7 @@ local Prefabs_addr_base = string.sub(temp_addr,1,temp_str_index2) .. "/"    --- 
 ---------------------------------------------------------------------------
 -- local Prefabs_addr_base = "scripts/prefabs/01_bogd_items/"               --- 文件夹路径
 local prefabs_name_list = {
-    "00_start_level",
-    "01_exp_debug",
-    "02_force_level_up",
+
 }
 
 
@@ -37,7 +35,9 @@ local prefabs_name_list = {
 if TUNING.BOGD_DEBUGGING_MODE == true then
     local debugging_name_list = {
 
-
+        "00_start_level",
+        "01_exp_debug",
+        "02_force_level_up",
 
     }
     for k, temp in pairs(debugging_name_list) do

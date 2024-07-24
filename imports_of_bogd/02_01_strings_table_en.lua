@@ -165,6 +165,11 @@ local strings = {
             ["inspect_str"] = "Become Demon",
             ["recipe_desc"] = "Become Demon",
         },
+        ["bogd_item_exp_pill"] = {
+            ["name"] = "Exp Pill",
+            ["inspect_str"] = "Exp Pill",
+            ["recipe_desc"] = "Get 15% - 30% Exp",
+        },
     --------------------------------------------------------------------
     --- 04_treasure
         ["bogd_treasure_excample"] = {

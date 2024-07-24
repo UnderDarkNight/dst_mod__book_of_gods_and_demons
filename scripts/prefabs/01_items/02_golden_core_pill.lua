@@ -44,6 +44,9 @@
                     if level == 29 and exp_percent == 1 then
                         return true
                     end
+                    if level >= 30 then
+                        return true
+                    end
                 end
                 return false            
             end)
@@ -56,6 +59,13 @@
                 local level = doer.replica.bogd_com_level_sys:Level_Get()
                 local exp_percent = doer.replica.bogd_com_level_sys:Exp_Get_Percent()
                 if not (level == 29 and exp_percent == 1 )then
+                    if level >= 30 then
+                        local max_exp = doer.components.bogd_com_level_sys:Exp_Max_Get()
+                        local percent = 0.02 -- 2%
+                        doer.components.bogd_com_level_sys:Exp_DoDelta(max_exp*percent)
+                        inst:Remove()
+                        return true
+                    end
                     return false
                 end
 

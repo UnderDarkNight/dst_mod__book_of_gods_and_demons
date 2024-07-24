@@ -245,3 +245,22 @@ AddRecipe2(
     {"CHARACTER","MAGIC"}
 )
 -- RemoveRecipeFromFilter("bogd_item_body_integration_pill","MODS")                       -- -- 在【模组物品】标签里移除这个。
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+---- 经验丹 二本科技合成，材料：神格碎片x10，魔化碎片x10，神之精血x3，魔化精血x3
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+AddRecipeToFilter("bogd_item_exp_pill","CHARACTER")     ---- 添加物品到目标标签
+AddRecipe2(
+    "bogd_item_exp_pill",            --  --  inst.prefab  实体名字
+    { Ingredient("bogd_item_shard_of_god", 10),Ingredient("bogd_item_shard_of_demon", 10),Ingredient("bogd_item_blood_of_god", 3),Ingredient("bogd_item_blood_of_demon", 3) }, 
+    TECH.SCIENCE_TWO, --- TECH.NONE
+    {
+        nounlock = true,
+        -- no_deconstruction = false,
+        atlas = "images/inventoryimages/bogd_item_exp_pill.xml",
+        image = "bogd_item_exp_pill.tex",
+    },
+    {"CHARACTER","MAGIC"}
+)
+-- RemoveRecipeFromFilter("bogd_item_body_integration_pill","MODS")                       -- -- 在【模组物品】标签里移除这个。

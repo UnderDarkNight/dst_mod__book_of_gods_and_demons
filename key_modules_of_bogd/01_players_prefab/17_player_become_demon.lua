@@ -33,9 +33,7 @@ AddPlayerPostInit(function(inst)
             local sanity_percent =  inst.components.sanity:GetRealPercent()
             if math.random(1000)/1000 <= sanity_percent then -- 造成暴击
                 inst.components.sanity:DoDelta(-5,true)
-                -- if TUNING.BOGD_DEBUGGING_MODE then
-                --     print("+++ 暴击 +++",math.random())
-                -- end
+                inst:SpawnChild("cavehole_flick_warn")
                 return origin_damage
             end        
         end

@@ -45,6 +45,8 @@ local prefabs_name_list = {
     "14_deification_pill",                          -- 化神丹
     "15_demonization_pill",                         -- 化魔丹
 
+    "16_exp_pill",                                  -- 经验丹
+
     
 
     

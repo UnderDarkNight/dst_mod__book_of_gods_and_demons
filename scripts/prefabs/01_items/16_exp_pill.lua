@@ -1,34 +1,25 @@
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 --[[
 
-    化神丹
+    经验丹
 
 ]]--
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 ---
-    local prefab_name = "bogd_item_soul_formation_pill"
+    local prefab_name = "bogd_item_exp_pill"
 
     local assets = {
-        Asset("ANIM", "anim/bogd_item_soul_formation_pill.zip"), 
-        Asset( "IMAGE", "images/inventoryimages/bogd_item_soul_formation_pill.tex" ),  -- 背包贴图
-        Asset( "ATLAS", "images/inventoryimages/bogd_item_soul_formation_pill.xml" ),
+        Asset("ANIM", "anim/bogd_item_exp_pill.zip"), 
+        Asset( "IMAGE", "images/inventoryimages/bogd_item_exp_pill.tex" ),  -- 背包贴图
+        Asset( "ATLAS", "images/inventoryimages/bogd_item_exp_pill.xml" ),
     }
-------------------------------------------------------------------------------------------------------
---- 
 ------------------------------------------------------------------------------------------------------
 --- workable setup
     local function workable_setup(inst)
         inst:ListenForEvent("BOGD_OnEntityReplicated.bogd_com_workable",function(inst,replica_com)
             replica_com:SetTestFn(function(inst,doer,right_click)
                 if inst.replica.inventoryitem:IsGrandOwner(doer) then
-                    local level = doer.replica.bogd_com_level_sys:Level_Get()
-                    local exp_percent = doer.replica.bogd_com_level_sys:Exp_Get_Percent()
-                    if level == 49 and exp_percent == 1 then
-                        return true
-                    end
-                    if level >= 50 then
-                        return true
-                    end
+                    return true
                 end
                 return false            
             end)
@@ -38,32 +29,11 @@
         if TheWorld.ismastersim then
             inst:AddComponent("bogd_com_workable")
             inst.components.bogd_com_workable:SetOnWorkFn(function(inst,doer)
-                local level = doer.replica.bogd_com_level_sys:Level_Get()
-                local exp_percent = doer.replica.bogd_com_level_sys:Exp_Get_Percent()
-                if not (level == 49 and exp_percent == 1 )then
-                    if level >= 50 then
-                        local max_exp = doer.components.bogd_com_level_sys:Exp_Max_Get()
-                        local percent = 0.04 -- 4%
-                        doer.components.bogd_com_level_sys:Exp_DoDelta(max_exp*percent)
-                        inst:Remove()
-                        return true
-                    end
-                    return false
-                end
+                inst.components.stackable:Get():Remove()
 
-                inst:Remove()
-                -- doer.components.bogd_com_level_sys:Level_Up_With_Lock_Break()
-
-                doer:DoTaskInTime(20,function()
-                    doer.components.bogd_com_level_sys:Level_Up_With_Lock_Break()
-                end)
-                doer:SpawnChild("bogd_sfx_terra_beam"):PushEvent("Set",{
-                    pt = Vector3(0,-1,0),
-                    end_time = 25,
-                    end_fn = function()
-                        -- print("info  beam fx end")
-                    end,
-                })
+                local max_exp = doer.components.bogd_com_level_sys:Exp_Max_Get()
+                local percent = math.random(1500,3000)/10000  -- 15% ~ 30%
+                doer.components.bogd_com_level_sys:Exp_DoDelta(max_exp*percent)
 
                 return true
             end)
@@ -79,8 +49,8 @@ local function fn()
 
     MakeInventoryPhysics(inst)
 
-    -- inst.AnimState:SetBank("bogd_item_soul_formation_pill") -- 地上动画
-    -- inst.AnimState:SetBuild("bogd_item_soul_formation_pill") -- 材质包，就是anim里的zip包
+    -- inst.AnimState:SetBank("bogd_item_exp_pill") -- 地上动画
+    -- inst.AnimState:SetBuild("bogd_item_exp_pill") -- 材质包，就是anim里的zip包
     -- inst.AnimState:PlayAnimation("idle") -- 默认播放哪个动画
     inst.AnimState:SetBank(prefab_name) -- 地上动画
     inst.AnimState:SetBuild(prefab_name) -- 材质包，就是anim里的zip包
@@ -105,8 +75,12 @@ local function fn()
 
     --------------------------------------------------------------------------
     -- 可烧毁
-        inst:AddComponent("fuel")
-        inst.components.fuel.fuelvalue = TUNING.MED_FUEL
+        -- inst:AddComponent("fuel")
+        -- inst.components.fuel.fuelvalue = TUNING.MED_FUEL
+    --------------------------------------------------------------------------
+    -- 叠堆
+        inst:AddComponent("stackable")
+        -- inst.components.stackable.maxsize = TUNING.STACK_SIZE_TINYITEM
     --------------------------------------------------------------------------
 
     MakeHauntableLaunch(inst)

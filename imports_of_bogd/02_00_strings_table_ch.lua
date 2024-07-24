@@ -155,6 +155,11 @@ local strings = {
             ["inspect_str"] = "化身成魔",
             ["recipe_desc"] = "化身成魔",
         },
+        ["bogd_item_exp_pill"] = {
+            ["name"] = "经验丹",
+            ["inspect_str"] = "经验丹",
+            ["recipe_desc"] = "获得 15% - 30% 经验",
+        },
     --------------------------------------------------------------------
     --- 04_treasure
         ["bogd_treasure_excample"] = {
