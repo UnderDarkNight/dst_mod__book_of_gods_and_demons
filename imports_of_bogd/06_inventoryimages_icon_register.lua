@@ -28,6 +28,8 @@ local files_name = {
 		"bogd_item_blood_of_god", 											--- 神之血
 		"bogd_item_blood_of_demon", 										--- 魔之血
 		"bogd_item_ephemeral_life_stone",									--- 浮生石
+		"bogd_item_deification_pill",										--- 化神丹
+		"bogd_item_demonization_pill",										--- 化魔丹
 	---------------------------------------------------------------------------------------
 	-- 04_treasure
 		"bogd_treasure_excample", 									--- 示例灵宝

@@ -29,6 +29,7 @@ local prefabs_name_list = {
     
     "01_spirit_infant_pill_debuff",     --- 元婴丹的debuff。给影怪的。
     "02_pet_summon",                    --- 给召唤出来的猪用的
+    "03_treasure_table_boss_buff",      --- 给灵宝台BOSS用的
 }
 
 

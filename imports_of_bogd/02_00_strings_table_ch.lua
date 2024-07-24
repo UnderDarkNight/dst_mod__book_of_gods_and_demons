@@ -145,6 +145,16 @@ local strings = {
             ["inspect_str"] = "记录过我悲惨的过去，是人非人！一梦浮生~",
             ["recipe_desc"] = "浮生石",
         },
+        ["bogd_item_deification_pill"] = {
+            ["name"] = "化神丹",
+            ["inspect_str"] = "化身成神",
+            ["recipe_desc"] = "化身成神",
+        },
+        ["bogd_item_demonization_pill"] = {
+            ["name"] = "化魔丹",
+            ["inspect_str"] = "化身成魔",
+            ["recipe_desc"] = "化身成魔",
+        },
     --------------------------------------------------------------------
     --- 04_treasure
         ["bogd_treasure_excample"] = {
@@ -238,6 +248,13 @@ local strings = {
             ["name"] = "蕴·天罚",
             ["inspect_str"] = "用来升级 灵·天罚，成神或成魔后才能使用",
             ["recipe_desc"] = "用来升级 灵·天罚，成神或成魔后才能使用",
+        },
+    --------------------------------------------------------------------
+    --- 06_buildings
+        ["bogd_building_treasure_table"] = {
+            ["name"] = "灵宝台",
+            ["inspect_str"] = "能获得灵宝",
+            ["boss_death"] = "灵宝台的守护BOSS已经死亡，现在可以前去拿取灵宝了",
         },
     --------------------------------------------------------------------
 }

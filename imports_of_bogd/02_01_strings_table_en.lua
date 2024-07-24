@@ -155,6 +155,16 @@ local strings = {
             ["inspect_str"] = "Having chronicled the sorrows of my past, I exist in a state beyond human or beast! A dream, fleeting and ephemeral, is this life ~",
             ["recipe_desc"] = "Ephemeral Life Stone",
         },
+        ["bogd_item_deification_pill"] = {
+            ["name"] = "Deification Pill",
+            ["inspect_str"] = "Become God",
+            ["recipe_desc"] = "Become God",
+        },
+        ["bogd_item_demonization_pill"] = {
+            ["name"] = "Demonization Pill",
+            ["inspect_str"] = "Become Demon",
+            ["recipe_desc"] = "Become Demon",
+        },
     --------------------------------------------------------------------
     --- 04_treasure
         ["bogd_treasure_excample"] = {
@@ -259,6 +269,14 @@ local strings = {
             ["recipe_desc"] = "Upgrades the Spirit Heavenly Punishment , Only usable after becoming God or Demon.",
         },
     --------------------------------------------------------------------
+    --- 06_buildings
+        ["bogd_building_treasure_table"] = {
+            ["name"] = "Treasure Table",
+            ["inspect_str"] = "Can get the Spirit Treasure",
+            ["boss_death"] = "The guardian boss of the Spirit Treasure Table has died and you can now go and get the Spirit Treasure!",
+        },
+    --------------------------------------------------------------------
+
 }
 
 ----------------------------------------------------------------------------------------------------------------------------------------

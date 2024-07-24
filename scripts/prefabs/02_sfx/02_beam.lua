@@ -213,14 +213,23 @@ local function fx()
         -------------------------------------------------------------
         --- 激光时间
             TurnOn(inst)
-            local end_time = _table.end_time or 10
-            inst:DoTaskInTime(end_time,function()
-                TurnOff(inst)
-                if _table.end_fn then
-                    _table.end_fn()
-                end
-            end)
+            local end_time = _table.end_time
+            if type(end_time) == "number" then
+                inst:DoTaskInTime(end_time,function()
+                    TurnOff(inst)
+                    if _table.end_fn then
+                        _table.end_fn()
+                    end
+                end)
+            end
         -------------------------------------------------------------
+    end)
+    
+    inst:ListenForEvent("TurnOn",function(inst,_table)
+        inst:PushEvent("Set",_table) 
+    end)
+    inst:ListenForEvent("TurnOff",function(inst,_table)
+        TurnOff(inst) 
     end)
 
     inst:DoTaskInTime(0,function()

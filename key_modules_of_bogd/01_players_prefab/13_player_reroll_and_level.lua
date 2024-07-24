@@ -21,21 +21,27 @@ AddPlayerPostInit(function(inst)
     inst:ListenForEvent("ms_playerreroll",function() --- 通过绚丽之门 重选角色
         if inst.components.bogd_com_level_sys.enable then
             local index = GetIndex(inst)
-            local level = inst.components.bogd_com_level_sys.level
+            local level = inst.components.bogd_com_level_sys:Level_Get()
+            local body_type = inst.components.bogd_com_level_sys:GetBodyType()
             level = level - 10
             if level < 1 then
                 level = 1
             end
-            TheWorld.components.bogd_data:Set(index,level)
+            TheWorld.components.bogd_data:Set(index,{
+                level = level,
+                body_type = body_type,
+            })
         end
     end)
 
     inst:DoTaskInTime(0,function() --- 角色重新生成的时候
         local index = GetIndex(inst)
-        local save_level = TheWorld.components.bogd_data:Get(index)
-        if save_level then
-            local save_level = save_level - 1
+        local save_data = TheWorld.components.bogd_data:Get(index)
+        if save_data then
+            local save_level = save_data.level - 1
+            local body_type = save_data.body_type
 
+            inst.components.bogd_com_level_sys:SetBodyType(body_type)
             inst.components.bogd_com_level_sys:SetEnable(true)
             inst.components.bogd_com_rpc_event:PushEvent("bogd_com_level_sys_enable")
             if save_level > 0 then

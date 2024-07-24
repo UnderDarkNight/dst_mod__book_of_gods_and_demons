@@ -11,6 +11,7 @@ local file_folders = {
     "03_debuffs",                                -- debuff
     "04_treasure",                               -- 灵宝
     "05_treasure_lv_up",                         -- 灵宝 升级物品
+    "06_buildings",                              -- 建筑
 
 
 }
