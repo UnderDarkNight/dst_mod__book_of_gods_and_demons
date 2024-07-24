@@ -35,3 +35,9 @@ modimport("key_modules_of_bogd/01_players_prefab/15_map_jumper_setup.lua")
 
 modimport("key_modules_of_bogd/01_players_prefab/16_level_sys_fx.lua")
 --- 修仙系统的相关特效
+
+modimport("key_modules_of_bogd/01_players_prefab/16_player_become_god.lua")
+--- 玩家成神后进行加成
+
+modimport("key_modules_of_bogd/01_players_prefab/17_player_become_demon.lua")
+--- 玩家成神后进行加成

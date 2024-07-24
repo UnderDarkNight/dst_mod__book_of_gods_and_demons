@@ -207,3 +207,41 @@ AddRecipe2(
     {"CHARACTER","MAGIC"}
 )
 -- RemoveRecipeFromFilter("bogd_item_body_integration_pill","MODS")                       -- -- 在【模组物品】标签里移除这个。
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+---- 成神丹  配方：神格碎片40，神之精血x10，浮生石x1
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+AddRecipeToFilter("bogd_item_deification_pill","CHARACTER")     ---- 添加物品到目标标签
+AddRecipe2(
+    "bogd_item_deification_pill",            --  --  inst.prefab  实体名字
+    { Ingredient("bogd_item_shard_of_god", 40),Ingredient("bogd_item_blood_of_god", 10),Ingredient("bogd_item_ephemeral_life_stone", 1) }, 
+    TECH.CELESTIAL_ONE, --- TECH.NONE
+    {
+        nounlock = true,
+        -- no_deconstruction = false,
+        atlas = "images/inventoryimages/bogd_item_deification_pill.xml",
+        image = "bogd_item_deification_pill.tex",
+    },
+    {"CHARACTER","MAGIC"}
+)
+-- RemoveRecipeFromFilter("bogd_item_body_integration_pill","MODS")                       -- -- 在【模组物品】标签里移除这个。
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+---- 成魔丹 配方：魔化碎片40，魔之精血x10，浮生石x1
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+AddRecipeToFilter("bogd_item_demonization_pill","CHARACTER")     ---- 添加物品到目标标签
+AddRecipe2(
+    "bogd_item_demonization_pill",            --  --  inst.prefab  实体名字
+    { Ingredient("bogd_item_shard_of_demon", 20),Ingredient("bogd_item_blood_of_demon", 20),Ingredient("bogd_item_ephemeral_life_stone", 1) }, 
+    TECH.CELESTIAL_ONE, --- TECH.NONE
+    {
+        nounlock = true,
+        -- no_deconstruction = false,
+        atlas = "images/inventoryimages/bogd_item_demonization_pill.xml",
+        image = "bogd_item_demonization_pill.tex",
+    },
+    {"CHARACTER","MAGIC"}
+)
+-- RemoveRecipeFromFilter("bogd_item_body_integration_pill","MODS")                       -- -- 在【模组物品】标签里移除这个。

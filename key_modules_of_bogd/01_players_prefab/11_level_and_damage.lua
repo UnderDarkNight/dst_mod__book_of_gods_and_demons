@@ -69,6 +69,11 @@ AddPlayerPostInit(function(inst)
                         old_ret[1] = old_ret[1] + self.inst.components.bogd_com_combat_extra_damage:GetDamage()
                     end
                 ----------------------------------------------------
+                --- 额外的自定义控制器伤害加成
+                    if self.inst.components.bogd_com_combat_extra_damage ~= nil then
+                        old_ret[1] = old_ret[1] + self.inst.components.bogd_com_combat_extra_damage:GetModifierDMG(old_ret[1])
+                    end
+                ----------------------------------------------------
             end
             return unpack(old_ret)
         end

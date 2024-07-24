@@ -374,6 +374,7 @@ nil,
     end
     function bogd_com_level_sys:SetBodyType(body_type)
         self.body_type = body_type
+        self.inst:PushEvent("bogd_body_type_changed")
     end
     function bogd_com_level_sys:OnBecomeGod()
         if not self:IsGod() then
@@ -507,7 +508,8 @@ nil,
             self.level_up_lock_flag = data.level_up_lock_flag
         end
         if data.body_type then
-            self.body_type = data.body_type
+            -- self.body_type = data.body_type
+            self:SetBodyType(data.body_type)
         end
         level_up_exp_init(self)
         self:ActiveOnLoadFns()
