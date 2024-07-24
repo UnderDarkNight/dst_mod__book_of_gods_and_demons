@@ -117,6 +117,22 @@
                         end)
                         stop_button:SetPosition(210,135)
                     ------------------------------------------------------------------------------------
+                    --- 二维码
+                        local qrcode_base_scale = 0.17
+                        local qrcode_scale = qrcode_base_scale * main_scale
+                        local qrcode = root:AddChild(Image())
+                        qrcode:SetTexture("images/book/book_of_gods_and_demons.xml","code.tex")
+                        qrcode:SetScale(qrcode_scale,qrcode_scale,qrcode_scale)
+                        qrcode:SetPosition(-310,-175)
+                        qrcode:SetOnGainFocus(function()
+                            qrcode:SetScale(main_scale,main_scale,main_scale)
+                            qrcode:SetPosition(-310,0)
+                        end)
+                        qrcode:SetOnLoseFocus(function()
+                            qrcode:SetScale(qrcode_scale,qrcode_scale,qrcode_scale)
+                            qrcode:SetPosition(-310,-175)
+                        end)
+                    ------------------------------------------------------------------------------------
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
                 end)
             end

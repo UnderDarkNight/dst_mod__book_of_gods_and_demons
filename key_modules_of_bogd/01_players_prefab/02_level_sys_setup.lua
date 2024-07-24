@@ -129,12 +129,14 @@
             if not inst.components.bogd_com_level_sys.enable then
                 inst.components.bogd_com_level_sys:SetEnable(true)                
                 inst.components.bogd_com_rpc_event:PushEvent("bogd_com_level_sys_enable")
+                inst.SoundEmitter:PlaySound("dontstarve/common/together/celestial_orb/active") -- 音效
             end
         end)
         inst:ListenForEvent("bogd_event.book_cmd_stop",function()
             if inst.components.bogd_com_level_sys.enable then
                 inst.components.bogd_com_level_sys:Reset()
                 inst.components.bogd_com_rpc_event:PushEvent("bogd_com_level_sys_disable")
+                inst.SoundEmitter:PlaySound("dontstarve/common/together/celestial_orb/active") -- 音效
             end
         end)
 
