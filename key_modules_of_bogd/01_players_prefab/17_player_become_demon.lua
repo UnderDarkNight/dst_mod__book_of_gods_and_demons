@@ -40,16 +40,27 @@ AddPlayerPostInit(function(inst)
         return 0
     end
 
+    local fx_task = nil
     inst:ListenForEvent("bogd_body_type_changed", function(inst)
         if inst.components.bogd_com_level_sys:IsDemon() then
             inst.components.bogd_com_combat_extra_damage:SetModifier(modifier_inst, dmg_modifier_fn)
             if inst.components.hunger then
                 inst.components.hunger.burnratemodifiers:SetModifier(modifier_inst,2)
             end
+            if fx_task == nil then                
+                fx_task = inst:DoPeriodicTask(3,function()
+                    local fx = inst:SpawnChild("shadow_teleport_in")
+                    fx.Transform:SetPosition(0,0,0)
+                end)
+            end
         else
             inst.components.bogd_com_combat_extra_damage:RemoveModifier(modifier_inst)
             if inst.components.hunger then
                 inst.components.hunger.burnratemodifiers:RemoveModifier(modifier_inst)
+            end
+            if fx_task ~= nil then                
+                fx_task:Cancel()
+                fx_task = nil
             end
         end
     end)
