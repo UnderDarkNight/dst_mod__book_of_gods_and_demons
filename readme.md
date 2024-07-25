@@ -1,3 +1,7 @@
+本MOD 名为  《神魔修仙录》
+
+
+
 前期准备：
     1、下载安装 git  （git 是工具，github是网站，是两个东西）： https://registry.npmmirror.com/-/binary/git-for-windows/v2.43.0.windows.1/Git-2.43.0-64-bit.exe
     
