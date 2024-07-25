@@ -129,7 +129,7 @@ local function OnAttached(inst,target) -- 玩家得到 debuff 的瞬间。 穿�
                     target:RestartBrain()                    
                 end)
                 target.Transform:SetPosition(linked_player.Transform:GetWorldPosition())
-                target:SpawnChild("spawn_fx_tiny")
+                target:SpawnChild("spawn_fx_medium")
             else
                 target:Remove()
             end

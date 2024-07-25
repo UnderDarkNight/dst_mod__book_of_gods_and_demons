@@ -119,7 +119,8 @@ local assets =
                 ---
                     if inst.pet and inst.pet:IsValid() then
                         inst.pet.Transform:SetPosition(pt.x,0,pt.z)
-                        inst.pet:SpawnChild("spawn_fx_tiny")
+                        -- inst.pet:SpawnChild("spawn_fx_tiny")
+                        inst.pet:SpawnChild("spawn_fx_medium")
                         return
                     end
 
@@ -128,7 +129,7 @@ local assets =
                     pet.linked_item = inst
 
                     pet.Transform:SetPosition(pt.x,0,pt.z)
-                    pet:SpawnChild("spawn_fx_tiny")
+                    pet:SpawnChild("spawn_fx_medium")
                     local debuff_name = "bogd_debuff_pet_summon"
                     while true do
                         local debuff_inst = pet:GetDebuff(debuff_name)
@@ -145,7 +146,7 @@ local assets =
             --- 移除后跟着移除宠物
                 inst:ListenForEvent("onremove",function(inst)
                     if inst.pet and inst.pet:IsValid() then
-                        inst.pet:SpawnChild("spawn_fx_tiny")
+                        inst.pet:SpawnChild("spawn_fx_medium")
                         inst.pet:Remove()
                     end
                 end)
