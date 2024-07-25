@@ -118,6 +118,11 @@ local function OnAttached(inst,target) -- 玩家得到 debuff 的瞬间。 穿�
         target.components.follower:AddLoyaltyTime(10)
         target.components.follower.maxfollowtime = 10
     -----------------------------------------------------
+    --- 死亡无任何掉落
+        if target.components.lootdropper then
+            target.components.lootdropper.DropLoot = function() end
+        end
+    -----------------------------------------------------
     --- 屏蔽跟随时间
         target.components.follower.StopFollowing = function() end
         target.components.follower.LongUpdate = function() end

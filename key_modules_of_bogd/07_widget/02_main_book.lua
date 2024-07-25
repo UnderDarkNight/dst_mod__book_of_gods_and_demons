@@ -131,6 +131,13 @@
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
                         local front_root = ThePlayer.HUD
                     ------------------------------------------------------------------------------------
+                    --- 已经打开则关闭退出
+                        if front_root.book_of_gods_and_demons then
+                            front_root.book_of_gods_and_demons:Kill()
+                            front_root.book_of_gods_and_demons = nil
+                            return
+                        end
+                    ------------------------------------------------------------------------------------
                     --- 主节点
                         local root = front_root:AddChild(Widget())
                         root:SetHAnchor(0) -- 设置原点x坐标位置，0、1、2分别对应屏幕中、左、右
@@ -158,6 +165,7 @@
                         close_button:SetScale(main_scale,main_scale,main_scale)
                         close_button:SetOnDown(function()
                             root:Kill()
+                            front_root.book_of_gods_and_demons = nil
                         end)
                         close_button:SetPosition(500,200)
                     ------------------------------------------------------------------------------------
@@ -208,6 +216,9 @@
                             qrcode:SetScale(qrcode_scale,qrcode_scale,qrcode_scale)
                             qrcode:SetPosition(460,-200)
                         end
+                    ------------------------------------------------------------------------------------
+                    --- 上关联
+                        front_root.book_of_gods_and_demons = root
                     ------------------------------------------------------------------------------------
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
                 end)

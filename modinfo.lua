@@ -171,6 +171,30 @@ priority = 100000000000000  -- MOD加载优先级 影响某些功能的兼容性
   ---
       {name = "AAAB",label = "",hover = "",options ={{description = "", data = true}},default = true,}, 
       {
+        name = "PILL_DROP_RATE",
+        label = IsChinese() and "丹药掉率" or "pill drop rate",
+        hover = IsChinese() and "丹药掉率" or "pill drop rate",
+        options = Create_Percent_Setting(0.1,1,0.1),
+        default = 0.2,
+      }, 
+      {
+        name = "SHARD_DROP_RATE",
+        label = IsChinese() and "碎片掉率" or "shard drop rate",
+        hover = IsChinese() and "碎片掉率" or "shard drop rate",
+        options = Create_Percent_Setting(0.1,1,0.1),
+        default = 0.2,
+      }, 
+      {
+        name = "BLOOD_DROP_RATE",
+        label = IsChinese() and "精血掉率" or "blood drop rate",
+        hover = IsChinese() and "精血掉率" or "blood drop rate",
+        options = Create_Percent_Setting(0.1,1,0.1),
+        default = 0.2,
+      }, 
+  ----------------------------------------------------------------------------------------------------------
+  ---
+      {name = "AAAB",label = "",hover = "",options ={{description = "", data = true}},default = true,}, 
+      {
         name = "EXP_MULT",
         label = IsChinese() and "经验倍率" or "Experience Multiplier",
         hover = IsChinese() and "经验倍率" or "Experience Multiplier",

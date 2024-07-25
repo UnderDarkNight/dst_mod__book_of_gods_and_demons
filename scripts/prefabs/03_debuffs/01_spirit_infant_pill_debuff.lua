@@ -96,6 +96,11 @@ local function OnAttached(inst,target) -- 玩家得到 debuff 的瞬间。 穿�
             end
         end)
     -----------------------------------------------------
+    --- 死亡无任何掉落
+        if target.components.lootdropper then
+            target.components.lootdropper.DropLoot = function() end
+        end
+    -----------------------------------------------------
     --- 被攻击的时候每次受到的伤害上限解除
         target.components.health:SetMaxDamageTakenPerHit(100000)
     -----------------------------------------------------
