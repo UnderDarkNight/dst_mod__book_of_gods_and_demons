@@ -96,6 +96,9 @@ local function OnAttached(inst,target) -- 玩家得到 debuff 的瞬间。 穿�
             end
         end)
     -----------------------------------------------------
+    --- 被攻击的时候每次受到的伤害上限解除
+        target.components.health:SetMaxDamageTakenPerHit(nil)
+    -----------------------------------------------------
     --- 屏蔽一些非玩家目标的API
         local old_SetTarget = target.components.combat.SetTarget
         target.components.combat.SetTarget = function(self, tar,...)
@@ -125,6 +128,9 @@ local function OnAttached(inst,target) -- 玩家得到 debuff 的瞬间。 穿�
                     inst:Remove()
                     return
                 end
+            -----------------------------------------------------
+            --- 被攻击的时候每次受到的伤害上限解除
+                target.components.health:SetMaxDamageTakenPerHit(nil)
             -----------------------------------------------------
             --- 官方的 湮灭 时间
                 target.components.timer:PauseTimer("obliviate")                
