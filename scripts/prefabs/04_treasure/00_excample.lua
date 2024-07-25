@@ -60,7 +60,7 @@ local assets =
                 if not HUD then
                     return
                 end
-                if HUD.dotted_circle == nil then
+                if HUD.dotted_circle == nil and TUNING.BOGD_CONFIG.TREASURE_INDICATOR then
                     HUD.dotted_circle = SpawnPrefab("bogd_sfx_dotted_circle_client")
                     HUD.dotted_circle:PushEvent("Set",{
                         range = 4

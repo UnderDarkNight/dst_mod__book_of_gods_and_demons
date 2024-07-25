@@ -62,6 +62,40 @@ local function OnAttached(inst,target) -- 玩家得到 debuff 的瞬间。 穿�
         -- target.components.combat:SetDefaultDamage(60)
         refresh_param_by_level()
     -----------------------------------------------------
+    --- 接收组件 trader 的修改
+        target.components.trader:SetAcceptTest(function(inst, item)
+            if inst.components.eater:CanEat(item) then
+                return true
+            end
+        end)
+        target.components.trader.onaccept = function(inst, giver, item)
+            --I eat food
+            if item.components.edible ~= nil then
+                --meat makes us friends (unless I'm a guard)
+                if (    item.components.edible.foodtype == FOODTYPE.MEAT or
+                        item.components.edible.foodtype == FOODTYPE.HORRIBLE
+                    ) and
+                    item.components.inventoryitem ~= nil and
+                    (   --make sure it didn't drop due to pockets full
+                        item.components.inventoryitem:GetGrandOwner() == inst or
+                        --could be merged into a stack
+                        (   not item:IsValid() and
+                            inst.components.inventory:FindItem(function(obj)
+                                return obj.prefab == item.prefab
+                                    and obj.components.stackable ~= nil
+                                    and obj.components.stackable:IsStack()
+                            end) ~= nil)
+                    ) then
+                    if inst.components.combat:TargetIs(giver) then
+                        inst.components.combat:SetTarget(nil)
+                    end
+                end
+                if inst.components.sleeper:IsAsleep() then
+                    inst.components.sleeper:WakeUp()
+                end
+            end
+        end
+    -----------------------------------------------------
     --- 穿戴装备
         local hat = SpawnPrefab("ruinshat")
         target.components.inventory:Equip(hat)

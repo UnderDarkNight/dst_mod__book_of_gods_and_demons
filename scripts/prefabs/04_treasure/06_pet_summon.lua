@@ -76,7 +76,7 @@ local assets =
             --     if not HUD then
             --         return
             --     end
-            --     if HUD.dotted_circle == nil then
+            --     if HUD.dotted_circle == nil and TUNING.BOGD_CONFIG.TREASURE_INDICATOR then
             --         HUD.dotted_circle = SpawnPrefab("bogd_sfx_dotted_circle_client")
             --         HUD.dotted_circle:PushEvent("Set",{
             --             range = 4
@@ -103,30 +103,42 @@ local assets =
             inst.components.bogd_com_treasure:SetCDTime(10)     -- CD 时间
             inst.components.bogd_com_treasure:SetIcon("images/treasure/bogd_treasure_pet_summon.xml","bogd_treasure_pet_summon.tex") -- 图标贴图
             inst.components.bogd_com_treasure:SetSpellFn(function(inst,doer,pt)  -- 技能执行
-
-                if inst.pet and inst.pet:IsValid() then
-                    inst.pet.Transform:SetPosition(pt.x,0,pt.z)
-                    inst.pet:SpawnChild("spawn_fx_tiny")
-                    return
-                end
-
-                local pet = SpawnPrefab("pigman")  -- 生成宠物
-                pet.linked_player = doer
-                pet.linked_item = inst
-
-                pet.Transform:SetPosition(pt.x,0,pt.z)
-                pet:SpawnChild("spawn_fx_tiny")
-                local debuff_name = "bogd_debuff_pet_summon"
-                while true do
-                    local debuff_inst = pet:GetDebuff(debuff_name)
-                    if debuff_inst then
-                        break
+                ------------------------------------------------------------------------------------------------------
+                --
+                    if doer.components.hunger then                        
+                        if doer.components.hunger.current < 20 then
+                            doer.components.bogd_com_rpc_event:PushEvent("bogd_event.whisper",{
+                                message = TUNING.BOGD_FN:GetStrings(inst.prefab,"spell_cost_fail"),
+                            })
+                            return
+                        else
+                            doer.components.hunger:DoDelta(-20)
+                        end
                     end
-                    pet:AddDebuff(debuff_name,debuff_name)
-                end
-                inst.pet = pet
+                ------------------------------------------------------------------------------------------------------
+                ---
+                    if inst.pet and inst.pet:IsValid() then
+                        inst.pet.Transform:SetPosition(pt.x,0,pt.z)
+                        inst.pet:SpawnChild("spawn_fx_tiny")
+                        return
+                    end
 
+                    local pet = SpawnPrefab("pigman")  -- 生成宠物
+                    pet.linked_player = doer
+                    pet.linked_item = inst
 
+                    pet.Transform:SetPosition(pt.x,0,pt.z)
+                    pet:SpawnChild("spawn_fx_tiny")
+                    local debuff_name = "bogd_debuff_pet_summon"
+                    while true do
+                        local debuff_inst = pet:GetDebuff(debuff_name)
+                        if debuff_inst then
+                            break
+                        end
+                        pet:AddDebuff(debuff_name,debuff_name)
+                    end
+                    inst.pet = pet
+                ------------------------------------------------------------------------------------------------------
 
             end)
             -------------------------------------------------------

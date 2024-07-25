@@ -3,7 +3,8 @@
 
     等级和  伤害
 
-    人物达到50级，攻击增加10点
+    每升1级，+0.5，突破大境界+5点。
+
     人物达到60级，防御增加5%
 
 ]]--
@@ -33,14 +34,17 @@ AddPlayerPostInit(function(inst)
     ----
         local extra_damage = 0   -- 额外伤害加成
         local function refresh_param(inst)
-            local level = inst.components.bogd_com_level_sys.level
+            local level = inst.components.bogd_com_level_sys:Level_Get()
+            local level_up_locks = inst.components.bogd_com_level_sys.level_up_locks
 
             ------------------------------------------
             --- 伤害
-                if level >= 50 then
-                    extra_damage = 10
-                else
-                    extra_damage = 0
+                extra_damage = 0
+                extra_damage = extra_damage + (level - 1) * 0.5
+                for i = 1,level, 1 do
+                    if level_up_locks[i-1] then
+                        extra_damage = extra_damage + 5
+                    end
                 end
             ------------------------------------------
             --- 防御

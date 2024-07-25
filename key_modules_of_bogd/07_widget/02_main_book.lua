@@ -26,11 +26,11 @@
                 local root = front_root:AddChild(Widget())
                 root:SetHAnchor(1) -- 设置原点x坐标位置，0、1、2分别对应屏幕中、左、右
                 root:SetVAnchor(1) -- 设置原点y坐标位置，0、1、2分别对应屏幕中、上、下
-                root:SetPosition(80,-80)
-                root:MoveToBack()
+                root:SetPosition(50,-50)
+                root:MoveToFront()
                 root:SetScaleMode(SCALEMODE_FIXEDSCREEN_NONDYNAMIC) --- 缩放模式
         
-                local main_scale = 0.6
+                local main_scale = 0.5
         
                 local main_button = root:AddChild(ImageButton(
                     "images/book/book_of_gods_and_demons.xml",
@@ -60,9 +60,9 @@
                         root:SetHAnchor(0) -- 设置原点x坐标位置，0、1、2分别对应屏幕中、左、右
                         root:SetVAnchor(0) -- 设置原点y坐标位置，0、1、2分别对应屏幕中、上、下
                         root:SetPosition(0,0)
-                        root:MoveToBack()
+                        -- root:MoveToBack()
                         root:SetScaleMode(SCALEMODE_FIXEDSCREEN_NONDYNAMIC) --- 缩放模式
-                        local main_scale = 1
+                        local main_scale = 0.6
                     ------------------------------------------------------------------------------------
                     --- 背景
                         local bg = root:AddChild(Image())
@@ -83,7 +83,7 @@
                         close_button:SetOnDown(function()
                             root:Kill()
                         end)
-                        close_button:SetPosition(350,135)
+                        close_button:SetPosition(500,200)
                     ------------------------------------------------------------------------------------
                     --- 开始修仙按钮
                         local start_button = root:AddChild(ImageButton(
@@ -99,7 +99,7 @@
                             ThePlayer.replica.bogd_com_rpc_event:PushEvent("bogd_event.book_cmd_start")
                             root:Kill()
                         end)
-                        start_button:SetPosition(-210,135)
+                        start_button:SetPosition(-275,158)
                     ------------------------------------------------------------------------------------
                     --- 停止修仙按钮
                         local stop_button = root:AddChild(ImageButton(
@@ -115,23 +115,23 @@
                             ThePlayer.replica.bogd_com_rpc_event:PushEvent("bogd_event.book_cmd_stop")
                             root:Kill()
                         end)
-                        stop_button:SetPosition(210,135)
+                        stop_button:SetPosition(280,158)
                     ------------------------------------------------------------------------------------
                     --- 二维码
-                        local qrcode_base_scale = 0.17
+                        local qrcode_base_scale = 0.4
                         local qrcode_scale = qrcode_base_scale * main_scale
                         local qrcode = root:AddChild(Image())
-                        qrcode:SetTexture("images/book/book_of_gods_and_demons.xml","code.tex")
+                        qrcode:SetTexture("images/book/book_of_gods_and_demons.xml","qrcode.tex")
                         qrcode:SetScale(qrcode_scale,qrcode_scale,qrcode_scale)
-                        qrcode:SetPosition(-310,-175)
-                        qrcode:SetOnGainFocus(function()
+                        qrcode:SetPosition(460,-200)
+                        qrcode.OnGainFocus = function()
                             qrcode:SetScale(main_scale,main_scale,main_scale)
-                            qrcode:SetPosition(-310,0)
-                        end)
-                        qrcode:SetOnLoseFocus(function()
+                            qrcode:SetPosition(440,-130)
+                        end
+                        qrcode.OnLoseFocus = function()
                             qrcode:SetScale(qrcode_scale,qrcode_scale,qrcode_scale)
-                            qrcode:SetPosition(-310,-175)
-                        end)
+                            qrcode:SetPosition(460,-200)
+                        end
                     ------------------------------------------------------------------------------------
                     ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
                 end)

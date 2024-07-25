@@ -54,8 +54,14 @@
             return "元婴中期"
         elseif level <= 49 then
             return "元婴后期"
+        -- elseif level <= 59  then
+        --     return "化神期"
+        elseif level <= 53  then
+            return "化神前期"
+        elseif level <= 56  then
+            return "化神中期"
         elseif level <= 59  then
-            return "化神期"
+            return "化神后期"
         elseif level <= 69  then
             return "合体期"
         elseif level <= 79  then

@@ -74,6 +74,18 @@ local assets =
                 -- print("灵宝触发",pt)
                 -- SpawnPrefab("log").Transform:SetPosition(pt.x,0,pt.z)
                 ------------------------------------------------------------------------------------------------------
+                --- 
+                    if doer.components.hunger then                        
+                        if doer.components.hunger.current < 20 then
+                            doer.components.bogd_com_rpc_event:PushEvent("bogd_event.whisper",{
+                                message = TUNING.BOGD_FN:GetStrings(inst.prefab,"spell_cost_fail"),
+                            })
+                            return
+                        else
+                            doer.components.hunger:DoDelta(-20)
+                        end
+                    end
+                ------------------------------------------------------------------------------------------------------
                 --- 参数
                     local level = inst.components.bogd_com_treasure:GetLevel()
                     local time = 20 + level

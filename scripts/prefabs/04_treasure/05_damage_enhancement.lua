@@ -71,24 +71,40 @@ local assets =
             inst.components.bogd_com_treasure:SetCDTime(120)     -- CD 时间
             inst.components.bogd_com_treasure:SetIcon("images/treasure/bogd_treasure_damage_enhancement.xml","bogd_treasure_damage_enhancement.tex") -- 图标贴图
             inst.components.bogd_com_treasure:SetSpellFn(function(inst,doer,pt)  -- 技能执行
+                ------------------------------------------------------------------------------------------------------
+                ---
+                    if doer.components.hunger then                        
+                        if doer.components.hunger.current < 20 then
+                            doer.components.bogd_com_rpc_event:PushEvent("bogd_event.whisper",{
+                                message = TUNING.BOGD_FN:GetStrings(inst.prefab,"spell_cost_fail"),
+                            })
+                            return
+                        else
+                            doer.components.hunger:DoDelta(-20)
+                        end
+                    end
+                ------------------------------------------------------------------------------------------------------
+                --
+                    local level = inst.components.bogd_com_treasure:GetLevel()
+                    local extra_damage = 100 + level    -- 伤害加成
+                    local buff_time = 40        -- 持续时间
 
-                local level = inst.components.bogd_com_treasure:GetLevel()
-                local extra_damage = 100 + level    -- 伤害加成
-                local buff_time = 40        -- 持续时间
-
-                local fx = doer:SpawnChild("bogd_sfx_damage_enhancement")
-                fx:PushEvent("Set",{
-                    pt = Vector3(0,2.5,0),
-                    scale = Vector3(1.5,2.5,1)
-                })
-                doer.components.bogd_com_combat_extra_damage:DoDelta(extra_damage)
-                doer:DoTaskInTime(buff_time,function()
-                    fx:Remove()
-                    doer.components.bogd_com_combat_extra_damage:DoDelta(-extra_damage)
-                end)
-                if not TUNING.BOGD_DEBUGGING_MODE then
-                    inst.components.bogd_com_treasure:SetCDStart()
-                end
+                    local fx = doer:SpawnChild("bogd_sfx_damage_enhancement")
+                    fx:PushEvent("Set",{
+                        pt = Vector3(0,2.5,0),
+                        scale = Vector3(1.5,2.5,1)
+                    })
+                    doer.components.bogd_com_combat_extra_damage:DoDelta(extra_damage)
+                    doer:DoTaskInTime(buff_time,function()
+                        fx:Remove()
+                        doer.components.bogd_com_combat_extra_damage:DoDelta(-extra_damage)
+                    end)
+                ------------------------------------------------------------------------------------------------------
+                --
+                    if not TUNING.BOGD_DEBUGGING_MODE then
+                        inst.components.bogd_com_treasure:SetCDStart()
+                    end
+                ------------------------------------------------------------------------------------------------------
             end)
 
         end

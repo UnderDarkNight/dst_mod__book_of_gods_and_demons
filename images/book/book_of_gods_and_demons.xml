@@ -2,11 +2,11 @@
 <Atlas>
 	<Texture filename="book_of_gods_and_demons.tex" />
 	<Elements>
-		<Element name="background.tex" u1="0.001" u2="0.801734375" v2="0.5214609375" v1="0.0244375" variant="" />
-		<Element name="close.tex" u1="0.001" u2="0.0234140625" v2="0.999" v1="0.9765859375" variant="" />
-		<Element name="code.tex" u1="0.0254140625" u2="0.500953125" v2="0.999" v1="0.5234609375" variant="" />
-		<Element name="main.tex" u1="0.502953125" u2="0.6073984375" v2="0.999" v1="0.909203125" variant="" />
-		<Element name="start.tex" u1="0.502953125" u2="0.5800546875" v2="0.907203125" v1="0.8847890625" variant="" />
-		<Element name="stop.tex" u1="0.6093984375" u2="0.6865" v2="0.999" v1="0.9765859375" variant="" />
+		<Element name="background.tex" u1="0.001" u2="0.90378515625" v2="0.999" v1="0.5390859375" variant="" />
+		<Element name="close.tex" u1="0.001" u2="0.01120703125" v2="0.5370859375" v1="0.52687890625" variant="" />
+		<Element name="main.tex" u1="0.90578515625" u2="0.9570078125" v2="0.999" v1="0.9551015625" variant="" />
+		<Element name="qrcode.tex" u1="0.001" u2="0.23776953125" v2="0.52487890625" v1="0.288109375" variant="" />
+		<Element name="start.tex" u1="0.001" u2="0.079078125" v2="0.286109375" v1="0.264671875" variant="" />
+		<Element name="stop.tex" u1="0.23976953125" u2="0.31784765625" v2="0.5370859375" v1="0.5156484375" variant="" />
 	</Elements>
 </Atlas>

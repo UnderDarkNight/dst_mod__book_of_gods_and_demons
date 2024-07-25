@@ -81,7 +81,7 @@ local assets =
                 if not HUD then
                     return
                 end
-                if HUD.dotted_circle == nil then
+                if HUD.dotted_circle == nil and TUNING.BOGD_CONFIG.TREASURE_INDICATOR then
                     HUD.dotted_circle = SpawnPrefab("bogd_sfx_dotted_circle_client")
                     HUD.dotted_circle:PushEvent("Set",{
                         range = DAMAGE_RADIUS
@@ -110,6 +110,18 @@ local assets =
             inst.components.bogd_com_treasure:SetSpellFn(function(inst,doer,pt)  -- 技能执行                        
                 -- print("灵宝触发",pt)
                 -- SpawnPrefab("log").Transform:SetPosition(pt.x,0,pt.z)
+                ----------------------------------------------------------------------------------------------
+                --- 
+                    if doer.components.hunger then                        
+                        if doer.components.hunger.current < 20 then
+                            doer.components.bogd_com_rpc_event:PushEvent("bogd_event.whisper",{
+                                message = TUNING.BOGD_FN:GetStrings(inst.prefab,"spell_cost_fail"),
+                            })
+                            return
+                        else
+                            doer.components.hunger:DoDelta(-20)
+                        end
+                    end
                 ----------------------------------------------------------------------------------------------
                 --- 
                     local level = inst.components.bogd_com_treasure:GetLevel()

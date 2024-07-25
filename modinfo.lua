@@ -184,6 +184,16 @@ priority = 100000000000000  -- MOD加载优先级 影响某些功能的兼容性
         options = keys_option,
         default = "KEY_F6",
       }, 
+      {
+        name = "TREASURE_INDICATOR",
+        label = IsChinese() and "灵宝指示圈" or "Treasure Indicator",
+        hover = IsChinese() and "灵宝指示圈" or "Treasure Indicator",
+        options = {
+          { description = "ON", data = true },
+          { description = "OFF", data = false },
+        },
+        default = true,
+      }, 
   ----------------------------------------------------------------------------------------------------------
   ---
       {name = "AAAB",label = "",hover = "",options ={{description = "", data = true}},default = true,}, 

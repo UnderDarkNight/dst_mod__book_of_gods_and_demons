@@ -39,6 +39,9 @@ local strings = {
             ["元婴中期"] = "Mid Spirit Infant",
             ["元婴后期"] = "Late Spirit Infant",
             ["化神期"] = "Soul Formation",
+            ["化神前期"] = "Early Soul Formation",
+            ["化神中期"] = "Mid Soul Formation",
+            ["化神后期"] = "Late Soul Formation",
             ["合体期"] = "Body Integration",
             ["大乘期"] = "Great Vehicle",
 
@@ -180,51 +183,61 @@ local strings = {
         ["bogd_treasure_divine_punishment"] = {
             ["name"] = "Spirit Divine Punishment",
             ["inspect_str"] = "Summons lightning, cannot be used by demons.",
+            ["spell_cost_fail"] = "Hunger Value Not Enough",
         },
         
         ["bogd_treasure_shadow_tentacle"] = {
             ["name"] = "Spirit Shadow Whip",
             ["inspect_str"] = "Summons tentacles, cannot be used by gods.",
+            ["spell_cost_fail"] = "Hunger Value Not Enough",
         },
         
         ["bogd_treasure_magic_shield"] = {
             ["name"] = "Spirit Protective Shield",
             ["inspect_str"] = "Casts a protective shield around oneself.",
+            ["spell_cost_fail"] = "Hunger Value Not Enough",
         },
         
         ["bogd_treasure_map_blink"] = {
             ["name"] = "Spirit Ground Shrinking",
             ["inspect_str"] = "Teleports to a designated location on the map.",
+            ["spell_cost_fail"] = "Hunger Value Not Enough",
         },
         
         ["bogd_treasure_damage_enhancement"] = {
             ["name"] = "Spirit Enhancement",
             ["inspect_str"] = "Increases one's own attack power.",
+            ["spell_cost_fail"] = "Hunger Value Not Enough",
         },
         
         ["bogd_treasure_pet_summon"] = {
             ["name"] = "Spirit Divine Pet",
             ["inspect_str"] = "Summons a pet, cannot be used by demons.",
+            ["spell_cost_fail"] = "Hunger Value Not Enough",
         },
         
         ["bogd_treasure_treatment"] = {
             ["name"] = "Spirit Healing Touch",
             ["inspect_str"] = "Restores health and spirit, cannot be used by demons.",
+            ["spell_cost_fail"] = "Hunger Value Not Enough",
         },
         
         ["bogd_treasure_frostfall"] = {
             ["name"] = "Spirit Frostfall",
             ["inspect_str"] = "Freezes monsters within range.",
+            ["spell_cost_fail"] = "Hunger Value Not Enough",
         },
         
         ["bogd_treasure_poison_ring"] = {
             ["name"] = "Spirit Flowing Away",
             ["inspect_str"] = "Creates a poisonous circle.",
+            ["spell_cost_fail"] = "Hunger Value Not Enough",
         },
         
         ["bogd_treasure_meteorites"] = {
             ["name"] = "Spirit Heavenly Punishment",
             ["inspect_str"] = "Summons meteors.",
+            ["spell_cost_fail"] = "Hunger Value Not Enough",
         },
     --------------------------------------------------------------------
     -- 05_treasure_lv_up

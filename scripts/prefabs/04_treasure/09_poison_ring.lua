@@ -24,7 +24,7 @@ local assets =
                 if not player.replica.bogd_com_level_sys:CheckCanEquipSpecialItem() then -- 没有开启修仙
                     return true
                 end
-                if player.replica.bogd_com_level_sys:IsDemon() then -- 魔 不能用
+                if player.replica.bogd_com_level_sys:IsGod() then -- 神 不能用
                     return true
                 end
                 return false
@@ -76,7 +76,7 @@ local assets =
                 if not HUD then
                     return
                 end
-                if HUD.dotted_circle == nil then
+                if HUD.dotted_circle == nil and TUNING.BOGD_CONFIG.TREASURE_INDICATOR then
                     HUD.dotted_circle = SpawnPrefab("bogd_sfx_dotted_circle_client")
                     HUD.dotted_circle:PushEvent("Set",{
                         range = 4
@@ -103,30 +103,45 @@ local assets =
             inst.components.bogd_com_treasure:SetCDTime(5)     -- CD 时间
             inst.components.bogd_com_treasure:SetIcon("images/treasure/bogd_treasure_poison_ring.xml","bogd_treasure_poison_ring.tex") -- 图标贴图
             inst.components.bogd_com_treasure:SetSpellFn(function(inst,doer,pt)  -- 技能执行
-
-                local level = inst.components.bogd_com_treasure:GetLevel()
-                local damage = 10 + level   -- 伤害
-
-                local fx = SpawnPrefab("sporecloud")
-                fx.Transform:SetPosition(pt.x,0,pt.z)
-                fx.components.combat:SetDefaultDamage(damage) -- 伤害
-                ------------------------------------------------------
-                --- 玩家不受到伤害
-                    local old_IsValidTarget = fx.components.combat.IsValidTarget
-                    fx.components.combat.IsValidTarget = function(self,target,...)
-                        if target and target:HasTag("player") then
-                            return false
+                ------------------------------------------------------------------------------------------------------------
+                --
+                    if doer.components.hunger then                        
+                        if doer.components.hunger.current < 20 then
+                            doer.components.bogd_com_rpc_event:PushEvent("bogd_event.whisper",{
+                                message = TUNING.BOGD_FN:GetStrings(inst.prefab,"spell_cost_fail"),
+                            })
+                            return
+                        else
+                            doer.components.hunger:DoDelta(-20)
                         end
-                        return old_IsValidTarget(self,target,...)
                     end
-                ------------------------------------------------------
-                fx:DoTaskInTime(10,function()
-                    fx:FinishImmediately()
-                end)
+                ------------------------------------------------------------------------------------------------------------
+                ---
+                    local level = inst.components.bogd_com_treasure:GetLevel()
+                    local damage = 10 + level   -- 伤害
 
-                if not TUNING.BOGD_DEBUGGING_MODE then
-                    inst.components.bogd_com_treasure:SetCDStart()
-                end
+                    local fx = SpawnPrefab("sporecloud")
+                    fx.Transform:SetPosition(pt.x,0,pt.z)
+                    fx.components.combat:SetDefaultDamage(damage) -- 伤害
+                    ------------------------------------------------------
+                    --- 玩家不受到伤害
+                        local old_IsValidTarget = fx.components.combat.IsValidTarget
+                        fx.components.combat.IsValidTarget = function(self,target,...)
+                            if target and target:HasTag("player") then
+                                return false
+                            end
+                            return old_IsValidTarget(self,target,...)
+                        end
+                    ------------------------------------------------------
+                    fx:DoTaskInTime(10,function()
+                        fx:FinishImmediately()
+                    end)
+                ------------------------------------------------------------------------------------------------------------
+                ---
+                    if not TUNING.BOGD_DEBUGGING_MODE then
+                        inst.components.bogd_com_treasure:SetCDStart()
+                    end
+                ------------------------------------------------------------------------------------------------------------
             end)
 
         end

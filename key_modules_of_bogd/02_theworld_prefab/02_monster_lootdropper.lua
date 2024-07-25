@@ -1,6 +1,8 @@
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --[[
 
+    碎片掉落率，调整为15%，精血掉落率调整为8%，
+
 ]]--
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -40,15 +42,15 @@ AddPrefabPostInit(
                     return
                 end
             --------------------------------------------------------------------------------------------------
-            --- 2%的掉率
+            --- 碎片掉落率，调整为15%，精血掉落率调整为8%，
                 if boss_flag then
                     local loots = {"bogd_item_blood_of_god","bogd_item_blood_of_demon"}
-                    if TUNING.BOGD_DEBUGGING_MODE or math.random(10000)/10000 <= 2/100 then
+                    if TUNING.BOGD_DEBUGGING_MODE or math.random(10000)/10000 <= 8/100 then
                         target.components.lootdropper:SpawnLootPrefab(loots[math.random(#loots)])
                     end
                 else
                     local loots = {"bogd_item_shard_of_god","bogd_item_shard_of_demon"}
-                    if TUNING.BOGD_DEBUGGING_MODE or math.random(10000)/10000 <= 2/100 then
+                    if TUNING.BOGD_DEBUGGING_MODE or math.random(10000)/10000 <= 15/100 then
                         target.components.lootdropper:SpawnLootPrefab(loots[math.random(#loots)])
                     end
                 end

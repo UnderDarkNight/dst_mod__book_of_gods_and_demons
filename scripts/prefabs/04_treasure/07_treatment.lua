@@ -79,7 +79,7 @@ local assets =
                 if not HUD then
                     return
                 end
-                if HUD.dotted_circle == nil then
+                if HUD.dotted_circle == nil and TUNING.BOGD_CONFIG.TREASURE_INDICATOR then
                     HUD.dotted_circle = SpawnPrefab("bogd_sfx_dotted_circle_client")
                     HUD.dotted_circle:PushEvent("Set",{
                         range = DAMAGE_RADIUS,
@@ -110,38 +110,54 @@ local assets =
             inst.components.bogd_com_treasure:SetSpellFn(function(inst,doer,pt)  -- 技能执行
                 -- print("灵宝触发",pt)
                 -- SpawnPrefab("log").Transform:SetPosition(pt.x,0,pt.z)
+                ------------------------------------------------------------------------------------------------------
+                --
+                    if doer.components.hunger then                        
+                        if doer.components.hunger.current < 20 then
+                            doer.components.bogd_com_rpc_event:PushEvent("bogd_event.whisper",{
+                                message = TUNING.BOGD_FN:GetStrings(inst.prefab,"spell_cost_fail"),
+                            })
+                            return
+                        else
+                            doer.components.hunger:DoDelta(-20)
+                        end
+                    end
+                ------------------------------------------------------------------------------------------------------
+                ---
+                    local level = inst.components.bogd_com_treasure:GetLevel()
+                    local treatment_health = 30 + level  -- 恢复的血量
+                    local treatment_sanity = 30 + level -- 恢复的San
 
-                local level = inst.components.bogd_com_treasure:GetLevel()
-                local treatment_health = 30 + level  -- 恢复的血量
-                local treatment_sanity = 30 + level -- 恢复的San
-
-                local ents = TheSim:FindEntities(pt.x, 0, pt.z, DAMAGE_RADIUS, {"player"}, {"playerghost"}, nil)
-                for k, temp_player in pairs(ents) do
-                    local fx = temp_player:SpawnChild("bogd_sfx_green_snap")
-                    fx:PushEvent("Set",{
-                        pt = Vector3(0,4.5,0),
-                        color = Vector3(1,1,1),
-                        a = 0.8,
-                        MultColour_Flag = true,
-                        fn = function()
-                            if temp_player:HasTag("playerghost") then
-                                return
-                            end
-                            if temp_player.components.health then
-                                temp_player.components.health:DoDelta(treatment_health)
-                            end
-                            if temp_player.components.sanity then
-                                temp_player.components.sanity:DoDelta(treatment_sanity)
-                            end
-                        end   
-                    })
-                end
-                if #ents == 0 then
-                    return
-                end
-                if not TUNING.BOGD_DEBUGGING_MODE then
-                    inst.components.bogd_com_treasure:SetCDStart()
-                end
+                    local ents = TheSim:FindEntities(pt.x, 0, pt.z, DAMAGE_RADIUS, {"player"}, {"playerghost"}, nil)
+                    for k, temp_player in pairs(ents) do
+                        local fx = temp_player:SpawnChild("bogd_sfx_green_snap")
+                        fx:PushEvent("Set",{
+                            pt = Vector3(0,4.5,0),
+                            color = Vector3(1,1,1),
+                            a = 0.8,
+                            MultColour_Flag = true,
+                            fn = function()
+                                if temp_player:HasTag("playerghost") then
+                                    return
+                                end
+                                if temp_player.components.health then
+                                    temp_player.components.health:DoDelta(treatment_health)
+                                end
+                                if temp_player.components.sanity then
+                                    temp_player.components.sanity:DoDelta(treatment_sanity)
+                                end
+                            end   
+                        })
+                    end
+                    if #ents == 0 then
+                        return
+                    end
+                ------------------------------------------------------------------------------------------------------
+                ---
+                    if not TUNING.BOGD_DEBUGGING_MODE then
+                        inst.components.bogd_com_treasure:SetCDStart()
+                    end
+                ------------------------------------------------------------------------------------------------------
             end)
 
         end

@@ -44,7 +44,7 @@ AddRecipe2(
 AddRecipeToFilter("bogd_item_ascension_pill","CHARACTER")     ---- 添加物品到目标标签
 AddRecipe2(
     "bogd_item_ascension_pill",            --  --  inst.prefab  实体名字
-    { Ingredient("opalpreciousgem", 2),Ingredient("hermit_pearl", 1),Ingredient("purebrilliance", 20),Ingredient("shadowheart", 1) }, 
+    { Ingredient("opalpreciousgem", 2),Ingredient("purplegem", 10),Ingredient("purebrilliance", 20),Ingredient("shadowheart", 1) }, 
     TECH.CELESTIAL_THREE, --- TECH.NONE
     {
         nounlock = true,

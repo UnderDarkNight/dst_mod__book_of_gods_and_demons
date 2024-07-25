@@ -23,6 +23,9 @@ local assets =
     local function install_replica_map_jump(inst,doer)
         doer.replica.bogd_com_map_jumper:SetTestFn(function(doer,pt)
             ----------------------------------------------------------------------------------
+            -- 
+
+            ----------------------------------------------------------------------------------
             --- 物品失效
                 if not inst:IsValid() then
                     unistall_replica_map_jump(inst,doer)
@@ -60,6 +63,18 @@ local assets =
                     doer.components.bogd_com_map_jumper:SetSpellFn(nil)
                     return
                 end
+            ----------------------------------------------------------------------------------
+            --- 
+                -- if doer.components.hunger then                        
+                --     if doer.components.hunger.current < 20 then
+                --         doer.components.bogd_com_rpc_event:PushEvent("bogd_event.whisper",{
+                --             message = TUNING.BOGD_FN:GetStrings(inst.prefab,"spell_cost_fail"),
+                --         })
+                --         return
+                --     else
+                --         doer.components.hunger:DoDelta(-20)
+                --     end
+                -- end
             ----------------------------------------------------------------------------------
             --- 执行传送
                 if doer.components.playercontroller ~= nil then
