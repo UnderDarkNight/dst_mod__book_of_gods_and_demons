@@ -52,7 +52,7 @@ local function OnAttached(inst,target) -- 玩家得到 debuff 的瞬间。 穿�
         target:ListenForEvent("death",function() weapon:Remove() end)
     -----------------------------------------------------
     --- 配置血量
-        local max_health = 10000
+        local max_health = 5000
         if TUNING.BOGD_DEBUGGING_MODE then
             max_health = 100
         end
@@ -110,7 +110,7 @@ local function OnAttached(inst,target) -- 玩家得到 debuff 的瞬间。 穿�
         end
     -----------------------------------------------------
     --- 定期循环检查
-        local TIMER = 180000
+        local TIMER = 180000000000
         if TUNING.BOGD_DEBUGGING_MODE then
             TIMER = 30
         end
