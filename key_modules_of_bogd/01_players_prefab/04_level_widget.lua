@@ -277,15 +277,15 @@
             function warning:Show2()
                 self:Show()
                 if self.task == nil then
-                    self.task = inst:DoPeriodicTask(0.7,function()
-                        if warning.text_front_size == 30 then
-                            warning.text_front_size = 35
-                            warning:SetSize(warning.text_front_size)
-                            warning:SetColour({1,0,0,1})
+                    self.task = self.inst:DoPeriodicTask(0.7,function()
+                        if self.text_front_size == 30 then
+                            self.text_front_size = 35
+                            self:SetSize(self.text_front_size)
+                            self:SetColour({1,0,0,1})
                         else
-                            warning.text_front_size = 30
-                            warning:SetSize(warning.text_front_size)
-                            warning:SetColour({1,1,1,1})
+                            self.text_front_size = 30
+                            self:SetSize(self.text_front_size)
+                            self:SetColour({1,1,1,1})
                         end
                     end)
                 end

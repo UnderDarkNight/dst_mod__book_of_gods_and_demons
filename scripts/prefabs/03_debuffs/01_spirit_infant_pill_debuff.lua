@@ -51,6 +51,9 @@ local function OnAttached(inst,target) -- 玩家得到 debuff 的瞬间。 穿�
         target:ListenForEvent("onremove",function() weapon:Remove() end)
         target:ListenForEvent("death",function() weapon:Remove() end)
     -----------------------------------------------------
+    --- 取消官方的自带的 湮灭 时间 StopTimer
+        target.components.timer:PauseTimer("obliviate")
+    -----------------------------------------------------
     --- 配置血量
         local max_health = 5000
         if TUNING.BOGD_DEBUGGING_MODE then
@@ -122,6 +125,9 @@ local function OnAttached(inst,target) -- 玩家得到 debuff 的瞬间。 穿�
                     inst:Remove()
                     return
                 end
+            -----------------------------------------------------
+            --- 官方的 湮灭 时间
+                target.components.timer:PauseTimer("obliviate")                
             -----------------------------------------------------
             --- 检查玩家是否死亡
                 if target.PlayerIsDead(linked_player) then

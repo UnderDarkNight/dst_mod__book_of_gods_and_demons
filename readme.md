@@ -53,4 +53,4 @@ git bash 黑框技巧：
     git fetch --all
     git reset --hard origin/master
     git pull 
-    git pull origin master
+    git pull -f origin master
