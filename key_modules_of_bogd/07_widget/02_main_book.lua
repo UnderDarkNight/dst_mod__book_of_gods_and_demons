@@ -17,33 +17,109 @@
     local Text = require "widgets/text"
     local TEMPLATES = require "widgets/redux/templates"
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--- 坐标读取
+    local function GetBadgeLoation()
+        local data = TUNING.BOGD_FN:Get_ThePlayer_Cross_Archived_Data("main_book_location")
+        if data == nil then
+            return 0.05,0.93
+        else
+            return data.x,data.y
+        end
+    end
+    local function SetBadgeLoation(x,y)
+        TUNING.BOGD_FN:Set_ThePlayer_Cross_Archived_Data("main_book_location",{x = x,y = y})
+    end
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- 主按钮
     AddPlayerPostInit(function(inst)
         inst:DoTaskInTime(1,function()
             if ThePlayer == inst and inst.HUD then                
                 local front_root = ThePlayer.HUD
+                ----------------------------------------------------------------------
+                --- 根节点
+                    local root = front_root:AddChild(Widget())
+                    root:SetHAnchor(1) -- 设置原点x坐标位置，0、1、2分别对应屏幕中、左、右
+                    root:SetVAnchor(2) -- 设置原点y坐标位置，0、1、2分别对应屏幕中、上、下
+                    root:SetPosition(50,50)
+                    -- root:MoveToBack()
+                    root:SetScaleMode(SCALEMODE_FIXEDSCREEN_NONDYNAMIC) --- 缩放模式
+                ----------------------------------------------------------------------
+                --- 按钮
+                    local main_scale = 0.5
+            
+                    local main_button = root:AddChild(ImageButton(
+                        "images/book/book_of_gods_and_demons.xml",
+                        "main.tex",
+                        "main.tex",
+                        "main.tex",
+                        "main.tex",
+                        "main.tex"
+                    ))
+                    main_button:SetScale(main_scale,main_scale,main_scale)
+                    main_button:SetOnDown(function()
+                        ThePlayer:PushEvent("bogd_event.book_open")
+                    end)
+                ----------------------------------------------------------------------
+                --- 缩放控制
+                    function root:LocationScaleFix()
+                        if self.x_percent and not self.__mouse_holding  then
+                            local scrnw, scrnh = TheSim:GetScreenSize()
+                            if self.____last_scrnh ~= scrnh then
+                                local tarX = self.x_percent * scrnw
+                                local tarY = self.y_percent * scrnh
+                                self:SetPosition(tarX,tarY)
+                            end
+                            self.____last_scrnh = scrnh
+                        end
+                    end
+                    
+                    root.x_percent,root.y_percent = GetBadgeLoation()
+                    root:LocationScaleFix()
+        
+                    root.inst:DoPeriodicTask(2,function()
+                        root:LocationScaleFix()
+                    end)
+                ----------------------------------------------------------------------
+                ---- 鼠标拖动
+                    local old_OnMouseButton = root.OnMouseButton
+                    root.OnMouseButton = function(self,button, down, x, y)
+                        if down then
 
-                local root = front_root:AddChild(Widget())
-                root:SetHAnchor(1) -- 设置原点x坐标位置，0、1、2分别对应屏幕中、左、右
-                root:SetVAnchor(1) -- 设置原点y坐标位置，0、1、2分别对应屏幕中、上、下
-                root:SetPosition(50,-50)
-                root:MoveToFront()
-                root:SetScaleMode(SCALEMODE_FIXEDSCREEN_NONDYNAMIC) --- 缩放模式
-        
-                local main_scale = 0.5
-        
-                local main_button = root:AddChild(ImageButton(
-                    "images/book/book_of_gods_and_demons.xml",
-                    "main.tex",
-                    "main.tex",
-                    "main.tex",
-                    "main.tex",
-                    "main.tex"
-                ))
-                main_button:SetScale(main_scale,main_scale,main_scale)
-                main_button:SetOnDown(function()
-                    ThePlayer:PushEvent("bogd_event.book_open")
-                end)
+                            if not root.__mouse_holding  then
+                                root.__mouse_holding = true      --- 上锁
+                                    --------- 添加鼠标移动监听任务
+                                    root.___follow_mouse_event = TheInput:AddMoveHandler(function(x, y)  
+                                        root:SetPosition(x,y,0)
+                                    end)
+                                    --------- 添加鼠标按钮监听
+                                    root.___mouse_button_up_event = TheInput:AddMouseButtonHandler(function(button, down, x, y) 
+                                        if button == MOUSEBUTTON_LEFT and down == false then    ---- 左键被抬起来了
+                                            root.___mouse_button_up_event:Remove()       ---- 清掉监听
+                                            root.___mouse_button_up_event = nil
+
+                                            root.___follow_mouse_event:Remove()          ---- 清掉监听
+                                            root.___follow_mouse_event = nil
+
+                                            root:SetPosition(x,y,0)                      ---- 设置坐标
+                                            root.__mouse_holding = false                 ---- 解锁
+
+                                            local scrnw, scrnh = TheSim:GetScreenSize()
+                                            root.x_percent = x/scrnw
+                                            root.y_percent = y/scrnh
+
+                                            -- owner:PushEvent("bogd_wellness_bars.save_cmd",{    --- 发送储存坐标。
+                                            --     pt = {x_percent = root.x_percent,y_percent = root.y_percent},
+                                            -- })
+                                            SetBadgeLoation(root.x_percent,root.y_percent)
+
+                                        end
+                                    end)
+                            end
+
+                        end
+                        return old_OnMouseButton(self,button, down, x, y)
+                    end
+                ----------------------------------------------------------------------
             end
         end)
     end)
