@@ -193,16 +193,16 @@ AddRecipe2(
 ---- 蕴.天罚，合成材料，【神魔碎片】各20个，月岩20个，月亮碎片10个
 --------------------------------------------------------------------------------------------------------------------------------------------
 
-AddRecipeToFilter("bogd_treasure_lv_up_poison_ring","CHARACTER")     ---- 添加物品到目标标签
+AddRecipeToFilter("bogd_treasure_meteorites","CHARACTER")     ---- 添加物品到目标标签
 AddRecipe2(
-    "bogd_treasure_lv_up_poison_ring",            --  --  inst.prefab  实体名字
+    "bogd_treasure_meteorites",            --  --  inst.prefab  实体名字
     { Ingredient("bogd_item_shard_of_god", 20),Ingredient("bogd_item_shard_of_demon", 20),Ingredient("moonrocknugget", 20),Ingredient("moonglass", 20) }, 
     TECH.CELESTIAL_ONE, --- TECH.NONE
     {
         nounlock = true,
         -- no_deconstruction = false,
-        atlas = "images/inventoryimages/bogd_treasure_lv_up_poison_ring.xml",
-        image = "bogd_treasure_lv_up_poison_ring.tex",
+        atlas = "images/inventoryimages/bogd_treasure_meteorites.xml",
+        image = "bogd_treasure_meteorites.tex",
     },
     {"CHARACTER","MAGIC"}
 )
