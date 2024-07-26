@@ -18,6 +18,9 @@
                     break
                 end
             end
+            if item == nil then
+                return
+            end
         -----------------------------------------------------------------------
         -- 检查CD
             if item.replica.bogd_com_treasure:Is_CD_Started() and TheFocalPoint then
