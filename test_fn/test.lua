@@ -422,6 +422,7 @@ local flg,error_code = pcall(function()
         -- local item = ThePlayer.replica.inventory:GetEquippedItem(EQUIPSLOTS.TREASURE)
         -- item:PushEvent("treasure_hud_update")
         ThePlayer.components.bogd_com_level_sys:Exp_DoDelta(1000000000000000)
+        -- ThePlayer.components.bogd_com_level_sys:Level_DoDelta(55)
         -- ThePlayer.components.bogd_com_level_sys:Level_Up_With_Lock_Break()
 
     ----------------------------------------------------------------------------------------------------------------

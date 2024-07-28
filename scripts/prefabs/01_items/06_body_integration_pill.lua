@@ -137,6 +137,9 @@ end
 
     function params.bogd_item_body_integration_pill_container.widget.buttoninfo.fn(inst, doer)
         ----------------------------------------------------------------------------------
+        --- 检查满
+
+        ----------------------------------------------------------------------------------
         --- 检查是指定玩家
             if not inst:HasTag(doer.userid) then
                 local announce_inst = nil
@@ -187,7 +190,23 @@ end
     end
 
     function params.bogd_item_body_integration_pill_container.widget.buttoninfo.validfn(inst)
-        return inst.replica.container ~= nil and not inst.replica.container:IsEmpty()
+        -- return inst.replica.container ~= nil and not inst.replica.container:IsEmpty()
+        local prefabs_with_num = {}
+        local item_num = 0
+        for k, cmd_table in pairs(CONSTRUCTION_PLANS[prefab_name.."_building"]) do
+            local item_prefab = cmd_table.type
+            local amount = cmd_table.amount
+            prefabs_with_num[item_prefab] = amount
+            item_num = item_num + 1
+        end
+
+        local temp_count = 0
+        for prefab, amount in pairs(prefabs_with_num) do
+            if inst.replica.container:Has(prefab, amount) then
+                temp_count = temp_count + 1
+            end
+        end
+        return temp_count == item_num
     end
 
     local function container_fn()
