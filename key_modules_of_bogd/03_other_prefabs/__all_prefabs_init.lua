@@ -14,3 +14,6 @@ modimport("key_modules_of_bogd/03_other_prefabs/05_alterguardian_phase3.lua")
 
 modimport("key_modules_of_bogd/03_other_prefabs/06_statueglommer.lua")
 -- 格罗姆雕像 上 tag
+
+modimport("key_modules_of_bogd/03_other_prefabs/07_leif_boss.lua")
+-- 两种树精
