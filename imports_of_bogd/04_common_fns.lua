@@ -142,3 +142,18 @@ TUNING.BOGD_FN = TUNING.BOGD_FN or {}
         return false
     end
 -----------------------------------------------------------------------
+-- 判断table是否为空
+    function TUNING.BOGD_FN:TableIsEmpty(t)
+        if t == nil then
+            return true
+        end
+    
+        local k, v = next(t)
+        if k == nil then
+            -- 如果 next 返回的第一个值是 nil，则表明 table 为空
+            return true
+        else
+            return false
+        end
+    end
+-----------------------------------------------------------------------

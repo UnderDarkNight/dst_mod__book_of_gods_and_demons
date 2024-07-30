@@ -93,7 +93,7 @@ local assets =
                 ---
                     local sheild_inst = doer:SpawnChild("bogd_sfx_green_sheild")
                     doer.components.bogd_com_combat_hook:Add(sheild_inst,function(attacker, damage, weapon, stimuli, spdamage)
-                        if damage > 0 or (type(spdamage) == "table" and #spdamage > 0 )then
+                        if damage > 0 or (type(spdamage) == "table" and not TUNING.BOGD_FN:TableIsEmpty(spdamage) )then
                             damage = 0
                             spdamage = nil
                             doer.SoundEmitter:PlaySound("dontstarve/impacts/impact_forcefield_armour_dull")
