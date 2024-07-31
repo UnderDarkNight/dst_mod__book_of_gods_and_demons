@@ -51,6 +51,7 @@
                             amount = 0
                         end
                     end
+                    -- print("+++ health.DoDelta +++",amount,inst.components.bogd_com_level_sys:GetHealthUpBlocking())
                     return old_DoDelta(self, amount, overtime, cause, ...)
                 end
             end

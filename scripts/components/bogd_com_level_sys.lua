@@ -230,7 +230,7 @@ nil,
             end
 
             ---- 如果护盾值小于扣血量，则扣血量由护盾值和血量共同承担
-            delta_health = delta_health - self.shield_current        
+            delta_health = self.shield_current - delta_health
             -- self.shield_current = 0
             self:Shield_Set(0)
             self.inst:PushEvent("bogd_shield_active")            
