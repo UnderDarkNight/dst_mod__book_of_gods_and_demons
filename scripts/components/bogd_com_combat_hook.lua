@@ -25,7 +25,7 @@ nil,
 ----
     function bogd_com_combat_hook:GetAttackedHooked(attacker, damage, weapon, stimuli, spdamage)
         for index, fn in pairs(self.modifiler_fns) do
-            damage,spdamage = fn(attacker, damage, weapon, stimuli, spdamage)
+            damage,spdamage = fn(self.inst,attacker, damage, weapon, stimuli, spdamage)
         end
         return damage,spdamage
     end
