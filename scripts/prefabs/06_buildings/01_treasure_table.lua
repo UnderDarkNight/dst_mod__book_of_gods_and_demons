@@ -102,7 +102,7 @@
 ------------------------------------------------------------------------------------------------------
 --- 刷BOSS、给奖励
     local function SpawnBoss(inst,doer)
-        if inst.linked_boss then
+        if inst.linked_boss and inst.linked_boss:IsValid() then
             return
         end
         local boss_list = {
