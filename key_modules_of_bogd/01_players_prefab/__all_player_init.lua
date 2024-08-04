@@ -41,3 +41,6 @@ modimport("key_modules_of_bogd/01_players_prefab/16_player_become_god.lua")
 
 modimport("key_modules_of_bogd/01_players_prefab/17_player_become_demon.lua")
 --- 玩家成神后进行加成
+
+modimport("key_modules_of_bogd/01_players_prefab/18_treasure_binder.lua")
+--- 灵宝绑定器

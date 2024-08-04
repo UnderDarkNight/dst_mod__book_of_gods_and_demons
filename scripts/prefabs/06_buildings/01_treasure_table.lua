@@ -150,7 +150,7 @@
         inst.components.bogd_data:Set("has_boss",true)
     end
     local function SpawnReward(inst,doer)
-        inst.components.bogd_data:Set("has_boss",false)
+        inst.components.bogd_data:Set("has_reward",false)
         inst:PushEvent("active_stop")
         local reward_list = {
             "bogd_treasure_divine_punishment",							--- 灵·神罚
